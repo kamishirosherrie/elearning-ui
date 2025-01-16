@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&family=Henny+Penny&family=Playwrite+IN:wght@100..400&display=swap');
+$dongle: 'Dongle', sans-serif;
+
+.wrapper {
+    padding: 10px 0;
+    .navbar {
+        display: flex;
+        position: fixed;
+        z-index: 999;
+        justify-content: space-between;
+        width: 100%;
+        .menu {
+            display: flex;
+            background-color: rgb(0 0 0 / 0.17);
+            .logo {
+            }
+            .menu-list {
+                list-style: none;
+                display: flex;
+                & > li > a {
+                    text-decoration: none;
+                    color: #fff;
+                    font-weight: 700;
+                    font-family: $dongle;
+                }
+            }
+        }
+        .start-now {
+        }
+    }
+}
