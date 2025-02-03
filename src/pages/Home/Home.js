@@ -10,8 +10,6 @@ import Header from '../../layouts/Header/Header'
 const cx = classNames.bind(styles)
 
 function Home() {
-    const handleOnClickMoreBtn = () => {}
-
     return (
         <div className={cx('wrapper')}>
             <Header />
@@ -20,8 +18,8 @@ function Home() {
                     <img className={cx('home')} src={image.home} alt="home-img" />
                     <img className={cx('blink1')} src={image.blink} alt="blink-img" />
                     <img className={cx('blink2')} src={image.blink} alt="blink-img" />
-                    <span className={cx('text')}>Learning</span>
-                    <span className={cx('sub-text')}>everyday</span>
+                    {/* <span className={cx('text')}>Learning</span>
+                    <span className={cx('sub-text')}>everyday</span> */}
                     <div className={cx('border')}>
                         <svg className="_7KaXww">
                             <defs>
@@ -38,7 +36,7 @@ function Home() {
                         <br />
                         và luyện thi <br /> thông minh
                     </h1>
-                    <a href="#course" className={cx('see-more-btn')} onClick={handleOnClickMoreBtn}>
+                    <a href="#course" className={cx('see-more-btn')}>
                         Khám phá ngay
                     </a>
                 </div>
@@ -53,7 +51,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Học toàn diện 4 kỹ năng, chấm chữa cặn kẽ cùng giáo viên, luyện tập thông minh với phòng ảo Prep AI.
                         </span>
-                        <a href="#course" className={cx('course-button')}>
+                        <a href="/ielts" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>
@@ -63,7 +61,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Tập trung phát triển kỹ năng nghe hiểu và đọc hiểu trong môi trường tiếng Anh chuyên nghiệp.
                         </span>
-                        <a href="#course" className={cx('course-button')}>
+                        <a href="/toeic" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>
@@ -73,7 +71,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Nhằm nâng cao kỹ năng nói và viết tiếng Anh để giao tiếp hiệu quả trong công việc.
                         </span>
-                        <a href="#course" className={cx('course-button')}>
+                        <a href="/toeic" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>
@@ -83,7 +81,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Lộ trình học tinh gọn, bật mí bí kíp về đích nhanh chóng, dễ dàng đạt mục tiêu.
                         </span>
-                        <a href="#course" className={cx('course-button')}>
+                        <a href="/toeic" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>

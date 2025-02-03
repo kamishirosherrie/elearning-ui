@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 
 import { image } from '../../assets/images/image'
 import styles from './Header.module.scss'
+import { ArrowDown } from '../../components/Icons/Icon'
 
 const cx = classNames.bind(styles)
 
@@ -10,31 +11,92 @@ function Header() {
         <div className={cx('wrapper')}>
             <div className={cx('navbar')}>
                 <div className={cx('menu')}>
-                    <div className={cx('logo')}>
+                    <a className={cx('logo')} href="/">
                         <img src={image.logo} alt="logo" />
-                    </div>
+                    </a>
                     <ul className={cx('menu-list')}>
+                        <li>Trang chủ</li>
                         <li>
-                            <a href="#course">Trang chủ</a>
+                            Khóa học
+                            <ArrowDown className={cx('icon')} />
+                            <div className={cx('dropdown')}>
+                                <a className={cx('course')} href="/ielts">
+                                    IELTS
+                                </a>
+                                <a className={cx('course')} href="/toeic">
+                                    TOEIC LISTENING & READING
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC SPEAKING & WRITING
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC 4 KỸ NĂNG
+                                </a>
+                            </div>
                         </li>
                         <li>
-                            <a href="#course">Khóa học</a>
+                            Kiểm tra đầu vào
+                            <ArrowDown className={cx('icon')} />
+                            <div className={cx('dropdown')}>
+                                <a className={cx('course')} href="/">
+                                    IELTS
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC
+                                </a>
+                            </div>
                         </li>
                         <li>
-                            <a href="#course">Kiểm tra đầu vào</a>
+                            Luyện đề
+                            <ArrowDown className={cx('icon')} />
+                            <div className={cx('dropdown')}>
+                                <a className={cx('course')} href="/">
+                                    Luyện đề IELTS
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    Luyện đề TOEIC
+                                </a>
+                            </div>
                         </li>
                         <li>
-                            <a href="#course">Luyện đề</a>
+                            Blog
+                            <ArrowDown className={cx('icon')} />
+                            <div className={cx('dropdown')}>
+                                <a className={cx('course')} href="/">
+                                    IELTS
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC LISTENING & READING
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC SPEAKING & WRITING
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC 4 KỸ NĂNG
+                                </a>
+                            </div>
                         </li>
                         <li>
-                            <a href="#course">Blog</a>
-                        </li>
-                        <li>
-                            <a href="#course">Tin tức</a>
+                            Tin tức
+                            <ArrowDown className={cx('icon')} />
+                            <div className={cx('dropdown')}>
+                                <a className={cx('course')} href="/">
+                                    IELTS
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC LISTENING & READING
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC SPEAKING & WRITING
+                                </a>
+                                <a className={cx('course')} href="/">
+                                    TOEIC 4 KỸ NĂNG
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div className={cx('button')}>
                     <button className={cx('start-now')}>Học ngay</button>
                 </div>
             </div>
