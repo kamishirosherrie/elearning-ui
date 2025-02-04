@@ -1,22 +1,30 @@
 import classNames from 'classnames/bind'
+import styles from './Header.module.scss'
 
 import { image } from '../../assets/images/image'
-import styles from './Header.module.scss'
 import { ArrowDown } from '../../components/Icons/Icon'
 
 const cx = classNames.bind(styles)
 
 function Header() {
+    const courseLink = '/'
+    const courseLinkTest = '/'
+    const courseLinkPractice = '/'
+    const courseLinkGuarantee = '/'
+
+    const handleOnCourseClick = () => {
+        const dropdown = document.querySelector(`.${cx('dropdown')}`)
+        dropdown.classList.toggle(`${cx('show')}`)
+    }
     return (
         <div className={cx('wrapper')}>
             <div className={cx('navbar')}>
                 <div className={cx('menu')}>
                     <a className={cx('logo')} href="/">
-                        <img src={image.logo} alt="logo" />
+                        <img width="100px" src={image.logo} alt="logo" />
                     </a>
                     <ul className={cx('menu-list')}>
-                        <li>Trang chủ</li>
-                        <li>
+                        <li onClick={handleOnCourseClick}>
                             Khóa học
                             <ArrowDown className={cx('icon')} />
                             <div className={cx('dropdown')}>
@@ -26,74 +34,28 @@ function Header() {
                                 <a className={cx('course')} href="/toeic">
                                     TOEIC LISTENING & READING
                                 </a>
-                                <a className={cx('course')} href="/">
+                                <a className={cx('course')} href="/toeic">
                                     TOEIC SPEAKING & WRITING
                                 </a>
-                                <a className={cx('course')} href="/">
+                                <a className={cx('course')} href="/toeic">
                                     TOEIC 4 KỸ NĂNG
                                 </a>
                             </div>
                         </li>
-                        <li>
-                            Kiểm tra đầu vào
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            Luyện đề
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    Luyện đề IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    Luyện đề TOEIC
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            Blog
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC LISTENING & READING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC SPEAKING & WRITING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC 4 KỸ NĂNG
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            Tin tức
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC LISTENING & READING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC SPEAKING & WRITING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC 4 KỸ NĂNG
-                                </a>
-                            </div>
-                        </li>
+                        <div className={cx('group')}>
+                            <li className={cx('active')}>
+                                <a href={courseLink}> Xây dựng lộ trình</a>
+                            </li>
+                            <li>
+                                <a href={courseLinkTest}>Kiểm tra đầu vào</a>
+                            </li>
+                            <li>
+                                <a href={courseLinkPractice}>Luyện đề</a>
+                            </li>
+                            <li>
+                                <a href={courseLinkGuarantee}>Cam kết đầu ra</a>
+                            </li>
+                        </div>
                     </ul>
                 </div>
                 <div className={cx('button')}>

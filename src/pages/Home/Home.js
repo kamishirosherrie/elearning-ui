@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons/faCircleArrowDown'
 
 import { image } from '../../assets/images/image'
-import Header from '../../layouts/Header/Header'
+import Header from '../../layouts/HeaderOnly/HeaderOnly'
 
 const cx = classNames.bind(styles)
 

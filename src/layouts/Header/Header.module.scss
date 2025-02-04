@@ -3,71 +3,103 @@ $dongle: 'Dongle', sans-serif;
 
 .wrapper {
     .navbar {
+        // font-family: $dongle;
+        font-weight: bold;
+        font-size: 14px;
         display: flex;
-        position: absolute;
-        font-family: $dongle;
-        margin-top: 15px;
-        z-index: 999;
+        padding: 10px 20px;
         justify-content: space-between;
-        width: 100%;
+        height: 60px;
+        background-color: rgba(203, 233, 234, 0.5);
         .menu {
             display: flex;
-            background-color: rgb(0 0 0 / 0.17);
-            width: 50%;
-            padding: 15px 30px;
-            margin-left: 50px;
-            border-radius: 60px;
-            justify-content: space-between;
             .logo {
+                background-color: rgb(92, 92, 92, 0.5);
+                border-radius: 20px;
+                padding: 0 15px;
+                margin: 0 10px;
                 align-content: center;
+                img {
+                    margin-top: 8px;
+                }
             }
             .menu-list {
-                position: relative;
-                list-style: none;
                 display: flex;
+                list-style: none;
                 align-items: center;
-                font-size: 20px;
-                gap: 20px;
-                & > li {
-                    color: #fff;
-                    font-weight: 700;
+                gap: 15px;
+                & > li:first-of-type {
+                    padding: 5px 10px;
+                    background-color: white;
+                    border-radius: 50px;
                     cursor: pointer;
                 }
-                .icon {
-                    margin-left: 5px;
-                    width: 15px;
-                    height: 15px;
-                    color: white;
+                .group {
+                    padding: 5px 5px;
+                    align-items: center;
+                    background-color: white;
+                    border-radius: 50px;
+                    display: flex;
+                    gap: 10px;
+                    li {
+                        padding: 0 10px;
+                        line-height: 35px;
+                        box-sizing: border-box;
+                    }
+                    li:hover,
+                    li.active {
+                        background-color: rgb(225 239 254 / 1);
+                        border-radius: 50px;
+                        a {
+                            color: rgb(0 113 249);
+                        }
+                    }
+                    a:visited {
+                        color: black;
+                    }
+                    a {
+                        text-decoration: none;
+                    }
                 }
                 .dropdown {
                     display: none;
                     position: absolute;
-                    width: 40%;
-                    background-color: #00000052;
-                    border-radius: 10px;
-                    top: 55px;
-                    .course {
-                        color: #fff;
-                        padding: 5px 20px;
+                    background-color: rgb(255, 255, 255);
+                    border-radius: 15px;
+                    padding: 15px 10px;
+                    a {
                         text-decoration: none;
+                        color: black;
+                        border-radius: 10px;
+                        padding: 0 10px;
+                        &:hover {
+                            background-color: rgb(138, 138, 138, 0.5);
+                        }
                     }
-                }
-                & > li:hover {
-                    .dropdown {
+                    &.show {
                         display: flex;
                         flex-direction: column;
+                        top: 60px;
+                        left: 155px;
                     }
                 }
             }
         }
-        .start-now {
-            background-color: rgb(26 86 219 / 1);
-            padding: 5px 20px;
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-size: 25px;
-            font-family: $dongle;
+        .button {
+            .start-now {
+            }
+        }
+    }
+    .container {
+        & > h2 {
+        }
+        span {
+        }
+        .routes {
+            .my-level {
+            }
+            .my-target {
+            }
         }
     }
 }

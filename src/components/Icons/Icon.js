@@ -1,6 +1,8 @@
 export const ArrowDown = ({ className }) => (
     <svg
         className={className}
+        width="15"
+        height="15"
         aria-hidden="true"
         focusable="false"
         data-prefix="fas"
