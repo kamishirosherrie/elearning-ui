@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Ielts from './pages/Courses/Ielts/Ielts'
 import Toeic from './pages/Courses/Toeic/Toeic'
+import AddLesson from './pages/Lesson/AddLesson'
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/ielts" element={<Ielts />} />
                     <Route path="/toeic" element={<Toeic />} />
+                    <Route path="/add-lesson" element={<AddLesson />} />
                 </Routes>
             </Router>
         </div>
