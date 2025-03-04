@@ -51,7 +51,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Học toàn diện 4 kỹ năng, chấm chữa cặn kẽ cùng giáo viên, luyện tập thông minh với phòng ảo Prep AI.
                         </span>
-                        <a href="/ielts" className={cx('course-button')}>
+                        <a href="/course/ielts" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>
@@ -61,7 +61,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Tập trung phát triển kỹ năng nghe hiểu và đọc hiểu trong môi trường tiếng Anh chuyên nghiệp.
                         </span>
-                        <a href="/toeic" className={cx('course-button')}>
+                        <a href="/course/toeic-listening-and-reading" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>
@@ -71,7 +71,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Nhằm nâng cao kỹ năng nói và viết tiếng Anh để giao tiếp hiệu quả trong công việc.
                         </span>
-                        <a href="/toeic" className={cx('course-button')}>
+                        <a href="/course/toeic-speaking-and-writing" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>
@@ -81,7 +81,7 @@ function Home() {
                         <span className={cx('course-description')}>
                             Lộ trình học tinh gọn, bật mí bí kíp về đích nhanh chóng, dễ dàng đạt mục tiêu.
                         </span>
-                        <a href="/toeic" className={cx('course-button')}>
+                        <a href="/course/toeic-4-ky-nang" className={cx('course-button')}>
                             <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                         </a>
                     </div>

@@ -2,18 +2,19 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import classNames from 'classnames/bind'
-import styles from './Lesson.module.scss'
+import styles from './ListLesson.module.scss'
+import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
-function Lesson({ courseName }) {
+function ListLesson({ slug }) {
     const [lessons, setLessons] = useState([])
     const [courseSlug, setCourseSlug] = useState('')
 
     useEffect(() => {
         const getLessons = async () => {
             try {
-                const response = await axios.get(`http://localhost:8017/lesson/${courseName}`)
+                const response = await axios.get(`http://localhost:8017/lesson/${slug}`)
                 setLessons((prev) => [...prev, ...response.data.lessons])
                 setCourseSlug(response.data.courseSlug)
                 console.log('Course slug:', response.data.courseSlug)
@@ -31,15 +32,13 @@ function Lesson({ courseName }) {
                     <h1>
                         Bài {index + 1} - {item.title}
                     </h1>
-                    <a className={cx('learn-now')} href={`/${courseSlug}/${item.slug}`}>
+                    <Link className={cx('learn-now')} to={`/${courseSlug}/${item.slug}`}>
                         Học ngay
-                    </a>
+                    </Link>
                 </div>
             ))}
-            {/* <h1>{htmlContent.title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: htmlContent.content }}></div> */}
         </div>
     )
 }
 
-export default Lesson
+export default ListLesson
