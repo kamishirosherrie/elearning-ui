@@ -24,7 +24,7 @@ function ListLesson({ slug }) {
             }
         }
         getLessons()
-    }, [])
+    }, [slug])
     return (
         <div className={cx('wrapper')}>
             {lessons.map((item, index) => (

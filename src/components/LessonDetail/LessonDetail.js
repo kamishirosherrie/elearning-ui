@@ -18,7 +18,7 @@ function LessonDetail({ slug }) {
             }
         }
         getLesson()
-    }, [])
+    }, [slug])
 
     return (
         <div className={cx('wrapper')}>

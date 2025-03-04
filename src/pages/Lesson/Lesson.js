@@ -22,7 +22,7 @@ function Lesson() {
             }
         }
         getQuizzeInfo()
-    }, [])
+    }, [slug])
 
     return (
         <div className={cx('wrapper')}>

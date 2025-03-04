@@ -23,7 +23,7 @@ function Course() {
             }
         }
         getCourseInfo()
-    }, [])
+    }, [slug])
     return (
         <div className={cx('wrapper')}>
             <Header />
