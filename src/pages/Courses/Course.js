@@ -5,7 +5,7 @@ import styles from './Course.module.scss'
 import Header from '../../layouts/Header/Header'
 import ListLesson from '../../components/ListLesson/ListLesson'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { getCourseBySlug } from '../../api/courseApi'
 
 const cx = classNames.bind(styles)
 
@@ -16,8 +16,8 @@ function Course() {
     useEffect(() => {
         const getCourseInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:8017/course/slug/${slug}`)
-                setCourse(response.data.course)
+                const response = await getCourseBySlug(slug)
+                setCourse(response)
             } catch (error) {
                 console.log('Error:', error)
             }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import { apiUrl } from '../../../api/apiConfig'
 
 function AddLesson() {
     const [lesson, setLesson] = useState({
@@ -18,7 +18,7 @@ function AddLesson() {
         e.preventDefault()
         console.log('Lesson data:', lesson)
         try {
-            const res = await axios.post('http://localhost:8017/lesson/addNewLesson', lesson)
+            const res = await apiUrl.lessonUrl.addNewLesson(lesson)
             console.log('Response:', res)
         } catch (error) {
             console.log('Error:', error)

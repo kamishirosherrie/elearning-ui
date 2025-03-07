@@ -4,19 +4,19 @@ import styles from './Lesson.module.scss'
 
 import LessonDetail from '../../components/LessonDetail/LessonDetail'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { getQuizzeByLessonSlug } from '../../api/quizzeApi'
 
 const cx = classNames.bind(styles)
 function Lesson() {
-    const [quizze, setQuizze] = useState({})
     const slug = useParams().lessonName
+    const [quizze, setQuizze] = useState({})
 
     useEffect(() => {
         const getQuizzeInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:8017/quizze/getQuizzeByLesson/${slug}`)
-                setQuizze(response.data.quizze)
-                console.log('Quizze:', response.data.quizze)
+                const response = await getQuizzeByLessonSlug(slug)
+                setQuizze(response)
+                console.log('Quizze:', response)
             } catch (error) {
                 console.log('Error:', error)
             }
