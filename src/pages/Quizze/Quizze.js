@@ -1,50 +1,101 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Modal from 'react-modal'
 import classNames from 'classnames/bind'
 import styles from './Quizze.module.scss'
-import { useParams } from 'react-router-dom'
+
 import { getQuestionByQuizzeSlug } from '../../api/questionApi'
 import { getQuizzeBySlug } from '../../api/quizzeApi'
 
 const cx = classNames.bind(styles)
+Modal.setAppElement('#root')
 
 function Quizze() {
     const quizzeSlug = useParams().quizzeSlug
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
+    const [isOpen, setIsOpen] = useState(false)
+
+    const [selectedAnswer, setSelectedAnswer] = useState({})
+    const [totalScore, setTotalScore] = useState(0)
+
     useEffect(() => {
         const getQuestion = async () => {
             try {
                 const response = await getQuestionByQuizzeSlug(quizzeSlug)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
-                console.log('Question:', response)
                 setQuestions(response)
                 setQuizze(quizze)
             } catch (error) {
-                console.log('Error:', error)
+                console.log('Get question by quizze slug error:', error)
             }
         }
         getQuestion()
     }, [quizzeSlug])
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+
+    const handleChangeAnswer = (event, questionId) => {
+        const { value } = event.target
+        setSelectedAnswer((prev) => ({
+            ...prev,
+            [questionId]: value,
+        }))
+    }
+
+    const handleSubmit = () => {
+        if (Object.keys(selectedAnswer).length === 0) {
+            alert('Please choose an answer!')
+        } else {
+            setIsOpen(true)
+            let score = 0
+            questions.forEach((question) => {
+                const correctAnswer = question.answer.find((answer) => answer.text === selectedAnswer[question._id])
+                if (correctAnswer.isCorrect) {
+                    score += 1
+                }
+            })
+            setTotalScore(score)
+            setSelectedAnswer({})
+        }
+    }
+
+    const handleBack = () => {}
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <h1>{quizze.title}</h1>
-                <button>Previous</button>
-                <button>Next</button>
+                <button onClick={handleBack}>Quay lại</button>
+                <div className={cx('count')}>
+                    Tổng số: {Object.keys(selectedAnswer).length}/{questions.length}
+                </div>
+                <button type="submit" onClick={handleSubmit}>
+                    Nộp bài
+                </button>
             </div>
             <div className={cx('content')}>
-                {questions.map((question, indexQuestion) => (
-                    <div className={cx('question-wrapper')} key={indexQuestion}>
+                {questions.map((question) => (
+                    <div className={cx('question-wrapper')} key={question._id}>
                         <div className={cx('question')}>
-                            <h3>Question {indexQuestion + 1}</h3>
+                            <h3>Question {question._id + 1}</h3>
                             <span>{question.question}</span>
                         </div>
                         <div className={cx('answer')}>
-                            {question.answer.map((answer, indexAnswer) => (
-                                <div className={cx('answer-item')} key={indexAnswer}>
-                                    <input type="radio" name={'question' + indexQuestion} id={answer.text + indexAnswer} value={answer.text} />
-                                    <label htmlFor={indexAnswer}>
-                                        {indexAnswer + 1}. {answer.text}
+                            {question.answer.map((answer) => (
+                                <div className={cx('answer-item')} key={answer._id}>
+                                    <input
+                                        type="radio"
+                                        name={'question' + question._id}
+                                        id={answer.text + answer._id}
+                                        value={answer.text}
+                                        onChange={(e) => handleChangeAnswer(e, question._id)}
+                                        checked={selectedAnswer[question._id] === answer.text}
+                                    />
+                                    <label htmlFor={answer.text + answer._id}>
+                                        {answer._id + 1}. {answer.text}
                                     </label>
                                 </div>
                             ))}
@@ -52,6 +103,11 @@ function Quizze() {
                     </div>
                 ))}
             </div>
+            <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Total Exam">
+                <h2>Nộp bài thành công</h2>
+                <span>Số điểm của bạn: {totalScore}</span>
+                <button onClick={closeModal}>Close</button>
+            </Modal>
         </div>
     )
 }
