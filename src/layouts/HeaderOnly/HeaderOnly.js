@@ -1,12 +1,27 @@
-import classNames from 'classnames/bind'
+import Modal from 'react-modal'
 
-import { image } from '../../assets/images/image'
 import styles from './HeaderOnly.module.scss'
+import classNames from 'classnames/bind'
+import { image } from '../../assets/images/image'
 import { ArrowDown } from '../../components/Icons/Icon'
+import { useState } from 'react'
+import Login from '../../components/Login/Login'
 
 const cx = classNames.bind(styles)
+Modal.setAppElement('#root')
 
 function HeaderOnly() {
+    const [isOpen, setIsOpen] = useState(false)
+
+    const handleLogin = () => {
+        setIsOpen(true)
+        console.log('clicked')
+    }
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('navbar')}>
@@ -97,9 +112,12 @@ function HeaderOnly() {
                     </ul>
                 </div>
                 <div className={cx('button')}>
-                    <button className={cx('start-now')}>Học ngay</button>
+                    <button className={cx('start-now')} onClick={handleLogin}>
+                        Học ngay
+                    </button>
                 </div>
             </div>
+            <Login isOpen={isOpen} closeModal={closeModal} setIsOpen={setIsOpen} />
         </div>
     )
 }

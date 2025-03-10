@@ -4,15 +4,14 @@ import styles from './Home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons/faCircleArrowDown'
 
-import { image } from '../../assets/images/image'
-import Header from '../../layouts/HeaderOnly/HeaderOnly'
+import HeaderOnly from '../../layouts/HeaderOnly/HeaderOnly'
 
 const cx = classNames.bind(styles)
 
 function Home() {
     return (
         <div className={cx('wrapper')}>
-            <Header />
+            <HeaderOnly />
             <div className={cx('course')} id="course">
                 <h1 className={cx('sub-title')}>
                     Tinh thông mọi ngôn ngữ <br /> với bộ chương trình đào tạo <br /> chất lượng cao
