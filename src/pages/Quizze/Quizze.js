@@ -62,29 +62,27 @@ function Quizze() {
         }
     }
 
-    const handleBack = () => {}
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <h1>{quizze.title}</h1>
-                <button onClick={handleBack}>Quay lại</button>
+                <button onClick={() => window.history.back()}>Back</button>
                 <div className={cx('count')}>
-                    Tổng số: {Object.keys(selectedAnswer).length}/{questions.length}
+                    Total: {Object.keys(selectedAnswer).length}/{questions.length}
                 </div>
                 <button type="submit" onClick={handleSubmit}>
-                    Nộp bài
+                    Submit
                 </button>
             </div>
             <div className={cx('content')}>
-                {questions.map((question) => (
+                {questions.map((question, indexQuestion) => (
                     <div className={cx('question-wrapper')} key={question._id}>
                         <div className={cx('question')}>
-                            <h3>Question {question._id + 1}</h3>
+                            <h3>Question {indexQuestion + 1}</h3>
                             <span>{question.question}</span>
                         </div>
                         <div className={cx('answer')}>
-                            {question.answer.map((answer) => (
+                            {question.answer.map((answer, indexAnswer) => (
                                 <div className={cx('answer-item')} key={answer._id}>
                                     <input
                                         type="radio"
@@ -95,7 +93,7 @@ function Quizze() {
                                         checked={selectedAnswer[question._id] === answer.text}
                                     />
                                     <label htmlFor={answer.text + answer._id}>
-                                        {answer._id + 1}. {answer.text}
+                                        {indexAnswer + 1}. {answer.text}
                                     </label>
                                 </div>
                             ))}
@@ -104,8 +102,8 @@ function Quizze() {
                 ))}
             </div>
             <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Total Exam">
-                <h2>Nộp bài thành công</h2>
-                <span>Số điểm của bạn: {totalScore}</span>
+                <h2>Submited successfully!</h2>
+                <span>Your total score: {totalScore}</span>
                 <button onClick={closeModal}>Close</button>
             </Modal>
         </div>

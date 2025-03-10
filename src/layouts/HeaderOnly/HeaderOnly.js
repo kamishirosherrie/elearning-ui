@@ -4,14 +4,20 @@ import styles from './HeaderOnly.module.scss'
 import classNames from 'classnames/bind'
 import { image } from '../../assets/images/image'
 import { ArrowDown } from '../../components/Icons/Icon'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Login from '../../components/Login/Login'
+import AuthContext from '../../context/AuthContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
 
 function HeaderOnly() {
     const [isOpen, setIsOpen] = useState(false)
+
+    const { user } = useContext(AuthContext)
 
     const handleLogin = () => {
         setIsOpen(true)
@@ -115,6 +121,13 @@ function HeaderOnly() {
                     <button className={cx('start-now')} onClick={handleLogin}>
                         Học ngay
                     </button>
+                    {user ? (
+                        <div className={cx('user')}>
+                            <Link to="/my-account" className={cx('user-icon')}>
+                                <FontAwesomeIcon icon={faUser} />
+                            </Link>
+                        </div>
+                    ) : null}
                 </div>
             </div>
             <Login isOpen={isOpen} closeModal={closeModal} setIsOpen={setIsOpen} />

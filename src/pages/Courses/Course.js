@@ -26,7 +26,7 @@ function Course() {
     }, [slug])
     return (
         <div className={cx('wrapper')}>
-            <Header />
+            {/* <Header /> */}
             <h1>{course.title}</h1>
             <h1>{course.description}</h1>
             <ListLesson slug={slug} />
