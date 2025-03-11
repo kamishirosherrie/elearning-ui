@@ -120,14 +120,15 @@ function HeaderOnly() {
                 <div className={cx('button')}>
                     {user ? (
                         <div className={cx('user')}>
-                            <Link to="/my-account" className={cx('user-icon')}>
+                            <Link to="/student/my-account" className={cx('user-icon')}>
                                 <UserIcon width={19} height={19} />
                             </Link>
                         </div>
                     ) : (
                         <button className={cx('start-now')} onClick={handleLogin}>
                             Học ngay
-                        </button>)}
+                        </button>
+                    )}
                 </div>
             </div>
             <Login isOpen={isOpen} closeModal={closeModal} setIsOpen={setIsOpen} />

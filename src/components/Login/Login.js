@@ -19,7 +19,7 @@ const Login = ({ isOpen, closeModal, setIsOpen }) => {
         e.preventDefault()
         if (email && password) {
             login({ email, password })
-            navigate('/my-account')
+            navigate('/student/my-account')
             setIsOpen(false)
         } else {
             alert('Vui lòng nhập đầy đủ thông tin!')
@@ -28,7 +28,7 @@ const Login = ({ isOpen, closeModal, setIsOpen }) => {
 
     return (
         <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Login">
-            <div className="login-form">
+            <div className={cx('login-form')}>
                 <h2>Đăng Nhập</h2>
                 <form onSubmit={handleSubmit}>
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />

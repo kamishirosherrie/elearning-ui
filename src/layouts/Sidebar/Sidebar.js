@@ -1,4 +1,4 @@
-import { UserSecurityIcon } from '../../components/Icons/Icon'
+import { LockIcon, UserSecurityIcon } from '../../components/Icons/Icon'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
@@ -9,7 +9,7 @@ import styles from './Sidebar.module.scss'
 const cx = classNames.bind(styles)
 
 function Sidebar() {
-    const { logout } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
     const handleLogout = () => {
         logout()
     }
@@ -17,21 +17,26 @@ function Sidebar() {
         <div className={cx('wrapper')}>
             <div className={cx('navbar')}>
                 <div className={cx('navbar-item')}>
+                    <Link to="#" className={cx('navbar-link')}>
+                        Xin chào Dương Hằng!
+                    </Link>
+                </div>
+                <div className={cx('navbar-item')}>
                     <UserSecurityIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="/my-account" className={cx('navbar-link')}>
+                    <Link to="/student/my-account" className={cx('navbar-link')}>
                         Tài khoản của tôi
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
                     <UserSecurityIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="#" className={cx('navbar-link')}>
+                    <Link to="/student/my-course" className={cx('navbar-link')}>
                         Khoá học của tôi
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
-                    <UserSecurityIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="#" className={cx('navbar-link')} >
-                       Mật khẩu
+                    <LockIcon className={cx('icon')} width={24} height={24} />
+                    <Link to="/student/change-password" className={cx('navbar-link')}>
+                        Mật khẩu
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
