@@ -6,7 +6,7 @@ import Course from './pages/Courses/Course'
 import Quizze from './pages/Quizze/Quizze'
 import AuthContext from './context/AuthContext'
 import { useContext } from 'react'
-import UserDashboard from './pages/UserDashboard/UserDashboard'
+import MyAccount from './pages/UserDashboard/MyAccount/MyAccount'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -15,7 +15,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/my-account" element={user ? <UserDashboard /> : <Navigate to="/" />} />
+                    <Route path="/my-account" element={user ? <MyAccount /> : <Navigate to="/" />} />
                     <Route path="/course/:courseName" element={<Course />} />
                     <Route path="/:courseName/:lessonName" element={<Lesson />} />
                     <Route path="/lesson/quizze/:quizzeSlug" element={<Quizze />} />

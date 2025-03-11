@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import styles from './HeaderOnly.module.scss'
 import classNames from 'classnames/bind'
 import { image } from '../../assets/images/image'
-import { ArrowDown } from '../../components/Icons/Icon'
+import { ArrowDown, UserIcon } from '../../components/Icons/Icon'
 import { useContext, useState } from 'react'
 import Login from '../../components/Login/Login'
 import AuthContext from '../../context/AuthContext'
@@ -118,16 +118,16 @@ function HeaderOnly() {
                     </ul>
                 </div>
                 <div className={cx('button')}>
-                    <button className={cx('start-now')} onClick={handleLogin}>
-                        Học ngay
-                    </button>
                     {user ? (
                         <div className={cx('user')}>
                             <Link to="/my-account" className={cx('user-icon')}>
-                                <FontAwesomeIcon icon={faUser} />
+                                <UserIcon width={19} height={19} />
                             </Link>
                         </div>
-                    ) : null}
+                    ) : (
+                        <button className={cx('start-now')} onClick={handleLogin}>
+                            Học ngay
+                        </button>)}
                 </div>
             </div>
             <Login isOpen={isOpen} closeModal={closeModal} setIsOpen={setIsOpen} />

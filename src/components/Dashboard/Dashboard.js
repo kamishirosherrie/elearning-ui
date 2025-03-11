@@ -1,16 +1,12 @@
-import React, { useContext } from 'react'
-import AuthContext from '../../context/AuthContext'
-import Sidebar from '../../layouts/Sidebar/Sidebar'
+import classNames from "classnames/bind";
+import styles from './Dashboard.module.scss'
 
-const Dashboard = () => {
-    const { user } = useContext(AuthContext)
+const cx = classNames.bind(styles)
 
-    return (
-        <div className="dashboard">
-            <Sidebar />
-            <h2>Chào mừng, {user?.email}!</h2>
-        </div>
-    )
+function Dashboard({ children }) {
+    return ( <div className={cx('wrapper')}>
+        <div className={cx('content')}>{children}</div>
+    </div> );
 }
 
-export default Dashboard
+export default Dashboard;

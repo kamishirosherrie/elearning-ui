@@ -1,0 +1,22 @@
+.wrapper {
+    box-shadow: 0 0 10px 1px rgb(0 0 0 / 17%);
+    border-radius: 10px;
+    width: 20%;
+}
+
+.navbar {
+    padding: 1.5rem;
+}
+
+.navbar-item {
+    padding: 15px 0;
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+}
+
+.navbar-link {
+    margin-left: 30px;
+}

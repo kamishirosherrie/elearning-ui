@@ -1,4 +1,4 @@
-import { UserSecurityIcon } from '../../components/Icon/Icon'
+import { UserSecurityIcon } from '../../components/Icons/Icon'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
@@ -24,8 +24,14 @@ function Sidebar() {
                 </div>
                 <div className={cx('navbar-item')}>
                     <UserSecurityIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="/my-account" className={cx('navbar-link')}>
+                    <Link to="#" className={cx('navbar-link')}>
                         Khoá học của tôi
+                    </Link>
+                </div>
+                <div className={cx('navbar-item')}>
+                    <UserSecurityIcon className={cx('icon')} width={24} height={24} />
+                    <Link to="#" className={cx('navbar-link')} >
+                       Mật khẩu
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>

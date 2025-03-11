@@ -1,104 +1,111 @@
 @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&family=Henny+Penny&family=Playwrite+IN:wght@100..400&display=swap');
 $dongle: 'Dongle', sans-serif;
 
-.wrapper {
-    .navbar {
-        // font-family: $dongle;
-        font-weight: bold;
-        font-size: 14px;
-        display: flex;
-        padding: 10px 20px;
-        justify-content: space-between;
-        height: 60px;
-        background-color: rgba(203, 233, 234, 0.5);
-        .menu {
-            display: flex;
-            .logo {
-                border-radius: 20px;
-                padding: 0 15px;
-                margin: 0 10px;
-                align-content: center;
-                img {
-                    margin-top: 8px;
-                }
-            }
-            .menu-list {
-                display: flex;
-                list-style: none;
-                align-items: center;
-                gap: 15px;
-                & > li:first-of-type {
-                    padding: 5px 10px;
-                    background-color: white;
-                    border-radius: 50px;
-                    cursor: pointer;
-                }
-                .group {
-                    padding: 5px 5px;
-                    align-items: center;
-                    background-color: white;
-                    border-radius: 50px;
-                    display: flex;
-                    gap: 10px;
-                    li {
-                        padding: 0 10px;
-                        line-height: 35px;
-                        box-sizing: border-box;
-                    }
-                    li:hover,
-                    li.active {
-                        background-color: rgb(225 239 254 / 1);
-                        border-radius: 50px;
-                        a {
-                            color: rgb(0 113 249);
-                        }
-                    }
-                    a:visited {
-                        color: black;
-                    }
-                    a {
-                        text-decoration: none;
-                    }
-                }
-                .dropdown {
-                    display: none;
-                    position: absolute;
-                    background-color: rgb(255, 255, 255);
-                    border-radius: 15px;
-                    padding: 15px 10px;
-                    a {
-                        text-decoration: none;
-                        color: black;
-                        border-radius: 10px;
-                        padding: 0 10px;
-                        &:hover {
-                            background-color: rgb(138, 138, 138, 0.5);
-                        }
-                    }
-                    &.show {
-                        display: flex;
-                        flex-direction: column;
-                        top: 60px;
-                        left: 155px;
-                    }
-                }
-            }
-        }
-        .button {
-            .start-now {
-            }
-        }
-    }
-    .container {
-        & > h2 {
-        }
-        span {
-        }
-        .routes {
-            .my-level {
-            }
-            .my-target {
-            }
-        }
+.wrapper {}
+
+.navbar {
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    height: 60px;
+    background-color: rgba(203, 233, 234, 0.5);
+}
+
+.menu {
+    display: flex;
+}
+.logo {
+    border-radius: 20px;
+    padding: 0 15px;
+    margin: 0 10px;
+    align-content: center;
+}
+
+img {
+    margin-top: 8px;
+}
+    
+.menu-list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 15px;
+
+    & > li:first-of-type {
+        padding: 5px 10px;
+        background-color: white;
+        border-radius: 50px;
+        cursor: pointer;
     }
 }
+
+.group {
+    padding: 5px 5px;
+    align-items: center;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    gap: 10px;
+}
+
+li {
+    padding: 0 10px;
+    line-height: 35px;
+    box-sizing: border-box;
+}
+
+li:hover,
+li.active {
+    background-color: rgb(225 239 254 / 1);
+    border-radius: 50px;
+    a {
+        color: rgb(0 113 249);
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+}
+            
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    padding: 15px 10px;
+
+    &.show {
+        display: flex;
+        flex-direction: column;
+        top: 60px;
+        left: 155px;
+    }
+}
+                    
+.button {}
+
+.start-now {}
+
+.container {
+    & > h2 {
+    }
+}
+
+span {
+}
+
+.routes {}
+
+.my-level {
+}
+
+.my-target {
+}
+
+
