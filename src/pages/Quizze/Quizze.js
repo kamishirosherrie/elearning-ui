@@ -6,6 +6,7 @@ import styles from './Quizze.module.scss'
 
 import { getQuestionByQuizzeSlug } from '../../api/questionApi'
 import { getQuizzeBySlug } from '../../api/quizzeApi'
+import SelectedWord from '../../components/SelectedWord/SelectedWord'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
@@ -74,33 +75,37 @@ function Quizze() {
                     Submit
                 </button>
             </div>
-            <div className={cx('content')}>
-                {questions.map((question, indexQuestion) => (
-                    <div className={cx('question-wrapper')} key={question._id}>
-                        <div className={cx('question')}>
-                            <h3>Question {indexQuestion + 1}</h3>
-                            <span>{question.question}</span>
-                        </div>
-                        <div className={cx('answer')}>
-                            {question.answer.map((answer, indexAnswer) => (
-                                <div className={cx('answer-item')} key={answer._id}>
-                                    <input
-                                        type="radio"
-                                        name={'question' + question._id}
-                                        id={answer.text + answer._id}
-                                        value={answer.text}
-                                        onChange={(e) => handleChangeAnswer(e, question._id)}
-                                        checked={selectedAnswer[question._id] === answer.text}
-                                    />
-                                    <label htmlFor={answer.text + answer._id}>
-                                        {indexAnswer + 1}. {answer.text}
-                                    </label>
+            <SelectedWord>
+                {
+                    <div className={cx('content')}>
+                        {questions.map((question, indexQuestion) => (
+                            <div className={cx('question-wrapper')} key={question._id}>
+                                <div className={cx('question')}>
+                                    <h3>Question {indexQuestion + 1}</h3>
+                                    <span>{question.question}</span>
                                 </div>
-                            ))}
-                        </div>
+                                <div className={cx('answer')}>
+                                    {question.answer.map((answer, indexAnswer) => (
+                                        <div className={cx('answer-item')} key={answer._id}>
+                                            <input
+                                                type="radio"
+                                                name={'question' + question._id}
+                                                id={answer.text + answer._id}
+                                                value={answer.text}
+                                                onChange={(e) => handleChangeAnswer(e, question._id)}
+                                                checked={selectedAnswer[question._id] === answer.text}
+                                            />
+                                            <label htmlFor={answer.text + answer._id}>
+                                                {indexAnswer + 1}. {answer.text}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                }
+            </SelectedWord>
             <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Total Exam">
                 <h2>Submited successfully!</h2>
                 <span>Your total score: {totalScore}</span>
