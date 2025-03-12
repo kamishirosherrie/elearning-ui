@@ -14,6 +14,9 @@ const apiUrl = {
     questionUrl: {
         getQuestionByQuizzeSlug: (quizzeSlug) => `${API_BASE_URL}/question/getQuestionByQuizzeSlug/${quizzeSlug}`,
     },
+    dictionaryUrl: {
+        getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    }
 }
 
 export { API_BASE_URL, apiUrl }
