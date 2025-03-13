@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Modal from 'react-modal'
 import classNames from 'classnames/bind'
 import styles from './DictionaryModal.module.scss'
 import { getWord } from '../../api/dictionaryApi'
 import { VolumeIcon } from '../Icons/Icon'
 
 const cx = classNames.bind(styles)
-Modal.setAppElement('#root')
 
-function Dictionary({ word, isOpen, closeModal }) {
+function Dictionary({ word, className }) {
     const [define, setDefine] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
@@ -27,10 +25,12 @@ function Dictionary({ word, isOpen, closeModal }) {
 
     const handleOnClickAudio = (event) => {
         event.stopPropagation()
-        const audioUrl = define?.phonetics[0].audio
+        const audioUrl = define?.phonetics[0]?.audio
         if (audioUrl) {
             const audio = new Audio(audioUrl)
             audio.play()
+        } else {
+            console.log('Audio not found')
         }
     }
 
@@ -40,34 +40,32 @@ function Dictionary({ word, isOpen, closeModal }) {
         }
     }, [word])
     return (
-        <div className={cx('wrapper')}>
-            <Modal isOpen={isOpen} contentLabel="Dictionary" onRequestClose={closeModal}>
-                {isLoading ? (
-                    <span>Loading...</span>
-                ) : (
-                    <div className={cx('container')}>
-                        {define ? (
-                            <div className={cx('content')}>
-                                <div className={cx('define-word')}>
-                                    <span>{define.phonetic}</span>
-                                    <span onClick={(e) => handleOnClickAudio(e)}>
-                                        <VolumeIcon width={24} height={24} />
-                                    </span>
-                                </div>
-                                {define.meanings.map((meaning, index) => (
-                                    <div className={cx('define-word')} key={index}>
-                                        <span>{meaning.partOfSpeech}</span>
-                                        <span>{meaning.definitions[0]?.definition}</span>
-                                        <span>Ex: {meaning.definitions[0]?.example}</span>
-                                    </div>
-                                ))}
+        <div className={className}>
+            {isLoading ? (
+                <span>Loading...</span>
+            ) : (
+                <div className={cx('container')}>
+                    {define ? (
+                        <div className={cx('content')}>
+                            <div className={cx('define-word')}>
+                                <span>{define.phonetic}</span>
+                                <span className={cx('audio-icon')} onClick={(e) => handleOnClickAudio(e)}>
+                                    <VolumeIcon width={24} height={24} />
+                                </span>
                             </div>
-                        ) : (
-                            <span>We can't find this word...</span>
-                        )}
-                    </div>
-                )}
-            </Modal>
+                            {define.meanings.map((meaning, index) => (
+                                <div className={cx('define-word')} key={index}>
+                                    <span>{meaning.partOfSpeech}</span>
+                                    <span>{meaning.definitions[0]?.definition}</span>
+                                    <span>Ex: {meaning.definitions[0]?.example}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <span>We can't find this word...</span>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

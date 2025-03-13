@@ -10,7 +10,7 @@ function SelectedWord({ children }) {
     const [position, setPosition] = useState({ top: 0, left: 0 })
     const [isOpen, setIsOpen] = useState(false)
 
-    const handleSelectedWord = () => {
+    const handleSelectedWord = (event) => {
         const selection = window.getSelection()
         const word = selection.toString().trim()
         if (word.length > 0 && /^[a-zA-z]+$/.test(word)) {
@@ -21,6 +21,8 @@ function SelectedWord({ children }) {
             const range = selection.getRangeAt(0)
             const rect = range.getBoundingClientRect()
             setPosition({ top: rect.top + window.scrollY + 20, left: rect.left + window.scrollX })
+        } else if (event.target.closest('.dictionary-modal')) {
+            return
         } else {
             setSelectedWord(null)
         }
@@ -40,7 +42,14 @@ function SelectedWord({ children }) {
             {children}
             {selectedWord && (
                 <div style={{ position: 'absolute', top: position.top, left: position.left }}>
-                    <DictionaryModal word={selectedWord} isOpen={isOpen} setIsOpen={closeModal} onClose={() => setSelectedWord(null)} />
+                    <DictionaryModal
+                        word={selectedWord}
+                        isOpen={isOpen}
+                        className={cx('dictionary-modal')}
+                        position={position}
+                        closeModal={closeModal}
+                        onClose={() => setSelectedWord(null)}
+                    />
                 </div>
             )}
         </div>
