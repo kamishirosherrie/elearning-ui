@@ -5,24 +5,34 @@ import Modal from 'react-modal'
 
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
+import { loginUser } from '../../api/authApi'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
 
-const Login = ({ isOpen, closeModal, setIsOpen }) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+const Login = ({ isOpen, closeModal }) => {
+    const [user, setUser] = useState({})
     const { login } = useContext(AuthContext)
     const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if (email && password) {
-            login({ email, password })
-            navigate('/student/my-account')
-            setIsOpen(false)
-        } else {
-            alert('Vui lòng nhập đầy đủ thông tin!')
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setUser((prev) => ({ ...prev, [name]: value }))
+    }
+
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault()
+            if (user.userName && user.passWord) {
+                const response = await loginUser(user)
+                login({ ...response })
+                navigate('/student/my-account')
+            } else {
+                alert('Please enter username and password')
+            }
+            console.log(user)
+        } catch (error) {
+            console.log('Login failed: ', error.message)
         }
     }
 
@@ -31,8 +41,14 @@ const Login = ({ isOpen, closeModal, setIsOpen }) => {
             <div className={cx('login-form')}>
                 <h2>Đăng Nhập</h2>
                 <form onSubmit={handleSubmit}>
-                    <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <input type="password" placeholder="Mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="text" id="userName" name="userName" placeholder="Username" onChange={handleChange} />
+                    <input
+                        type="password"
+                        id="passWord"
+                        name="passWord"
+                        placeholder="Mật khẩu"
+                        onChange={handleChange}
+                    />
                     <button type="submit">Đăng nhập</button>
                 </form>
             </div>

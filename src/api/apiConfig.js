@@ -42,6 +42,9 @@ const apiUrl = {
     questionTypeUrl: {
         getQuestionType: `${API_BASE_URL}/questionType/`,
     },
+    submissionUrl: {
+        addNewSubmission: `${API_BASE_URL}/submission/submit`,
+    },
     dictionaryUrl: {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
     },

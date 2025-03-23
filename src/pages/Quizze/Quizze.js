@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Modal from 'react-modal'
 import classNames from 'classnames/bind'
@@ -7,17 +7,28 @@ import styles from './Quizze.module.scss'
 import { getQuestionByQuizzeSlug } from '../../api/questionApi'
 import { getQuizzeBySlug } from '../../api/quizzeApi'
 import SelectedWord from '../../components/SelectedWord/SelectedWord'
+import { getQuestionType } from '../../api/questionTypeApi'
+import FillTheBlank from '../../components/QuestionType/FillTheBlank/FillTheBlank'
+import ShortAnswer from '../../components/QuestionType/ShortAnswer/ShortAnswer'
+import OneChoice from '../../components/QuestionType/OneChoice/OneChoice'
+import { addNewSubmit } from '../../api/submissionApi'
+import AuthContext from '../../context/AuthContext'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
 
 function Quizze() {
+    const { user } = useContext(AuthContext)
     const quizzeSlug = useParams().quizzeSlug
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
+    const [questionTypes, setQuestionTypes] = useState([])
     const [isOpen, setIsOpen] = useState(false)
 
-    const [selectedAnswer, setSelectedAnswer] = useState({})
+    const [oneChoice, setOneChoice] = useState({})
+    const [shortAnswer, setShortAnswer] = useState({})
+    const [fillAnswer, setFillAnswer] = useState({})
+
     const [totalScore, setTotalScore] = useState(0)
 
     useEffect(() => {
@@ -31,45 +42,70 @@ function Quizze() {
                 console.log('Get question by quizze slug error:', error)
             }
         }
+
+        const getTypeOfQuestion = async () => {
+            const response = await getQuestionType()
+            setQuestionTypes(response.questionTypes)
+        }
+
         getQuestion()
+        getTypeOfQuestion()
     }, [quizzeSlug])
 
     const closeModal = () => {
         setIsOpen(false)
     }
 
-    const handleChangeAnswer = (event, questionId) => {
+    const handleChangeOneChoice = (event, questionId) => {
         const { value } = event.target
-        setSelectedAnswer((prev) => ({
+        setOneChoice((prev) => ({
             ...prev,
             [questionId]: value,
         }))
     }
 
-    const handleSubmit = () => {
-        if (Object.keys(selectedAnswer).length === 0) {
-            alert('Please choose an answer!')
-        } else {
-            setIsOpen(true)
-            let score = 0
-            questions.forEach((question) => {
-                const correctAnswer = question.answer.find((answer) => answer.text === selectedAnswer[question._id])
-                if (correctAnswer.isCorrect) {
+    const handleChangeShortAnswer = (event, questionId) => {
+        const { value } = event.target
+        setShortAnswer((prev) => ({ ...prev, [questionId]: value }))
+    }
+
+    const handleChangeFillAnswer = (event, questionId) => {
+        const { value } = event.target
+        setFillAnswer((prev) => ({ ...prev, [questionId]: value }))
+    }
+
+    const handleSubmit = async () => {
+        setIsOpen(true)
+        let score = 0
+        questions.forEach((question) => {
+            if (question.questionTypeId === questionTypes[0]._id) {
+                const correctAnswer = question.answer.find((answer) => answer.isCorrect === true)
+                if (oneChoice[question._id] === correctAnswer.text) {
                     score += 1
                 }
-            })
-            setTotalScore(score)
-            setSelectedAnswer({})
-        }
+            } else if (question.questionTypeId === questionTypes[2]._id) {
+                if (shortAnswer[question._id] === question.answer[0].text) {
+                    score += 1
+                }
+            } else if (question.questionTypeId === questionTypes[3]._id) {
+                if (question.answer[0].text.includes(fillAnswer[question._id])) {
+                    score += 1
+                }
+            }
+        })
+        setTotalScore(score)
+
+        await addNewSubmit({ quizzeId: quizze._id, score, userId: user.user._id })
     }
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <h1>{quizze.title}</h1>
+                <p>{quizze.description}</p>
                 <button onClick={() => window.history.back()}>Back</button>
                 <div className={cx('count')}>
-                    Total: {Object.keys(selectedAnswer).length}/{questions.length}
+                    Total: {Object.keys(oneChoice).length}/{questions.length}
                 </div>
                 <button type="submit" onClick={handleSubmit}>
                     Submit
@@ -85,21 +121,31 @@ function Quizze() {
                                     <span>{question.question}</span>
                                 </div>
                                 <div className={cx('answer')}>
-                                    {question.answer.map((answer, indexAnswer) => (
-                                        <div className={cx('answer-item')} key={answer._id}>
-                                            <input
-                                                type="radio"
-                                                name={'question' + question._id}
-                                                id={answer.text + answer._id}
-                                                value={answer.text}
-                                                onChange={(e) => handleChangeAnswer(e, question._id)}
-                                                checked={selectedAnswer[question._id] === answer.text}
-                                            />
-                                            <label htmlFor={answer.text + answer._id}>
-                                                {indexAnswer + 1}. {answer.text}
-                                            </label>
-                                        </div>
-                                    ))}
+                                    {question.questionTypeId === questionTypes[0]._id ? (
+                                        question.answer.map((answer, indexAnswer) => (
+                                            <div key={indexAnswer}>
+                                                <OneChoice
+                                                    id={answer._id}
+                                                    name={question._id}
+                                                    value={answer.text}
+                                                    checked={oneChoice[question._id] === answer.text}
+                                                    onChange={(e) => handleChangeOneChoice(e, question._id)}
+                                                />
+                                            </div>
+                                        ))
+                                    ) : question.questionTypeId === questionTypes[2]._id ? (
+                                        <ShortAnswer
+                                            id={question._id}
+                                            name={question._id}
+                                            onChange={(e) => handleChangeShortAnswer(question._id)}
+                                        />
+                                    ) : question.questionTypeId === questionTypes[3]._id ? (
+                                        <FillTheBlank
+                                            id={question._id}
+                                            name={question._id}
+                                            onChange={(e) => handleChangeFillAnswer(e, question._id)}
+                                        />
+                                    ) : null}
                                 </div>
                             </div>
                         ))}

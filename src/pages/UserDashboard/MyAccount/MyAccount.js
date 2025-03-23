@@ -19,19 +19,19 @@ function MyAccount() {
                     <div className={cx('info')}>
                         <div className={cx('info-item')}>
                             <label className={cx('label')}>Họ và tên:</label>
-                            <input className={cx('value')} value={user?.fullName} onChange={handleChange} />
+                            <input className={cx('value')} value={user?.user.fullName} onChange={handleChange} />
                         </div>
                         <div className={cx('info-item')}>
                             <label className={cx('label')}>Email:</label>
-                            <input className={cx('value')} value={user?.email} onChange={handleChange} />
+                            <input className={cx('value')} value={user?.user.email} onChange={handleChange} />
                         </div>
                         <div className={cx('info-item')}>
                             <label className={cx('label')}>Số điện thoại:</label>
-                            <input className={cx('value')} value={user?.phoneNumber} onChange={handleChange} />
+                            <input className={cx('value')} value={user?.user.phoneNumber} onChange={handleChange} />
                         </div>
                         <div className={cx('info-item')}>
                             <label className={cx('label')}>Ngày sinh:</label>
-                            <input className={cx('value')} value={user?.dob} onChange={handleChange} />
+                            <input className={cx('value')} value={user?.user.dob} onChange={handleChange} />
                         </div>
                     </div>
                     <button className={cx('btn-saver')}>Lưu</button>

@@ -30,9 +30,9 @@ function Home() {
                 </h1>
                 <div className={cx('course-list')}>
                     {courses.map((item, index) => (
-                        <div className={cx('course-item')}>
+                        <div className={cx('course-item')} key={index}>
                             <span className={cx('course-title')}>{item.title}</span>
-                            <span className={cx('course-description')}>{item.description}</span>
+                            <span className={cx('course-description')}>{item.shortDescription}</span>
                             <Link to={`/course/${item.slug}`} className={cx('course-button')}>
                                 <FontAwesomeIcon className={cx('course-icon')} icon={faCircleArrowDown} />
                             </Link>
