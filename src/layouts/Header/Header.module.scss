@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&family=Henny+Penny&family=Playwrite+IN:wght@100..400&display=swap');
 $dongle: 'Dongle', sans-serif;
 
-.wrapper {}
+.wrapper {
+}
 
 .navbar {
     font-weight: bold;
@@ -26,7 +27,7 @@ $dongle: 'Dongle', sans-serif;
 img {
     margin-top: 8px;
 }
-    
+
 .menu-list {
     display: flex;
     list-style: none;
@@ -56,14 +57,14 @@ li {
     box-sizing: border-box;
 }
 
-li:hover,
-li.active {
-    background-color: rgb(225 239 254 / 1);
-    border-radius: 50px;
-    a {
-        color: rgb(0 113 249);
-    }
-}
+// li:hover,
+// li.active {
+//     background-color: rgb(225 239 254 / 1);
+//     border-radius: 50px;
+//     a {
+//         color: rgb(0 113 249);
+//     }
+// }
 
 a {
     text-decoration: none;
@@ -72,7 +73,7 @@ a {
 a:visited {
     color: black;
 }
-            
+
 .dropdown {
     display: none;
     position: absolute;
@@ -87,10 +88,12 @@ a:visited {
         left: 155px;
     }
 }
-                    
-.button {}
 
-.start-now {}
+.button {
+}
+
+.start-now {
+}
 
 .container {
     & > h2 {
@@ -100,12 +103,11 @@ a:visited {
 span {
 }
 
-.routes {}
+.routes {
+}
 
 .my-level {
 }
 
 .my-target {
 }
-
-

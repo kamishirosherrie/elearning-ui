@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home/Home'
-import AddLesson from './pages/Admin/Lesson/AddLesson'
 import Lesson from './pages/Lesson/Lesson'
 import Course from './pages/Courses/Course'
 import Quizze from './pages/Quizze/Quizze'
@@ -23,7 +22,6 @@ function App() {
                     <Route path="/course/:courseName" element={<Course />} />
                     <Route path="/:courseName/:lessonName" element={<Lesson />} />
                     <Route path="/lesson/quizze/:quizzeSlug" element={<Quizze />} />
-                    <Route path="/admin/lesson/add-lesson" element={<AddLesson />} />
                 </Routes>
             </Router>
         </div>

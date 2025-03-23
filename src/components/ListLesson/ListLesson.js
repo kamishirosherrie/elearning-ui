@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 import classNames from 'classnames/bind'
 import styles from './ListLesson.module.scss'
 import { Link } from 'react-router-dom'
+import { getLessonByCourseSlug } from '../../api/lessonApi'
 
 const cx = classNames.bind(styles)
 
@@ -14,11 +14,11 @@ function ListLesson({ slug }) {
     useEffect(() => {
         const getLessons = async () => {
             try {
-                const response = await axios.get(`http://localhost:8017/lesson/${slug}`)
-                setLessons((prev) => [...prev, ...response.data.lessons])
-                setCourseSlug(response.data.courseSlug)
-                console.log('Course slug:', response.data.courseSlug)
-                console.log('Lessons:', response.data.lessons)
+                const response = await getLessonByCourseSlug(slug)
+                setLessons((prev) => [...prev, ...response.lessons])
+                setCourseSlug(response.courseSlug)
+                console.log('Course slug:', response.courseSlug)
+                console.log('Lessons:', response.lessons)
             } catch (error) {
                 console.log('Error:', error)
             }

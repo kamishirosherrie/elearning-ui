@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './LessonDetail.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { getLessonBySlug } from '../../api/lessonApi'
 
 const cx = classNames.bind(styles)
 
@@ -11,8 +12,8 @@ function LessonDetail({ slug }) {
     useEffect(() => {
         const getLesson = async () => {
             try {
-                const response = await axios.get(`http://localhost:8017/lesson/course/${slug}`)
-                setLesson(response.data.lesson)
+                const response = await getLessonBySlug(slug)
+                setLesson(response.lesson)
             } catch (error) {
                 console.log('Error:', error)
             }

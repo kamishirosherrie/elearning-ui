@@ -28,7 +28,7 @@ function Course() {
         <div className={cx('wrapper')}>
             {/* <Header /> */}
             <h1>{course.title}</h1>
-            <h1>{course.description}</h1>
+            <span>{course.description}</span>
             <ListLesson slug={slug} />
         </div>
     )
