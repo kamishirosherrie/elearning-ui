@@ -1,0 +1,50 @@
+.wrapper {
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.pink.hover:hover {
+    background-color: unset;
+    border: 2px solid rgb(246, 191, 236);
+    color: rgb(246, 191, 236);
+}
+
+.primary.hover:hover {
+    background-color: unset;
+    color: #000;
+    border: 2px solid #000;
+}
+
+.outline.hover:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.pink {
+    background-color: rgb(246 191 236);
+    color: white;
+    border-radius: 20px;
+    font-weight: 700;
+    border: 2px solid #00000000;
+}
+
+.primary {
+    color: white;
+    background-color: #000;
+    border-radius: 20px;
+    font-weight: 700;
+    border: 2px solid #00000000;
+}
+
+.outline {
+    border: 2px solid #000;
+    border-radius: 20px;
+    font-weight: 700;
+    background-color: unset;
+}
+
+.large {
+    padding: 15px 40px;
+    border-radius: 40px;
+}

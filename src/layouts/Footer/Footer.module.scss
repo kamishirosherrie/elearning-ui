@@ -1,0 +1,43 @@
+.wrapper {
+    position: relative;
+    margin-top: 100px;
+    padding: 0 50px;
+    background: linear-gradient(135deg, #ffd6ff, #f3c4fb, #f9b5d0, #ffdde1, #ffcee9, #fbc2eb);
+    background-size: 400% 400%;
+    animation: hologramMove 6s infinite linear;
+}
+
+@keyframes hologramMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container {
+    display: flex;
+    padding: 50px 0;
+    gap: 30px;
+}
+
+.content {
+    width: calc(100% / 5);
+}
+
+.title {
+    font-size: 24px;
+}
+
+.logo {
+    width: 200px;
+    height: 40px;
+}
+
+.copy-right {
+    text-align: center;
+}

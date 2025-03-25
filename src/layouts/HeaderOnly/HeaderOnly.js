@@ -1,33 +1,21 @@
-import Modal from 'react-modal'
-
-import styles from './HeaderOnly.module.scss'
 import classNames from 'classnames/bind'
+import styles from './HeaderOnly.module.scss'
+
 import { image } from '../../assets/images/image'
-import { ArrowDown, UserIcon } from '../../components/Icons/Icon'
-import { useContext, useState } from 'react'
-import Login from '../../components/Login/Login'
-import AuthContext from '../../context/AuthContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { ArrowDown } from '../../components/Icons/Icon'
 
 const cx = classNames.bind(styles)
-Modal.setAppElement('#root')
 
 function HeaderOnly() {
-    const [isOpen, setIsOpen] = useState(false)
+    const courseLink = '/'
+    const courseLinkTest = '/'
+    const courseLinkPractice = '/'
+    const courseLinkGuarantee = '/'
 
-    const { user } = useContext(AuthContext)
-
-    const handleLogin = () => {
-        setIsOpen(true)
-        console.log('clicked')
+    const handleOnCourseClick = () => {
+        const dropdown = document.querySelector(`.${cx('dropdown')}`)
+        dropdown.classList.toggle(`${cx('show')}`)
     }
-
-    const closeModal = () => {
-        setIsOpen(false)
-    }
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('navbar')}>
@@ -36,8 +24,7 @@ function HeaderOnly() {
                         <img width="100px" src={image.logo} alt="logo" />
                     </a>
                     <ul className={cx('menu-list')}>
-                        <li>Trang chủ</li>
-                        <li>
+                        <li onClick={handleOnCourseClick}>
                             Khóa học
                             <ArrowDown className={cx('icon')} />
                             <div className={cx('dropdown')}>
@@ -47,91 +34,34 @@ function HeaderOnly() {
                                 <a className={cx('course')} href="/toeic">
                                     TOEIC LISTENING & READING
                                 </a>
-                                <a className={cx('course')} href="/">
+                                <a className={cx('course')} href="/toeic">
                                     TOEIC SPEAKING & WRITING
                                 </a>
-                                <a className={cx('course')} href="/">
+                                <a className={cx('course')} href="/toeic">
                                     TOEIC 4 KỸ NĂNG
                                 </a>
                             </div>
                         </li>
-                        <li>
-                            Kiểm tra đầu vào
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            Luyện đề
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    Luyện đề IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    Luyện đề TOEIC
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            Blog
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC LISTENING & READING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC SPEAKING & WRITING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC 4 KỸ NĂNG
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            Tin tức
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/">
-                                    IELTS
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC LISTENING & READING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC SPEAKING & WRITING
-                                </a>
-                                <a className={cx('course')} href="/">
-                                    TOEIC 4 KỸ NĂNG
-                                </a>
-                            </div>
-                        </li>
+                        <div className={cx('group')}>
+                            <li className={cx('active')}>
+                                <a href={courseLink}> Xây dựng lộ trình</a>
+                            </li>
+                            <li>
+                                <a href={courseLinkTest}>Kiểm tra đầu vào</a>
+                            </li>
+                            <li>
+                                <a href={courseLinkPractice}>Luyện đề</a>
+                            </li>
+                            <li>
+                                <a href={courseLinkGuarantee}>Cam kết đầu ra</a>
+                            </li>
+                        </div>
                     </ul>
                 </div>
                 <div className={cx('button')}>
-                    {user ? (
-                        <div className={cx('user')}>
-                            <Link to="/student/my-account" className={cx('user-icon')}>
-                                <UserIcon width={19} height={19} />
-                            </Link>
-                        </div>
-                    ) : (
-                        <button className={cx('start-now')} onClick={handleLogin}>
-                            Học ngay
-                        </button>
-                    )}
+                    <button className={cx('start-now')}>Học ngay</button>
                 </div>
             </div>
-            <Login isOpen={isOpen} closeModal={closeModal} setIsOpen={setIsOpen} />
         </div>
     )
 }

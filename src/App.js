@@ -22,6 +22,8 @@ function App() {
                     <Route path="/course/:courseName" element={<Course />} />
                     <Route path="/:courseName/:lessonName" element={<Lesson />} />
                     <Route path="/lesson/quizze/:quizzeSlug" element={<Quizze />} />
+
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>
         </div>
