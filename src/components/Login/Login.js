@@ -59,7 +59,7 @@ const Login = ({ handleClickRegister }) => {
                 <form onSubmit={handleSubmit}>
                     <div className={cx('by-username')}>
                         <label htmlFor="identifier" className={isActive.input ? cx('active') : null}>
-                            Username
+                            Username/Email
                         </label>
                         <input
                             type="text"
@@ -85,47 +85,18 @@ const Login = ({ handleClickRegister }) => {
                             onBlur={() => handleBlur('passWord')}
                         />
                     </div>
-
-                    {/* <div className={cx('by-email')}>
-                            <label htmlFor="identifier" className={isActive.input ? cx('active') : null}>
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="identifier2"
-                                name="identifier"
-                                placeholder="VD: abc@xyz.com"
-                                value={user.identifier || ''}
-                                onChange={handleChange}
-                                onFocus={() => handleFocus('input')}
-                                onBlur={() => handleBlur('input')}
-                            />
-                            <label htmlFor="passWord" className={isActive.passWord ? cx('active') : null}>
-                                Mật khẩu
-                            </label>
-                            <input
-                                type="password"
-                                id="passWord2"
-                                name="passWord"
-                                placeholder="Nhập mật khẩu"
-                                value={user.passWord || ''}
-                                onChange={handleChange}
-                                onFocus={() => handleFocus('passWord')}
-                                onBlur={() => handleBlur('passWord')}
-                            />
-                        </div> */}
                     <div className={cx('forgot-password')}>
                         <Link to="/">Quên mật khẩu?</Link>
                     </div>
                     <div className={cx('btn-wrapper')}>
-                        <Button fullWidth shadow pink type="submit">
+                        <Button fullWidth shadow blue type="submit">
                             Đăng nhập
                         </Button>
                     </div>
                 </form>
                 <div className={cx('login-bottom')}>
                     <div className={cx('login-option')}>
-                        Hoặc đăng nhập với <span>Google</span>
+                        Hoặc đăng nhập với <span>Google</span> / <span>Facebook</span>
                     </div>
                     <div className={cx('register')}>
                         <span>Bạn chưa có tài khoản? </span>

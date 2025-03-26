@@ -6,25 +6,34 @@
     padding: 10px 20px;
 }
 
-.pink.hover:hover {
+.blue.hover:hover {
     background-color: unset;
     border: 2px solid $primary-color;
     color: $primary-color;
 }
 
+.blue {
+    background-color: $primary-color;
+    color: $btn-primary;
+    border-radius: 20px;
+    font-weight: 700;
+    border: 2px solid $primary-color;
+}
+
 .primary.hover:hover {
-    background-color: unset;
-    color: #000;
+    background-color: #000;
+    color: $btn-primary;
     border: 2px solid #000;
 }
 
 .outline.hover:hover {
     background-color: #000;
     color: #fff;
+    border: 2px solid #000;
 }
 
-.pink {
-    background-color: $primary-color;
+.black {
+    background-color: #000;
     color: white;
     border-radius: 20px;
     font-weight: 700;
@@ -32,7 +41,7 @@
 }
 
 .primary {
-    color: white;
+    color: #000;
     background-color: $btn-primary;
     border-radius: 20px;
     font-weight: 700;
@@ -41,12 +50,13 @@
 
 .outline {
     border: 2px solid $btn-primary;
+    color: $btn-primary;
     border-radius: 20px;
     font-weight: 700;
     background-color: unset;
 }
 
-.pinkOutline {
+.blueOutline {
     border: 2px solid $primary-color;
     border-radius: 20px;
     font-weight: 700;

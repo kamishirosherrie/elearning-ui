@@ -82,7 +82,7 @@ function Home() {
                             Học ngoại ngữ thật dễ dàng với lộ trình Học & Luyện Thi toàn diện, được cá nhân hóa riêng
                             biệt.
                         </p>
-                        <Button hover pink className={cx('course-button')} onClick={handleStartNow}>
+                        <Button hover blue className={cx('course-button')} onClick={handleStartNow}>
                             Học ngay
                         </Button>
                     </div>

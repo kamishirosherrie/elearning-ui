@@ -8,8 +8,9 @@ function Button({
     to,
     href,
     hover,
-    pink,
-    pinkOutline,
+    blue,
+    black,
+    blueOutline,
     shadow,
     primary,
     outline,
@@ -43,8 +44,9 @@ function Button({
 
     const classNames = cx('wrapper', {
         hover,
-        pink,
-        pinkOutline,
+        blue,
+        blueOutline,
+        black,
         shadow,
         primary,
         outline,

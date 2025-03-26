@@ -110,7 +110,7 @@ function Header() {
                         </Link>
                     </div>
                 ) : (
-                    <Button primary onClick={handleLogin}>
+                    <Button black onClick={handleLogin}>
                         Đăng nhập
                     </Button>
                 )}

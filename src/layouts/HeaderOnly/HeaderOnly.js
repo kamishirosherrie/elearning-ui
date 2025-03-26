@@ -1,67 +1,78 @@
+import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import classNames from 'classnames/bind'
 import styles from './HeaderOnly.module.scss'
-
-import { image } from '../../assets/images/image'
-import { ArrowDown } from '../../components/Icons/Icon'
+import AuthContext from '../../context/AuthContext'
+import { Logo, UserIcon } from '../../components/Icons/Icon'
+import { routes } from '../../routes/route'
+import { getCourse } from '../../api/courseApi'
+import Login from '../../components/Login/Login'
+import Button from '../../components/Button/Button'
+import ModalPopup from '../../components/ModalPopup/ModalPopup'
+import Register from '../../components/Register/Register'
 
 const cx = classNames.bind(styles)
 
 function HeaderOnly() {
-    const courseLink = '/'
-    const courseLinkTest = '/'
-    const courseLinkPractice = '/'
-    const courseLinkGuarantee = '/'
+    const { user } = useContext(AuthContext)
+    const [isOpen, setIsOpen] = useState(false)
+    const [isLoginOpen, setIsLoginOpen] = useState(true)
+    const [courses, setCourses] = useState([])
 
-    const handleOnCourseClick = () => {
-        const dropdown = document.querySelector(`.${cx('dropdown')}`)
-        dropdown.classList.toggle(`${cx('show')}`)
+    const handleLogin = () => {
+        setIsOpen(true)
     }
+
+    const closeModal = () => {
+        setIsOpen(false)
+        setIsLoginOpen(true)
+    }
+
+    const handleClickRegister = () => {
+        setIsLoginOpen(false)
+    }
+
+    const handleClickLogin = () => {
+        setIsLoginOpen(true)
+    }
+
+    useEffect(() => {
+        const getCourses = async () => {
+            const response = await getCourse()
+            setCourses(response.courses)
+        }
+
+        getCourses()
+    }, [])
+
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('navbar')}>
-                <div className={cx('menu')}>
-                    <a className={cx('logo')} href="/">
-                        <img width="100px" src={image.logo} alt="logo" />
-                    </a>
-                    <ul className={cx('menu-list')}>
-                        <li onClick={handleOnCourseClick}>
-                            Khóa học
-                            <ArrowDown className={cx('icon')} />
-                            <div className={cx('dropdown')}>
-                                <a className={cx('course')} href="/ielts">
-                                    IELTS
-                                </a>
-                                <a className={cx('course')} href="/toeic">
-                                    TOEIC LISTENING & READING
-                                </a>
-                                <a className={cx('course')} href="/toeic">
-                                    TOEIC SPEAKING & WRITING
-                                </a>
-                                <a className={cx('course')} href="/toeic">
-                                    TOEIC 4 KỸ NĂNG
-                                </a>
-                            </div>
-                        </li>
-                        <div className={cx('group')}>
-                            <li className={cx('active')}>
-                                <a href={courseLink}> Xây dựng lộ trình</a>
-                            </li>
-                            <li>
-                                <a href={courseLinkTest}>Kiểm tra đầu vào</a>
-                            </li>
-                            <li>
-                                <a href={courseLinkPractice}>Luyện đề</a>
-                            </li>
-                            <li>
-                                <a href={courseLinkGuarantee}>Cam kết đầu ra</a>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-                <div className={cx('button')}>
-                    <button className={cx('start-now')}>Học ngay</button>
-                </div>
+            <a className={cx('logo-wrapper')} href="/">
+                <Logo className={cx('logo')} />
+            </a>
+
+            <div className={cx('button')}>
+                {user ? (
+                    <div className={cx('user')}>
+                        <Link to="/student/my-account" className={cx('user-icon')}>
+                            <UserIcon width={19} height={19} />
+                            <span>{user.user.fullName}</span>
+                        </Link>
+                    </div>
+                ) : (
+                    <Button black onClick={handleLogin}>
+                        Đăng nhập
+                    </Button>
+                )}
             </div>
+            <ModalPopup isOpen={isOpen} closeModal={closeModal}>
+                {isLoginOpen ? (
+                    <Login handleClickRegister={handleClickRegister} />
+                ) : (
+                    <Register handleClickLogin={handleClickLogin} />
+                )}
+            </ModalPopup>
         </div>
     )
 }

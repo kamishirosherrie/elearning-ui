@@ -31,6 +31,9 @@ function Register({ handleClickLogin }) {
                         <option value="Nam">Nam</option>
                     </select>
 
+                    <label htmlFor="userName">Tên người dùng</label>
+                    <input type="text" id="userName" name="userName" placeholder="VD: abc123" required />
+
                     <label htmlFor="email">Email</label>
                     <input type="email" name="email" placeholder="VD: abc@xyz.com" required />
 
@@ -46,14 +49,11 @@ function Register({ handleClickLogin }) {
                         required
                     />
 
-                    <label htmlFor="phone">Số điện thoại</label>
-                    <input type="text" id="phone" name="phoneNumber" placeholder="VD: 0123456789" required />
-
                     <label htmlFor="birthday">Ngày sinh</label>
                     <input type="date" id="birthday" name="birthday" required />
                 </div>
                 <div className={cx('btn-wrapper')} onClick={handleSubmit}>
-                    <Button fullWidth shadow pink type="submit">
+                    <Button fullWidth shadow blue type="submit">
                         Đăng ký
                     </Button>
                 </div>

@@ -1,0 +1,29 @@
+@import '../../../Variables.scss';
+
+.title {
+    margin-bottom: 15px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.label {
+    transform: translateY(5px);
+}
+
+.value {
+    font-family: $font-family;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $dark-blue;
+    padding: 10px 0;
+}

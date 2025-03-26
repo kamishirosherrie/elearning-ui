@@ -1,7 +1,18 @@
+@import '../../Variables.scss';
+
 .wrapper {
-    box-shadow: 0 0 10px 1px rgb(0 0 0 / 17%);
-    border-radius: 10px;
     width: 30%;
+    position: relative;
+
+    &::after {
+        content: '';
+        width: 1px;
+        height: 100vh;
+        border-right: 1px solid $dark-blue;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 }
 
 .navbar {

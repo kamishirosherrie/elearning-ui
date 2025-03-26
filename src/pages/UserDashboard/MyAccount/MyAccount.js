@@ -4,6 +4,7 @@ import classNames from 'classnames/bind'
 import styles from './MyAccount.module.scss'
 
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
+import Button from '../../../components/Button/Button'
 
 const cx = classNames.bind(styles)
 
@@ -22,8 +23,12 @@ function MyAccount() {
                             <input className={cx('value')} value={user?.user.fullName} onChange={handleChange} />
                         </div>
                         <div className={cx('info-item')}>
+                            <label className={cx('label')}>Username:</label>
+                            <input className={cx('value')} value={user?.user.userName} />
+                        </div>
+                        <div className={cx('info-item')}>
                             <label className={cx('label')}>Email:</label>
-                            <input className={cx('value')} value={user?.user.email} onChange={handleChange} />
+                            <input className={cx('value')} readOnly />
                         </div>
                         <div className={cx('info-item')}>
                             <label className={cx('label')}>Số điện thoại:</label>
@@ -33,8 +38,10 @@ function MyAccount() {
                             <label className={cx('label')}>Ngày sinh:</label>
                             <input className={cx('value')} value={user?.user.dob} onChange={handleChange} />
                         </div>
+                        <Button blue fullWidth>
+                            Save
+                        </Button>
                     </div>
-                    <button className={cx('btn-saver')}>Lưu</button>
                 </div>
             </MainAccount>
         </div>

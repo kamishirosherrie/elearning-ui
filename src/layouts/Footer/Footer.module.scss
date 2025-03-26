@@ -5,6 +5,7 @@
     margin-top: 100px;
     padding: 0 50px;
     background: $primary-background;
+    color: $footer-color;
     background-size: 400% 400%;
     animation: hologramMove 10s infinite linear;
 }
@@ -30,6 +31,7 @@
 .logo {
     width: 200px;
     height: 40px;
+    filter: invert(1);
 }
 
 .content {
@@ -38,6 +40,9 @@
 
 .content:first-child {
     margin-right: 50px;
+    .description {
+        cursor: default;
+    }
 }
 
 .title {
@@ -59,7 +64,7 @@
     &:after {
         content: '';
         display: block;
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid $footer-color;
         width: 0;
         height: 1px;
         position: absolute;

@@ -12,14 +12,17 @@
 .forgot-password {
     text-align: right;
     margin: 10px 0;
-    text-decoration: underline;
+    transition: all 0.3s;
+
+    &:hover {
+        color: $primary-color;
+    }
 }
 
 .btn-wrapper {
     text-align: center;
 }
 
-.by-email,
 .by-username {
     display: flex;
     flex-direction: column;
@@ -59,6 +62,11 @@
 .login-option span {
     cursor: pointer;
     font-weight: bold;
+    transition: all 0.3s;
+
+    &:hover {
+        color: $primary-color;
+    }
 }
 
 .register-now {

@@ -1,9 +1,18 @@
 $font-family: 'AvantGarde', 'Arial', sans-serif;
 
-$primary-color: rgb(246, 191, 236);
-$primary-background: linear-gradient(135deg, #ffd6ff, #f3c4fb, #f9b5d0, #ffdde1, #ffcee9, #fbc2eb);
+$primary-color: rgb(0 113 249);
+$primary-background: linear-gradient(135deg, #63aec7, #1869b9, #5b92e5, #3a8ba8, #729cb8);
 $primary-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-$btn-primary: #000;
+$btn-primary: #ffffff;
+$scroll-bar: #71c7ec;
+
+$footer-color: #fff;
+
+$dark-blue: #005073;
+$medium-blue: #107dac;
+$sky-blue: #189ad3;
+$light-cyan: #1ebbd7;
+$soft-blue: #71c7ec;
 
 @font-face {
     font-family: 'AvantGarde';
