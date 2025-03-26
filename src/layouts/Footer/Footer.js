@@ -19,28 +19,54 @@ function Footer() {
                 </div>
                 <div className={cx('content')}>
                     <div className={cx('title')}>Về chúng tôi</div>
-                    <div className={cx('description')}>Điều kiện & điều khoản</div>
-                    <div className={cx('description')}>Chính sách bảo mật</div>
-                    <div className={cx('description')}>Chính sách thanh toán</div>
+                    <div className={cx('description')}>
+                        <span>Điều kiện & điều khoản</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>Chính sách bảo mật</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>Chính sách thanh toán</span>
+                    </div>
                 </div>
                 <div className={cx('content')}>
                     <div className={cx('title')}>Chương trình học</div>
-                    <div className={cx('description')}>TOEIC Listening & Reading</div>
-                    <div className={cx('description')}>TOEIC Speaking & Writing</div>
-                    <div className={cx('description')}>TOEIC 4 Kĩ Năng</div>
+                    <div className={cx('description')}>
+                        <span>TOEIC Listening & Reading</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>TOEIC Speaking & Writing</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>TOEIC 4 Kĩ Năng</span>
+                    </div>
                 </div>
                 <div className={cx('content')}>
                     <div className={cx('title')}>Tính năng nổi bật</div>
-                    <div className={cx('description')}>Luyện đề TOEIC 4 kĩ năng</div>
-                    <div className={cx('description')}>Phòng luyện viết với AI</div>
-                    <div className={cx('description')}>Phòng luyện nói với AI</div>
+                    <div className={cx('description')}>
+                        <span>Luyện đề TOEIC 4 kĩ năng</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>Phòng luyện viết với AI</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>Phòng luyện nói với AI</span>
+                    </div>
                 </div>
                 <div className={cx('content')}>
                     <div className={cx('title')}>Kết nối với chúng tôi</div>
-                    <div className={cx('description')}>Số điện thoại</div>
-                    <div className={cx('description')}>Facebook</div>
-                    <div className={cx('description')}>Instagram</div>
-                    <div className={cx('description')}>Email</div>
+                    <div className={cx('description')}>
+                        <span>Số điện thoại</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>Facebook</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>Instagram</span>
+                    </div>
+                    <div className={cx('description')}>
+                        <span>Email</span>
+                    </div>
                 </div>
             </div>
             <div className={cx('copy-right')}>

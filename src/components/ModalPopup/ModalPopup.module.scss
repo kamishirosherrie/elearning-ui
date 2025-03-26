@@ -1,0 +1,28 @@
+.overlay {
+    background-color: rgba(48, 48, 48, 0.8);
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+}
+
+.wrapper {
+    width: 400px;
+    margin: 0 auto;
+    position: absolute;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    padding: 30px 40px;
+    font-size: 13px;
+}
+
+.close {
+    font-size: 20px;
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    cursor: pointer;
+    z-index: 999;
+}

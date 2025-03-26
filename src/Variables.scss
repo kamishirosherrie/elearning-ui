@@ -1,0 +1,18 @@
+$font-family: 'AvantGarde', 'Arial', sans-serif;
+
+$primary-color: rgb(246, 191, 236);
+$primary-background: linear-gradient(135deg, #ffd6ff, #f3c4fb, #f9b5d0, #ffdde1, #ffcee9, #fbc2eb);
+$primary-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$btn-primary: #000;
+
+@font-face {
+    font-family: 'AvantGarde';
+    src: url('/assets/fonts/Manrope-ExtraBold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'AvantGarde';
+    src: url('/assets/fonts/Manrope-SemiBold.ttf');
+    font-weight: normal;
+}

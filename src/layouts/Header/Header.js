@@ -9,21 +9,32 @@ import { routes } from '../../routes/route'
 import { getCourse } from '../../api/courseApi'
 import Login from '../../components/Login/Login'
 import Button from '../../components/Button/Button'
+import ModalPopup from '../../components/ModalPopup/ModalPopup'
+import Register from '../../components/Register/Register'
 
 const cx = classNames.bind(styles)
 
 function Header() {
     const { user } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
+    const [isLoginOpen, setIsLoginOpen] = useState(true)
     const [courses, setCourses] = useState([])
 
     const handleLogin = () => {
         setIsOpen(true)
-        console.log('clicked')
     }
 
     const closeModal = () => {
         setIsOpen(false)
+        setIsLoginOpen(true)
+    }
+
+    const handleClickRegister = () => {
+        setIsLoginOpen(false)
+    }
+
+    const handleClickLogin = () => {
+        setIsLoginOpen(true)
     }
 
     useEffect(() => {
@@ -104,7 +115,13 @@ function Header() {
                     </Button>
                 )}
             </div>
-            <Login isOpen={isOpen} closeModal={closeModal} setIsOpen={setIsOpen} />
+            <ModalPopup isOpen={isOpen} closeModal={closeModal}>
+                {isLoginOpen ? (
+                    <Login handleClickRegister={handleClickRegister} />
+                ) : (
+                    <Register handleClickLogin={handleClickLogin} />
+                )}
+            </ModalPopup>
         </div>
     )
 }

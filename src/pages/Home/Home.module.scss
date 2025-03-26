@@ -1,7 +1,9 @@
+@import '../../Variables.scss';
+
 @keyframes appear {
     from {
         opacity: 0;
-        scale: 0.4;
+        scale: 0.2;
     }
     to {
         opacity: 1;
@@ -15,9 +17,8 @@
 
 .banner {
     position: relative;
-    margin-top: 60px;
     height: 650px;
-    background: linear-gradient(135deg, #ffd6ff, #f3c4fb, #f9b5d0, #ffdde1, #ffcee9, #fbc2eb);
+    background: $primary-background;
     background-size: 400% 400%;
     animation: hologramMove 6s infinite linear;
     border-radius: 20px;
@@ -43,7 +44,7 @@
     // background-image: url('../../assets/images/study_banner.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    box-shadow: 0 0 10px #b1b1b1;
+    box-shadow: $primary-box-shadow;
     border-radius: 10px;
     top: 90px;
     right: 90px;
@@ -77,11 +78,17 @@
 .btn-primary {
     transition: all 0.3s ease-in-out;
     width: 168px;
+    &:hover {
+        transform: translateY(-5px);
+    }
 }
 
 .btn-outline {
     transition: all 0.3s ease-in-out;
     width: 168px;
+    &:hover {
+        transform: translateY(-5px);
+    }
 }
 
 .course {
@@ -212,6 +219,6 @@
 
     &:hover {
         transform: translateY(-15px);
-        box-shadow: 0 0 30px #4444445f;
+        box-shadow: $primary-box-shadow;
     }
 }

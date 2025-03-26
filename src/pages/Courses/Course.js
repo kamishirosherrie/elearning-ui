@@ -2,10 +2,10 @@ import { useParams } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Course.module.scss'
 
-import Header from '../../layouts/Header/Header'
 import ListLesson from '../../components/ListLesson/ListLesson'
 import { useEffect, useState } from 'react'
 import { getCourseBySlug } from '../../api/courseApi'
+import MainLayout from '../../layouts/MainLayout/MainLayout'
 
 const cx = classNames.bind(styles)
 
@@ -25,12 +25,13 @@ function Course() {
         getCourseInfo()
     }, [slug])
     return (
-        <div className={cx('wrapper')}>
-            {/* <Header /> */}
-            <h1>{course.title}</h1>
-            <span>{course.description}</span>
-            <ListLesson slug={slug} />
-        </div>
+        <MainLayout>
+            <div className={cx('wrapper')}>
+                <h1>{course.title}</h1>
+                <span>{course.description}</span>
+                <ListLesson slug={slug} />
+            </div>
+        </MainLayout>
     )
 }
 

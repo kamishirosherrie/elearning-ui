@@ -10,3 +10,5 @@ export const loginUser = async (user) => {
         throw error
     }
 }
+
+export const registerUser = async (user) => {}

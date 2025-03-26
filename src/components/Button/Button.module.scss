@@ -1,3 +1,5 @@
+@import '../../Variables.scss';
+
 .wrapper {
     border: none;
     cursor: pointer;
@@ -6,8 +8,8 @@
 
 .pink.hover:hover {
     background-color: unset;
-    border: 2px solid rgb(246, 191, 236);
-    color: rgb(246, 191, 236);
+    border: 2px solid $primary-color;
+    color: $primary-color;
 }
 
 .primary.hover:hover {
@@ -22,7 +24,7 @@
 }
 
 .pink {
-    background-color: rgb(246 191 236);
+    background-color: $primary-color;
     color: white;
     border-radius: 20px;
     font-weight: 700;
@@ -31,14 +33,21 @@
 
 .primary {
     color: white;
-    background-color: #000;
+    background-color: $btn-primary;
     border-radius: 20px;
     font-weight: 700;
     border: 2px solid #00000000;
 }
 
 .outline {
-    border: 2px solid #000;
+    border: 2px solid $btn-primary;
+    border-radius: 20px;
+    font-weight: 700;
+    background-color: unset;
+}
+
+.pinkOutline {
+    border: 2px solid $primary-color;
     border-radius: 20px;
     font-weight: 700;
     background-color: unset;
@@ -47,4 +56,12 @@
 .large {
     padding: 15px 40px;
     border-radius: 40px;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.shadow {
+    box-shadow: $primary-box-shadow;
 }
