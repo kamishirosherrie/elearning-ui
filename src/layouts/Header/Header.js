@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
 import AuthContext from '../../context/AuthContext'
-import { Logo, UserIcon } from '../../components/Icons/Icon'
+import { UserIcon } from '../../components/Icons/Icon'
 import { routes } from '../../routes/route'
 import { getCourse } from '../../api/courseApi'
 import Login from '../../components/Login/Login'
 import Button from '../../components/Button/Button'
 import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import Register from '../../components/Register/Register'
+import { image } from '../../assets/images/image'
 
 const cx = classNames.bind(styles)
 
@@ -49,7 +50,7 @@ function Header() {
     return (
         <div className={cx('wrapper')}>
             <a className={cx('logo-wrapper')} href="/">
-                <Logo className={cx('logo')} />
+                <img src={image.logo} alt="logo" />
             </a>
             <ul className={cx('menu-list')}>
                 <li className={cx('menu-item')}>

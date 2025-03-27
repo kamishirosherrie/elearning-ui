@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './Footer.module.scss'
-import { Logo } from '../../components/Icons/Icon'
+import { image } from '../../assets/images/image'
 
 const cx = classNames.bind(styles)
 
@@ -10,7 +10,7 @@ function Footer() {
             <div className={cx('container')}>
                 <div className={cx('content')}>
                     <div className={cx('logo')}>
-                        <Logo />
+                        <img src={image.logoWhite} alt="logo-text" />
                     </div>
                     <div className={cx('description')}>
                         <p>Công ty TNHH ...</p>

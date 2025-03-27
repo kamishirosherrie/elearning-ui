@@ -27,6 +27,6 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(194, 194, 194);
+    background: $scroll-bar;
     border-radius: 0.15625rem;
 }

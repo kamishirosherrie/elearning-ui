@@ -13,7 +13,6 @@ const Login = ({ handleClickRegister }) => {
     const { login } = useContext(AuthContext)
     const navigate = useNavigate()
     const [user, setUser] = useState({})
-    const [click, setClick] = useState(false)
     const [isActive, setIsActive] = useState({
         input: false,
         passWord: false,
@@ -30,11 +29,6 @@ const Login = ({ handleClickRegister }) => {
 
     const handleBlur = (field) => {
         setIsActive((prev) => ({ ...prev, [field]: false }))
-    }
-
-    const handleChangeOption = () => {
-        setClick((prev) => !prev)
-        setUser({})
     }
 
     const handleSubmit = async (e) => {

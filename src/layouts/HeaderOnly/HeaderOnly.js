@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames/bind'
 import styles from './HeaderOnly.module.scss'
 import AuthContext from '../../context/AuthContext'
-import { Logo, UserIcon } from '../../components/Icons/Icon'
-import { routes } from '../../routes/route'
-import { getCourse } from '../../api/courseApi'
+import { UserIcon } from '../../components/Icons/Icon'
 import Login from '../../components/Login/Login'
 import Button from '../../components/Button/Button'
 import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import Register from '../../components/Register/Register'
+import { image } from '../../assets/images/image'
 
 const cx = classNames.bind(styles)
 
@@ -18,7 +17,6 @@ function HeaderOnly() {
     const { user } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
-    const [courses, setCourses] = useState([])
 
     const handleLogin = () => {
         setIsOpen(true)
@@ -37,19 +35,10 @@ function HeaderOnly() {
         setIsLoginOpen(true)
     }
 
-    useEffect(() => {
-        const getCourses = async () => {
-            const response = await getCourse()
-            setCourses(response.courses)
-        }
-
-        getCourses()
-    }, [])
-
     return (
         <div className={cx('wrapper')}>
             <a className={cx('logo-wrapper')} href="/">
-                <Logo className={cx('logo')} />
+                <img src={image.logo} alt="logo" />
             </a>
 
             <div className={cx('button')}>
