@@ -59,6 +59,12 @@
     margin-top: 10px;
 }
 
+.login-option {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .login-option span {
     cursor: pointer;
     font-weight: bold;

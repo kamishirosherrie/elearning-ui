@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,10 +11,13 @@ import MainLayout from '../../layouts/MainLayout/MainLayout'
 import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import Register from '../../components/Register/Register'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import AuthContext from '../../context/AuthContext'
+import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
 
 function Home() {
+    const { user } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
     const [courses, setCourse] = useState([])
@@ -54,7 +57,7 @@ function Home() {
         }
 
         getAllCourse()
-    }, [])
+    }, [user])
 
     useEffect(() => {
         const currentElem = ref.current
@@ -88,9 +91,17 @@ function Home() {
                             Luyện tập mọi kỹ năng với bài tập phong phú, phù hợp với mọi trình độ.
                         </div>
                         <div className={cx('button-group')}>
-                            <Button primary hover large className={cx('btn-primary')} onClick={handleStartNow}>
-                                Bắt đầu ngay
-                            </Button>
+                            {user ? (
+                                <Link to={routes.myCourse}>
+                                    <Button primary hover large className={cx('btn-primary')}>
+                                        Bắt đầu ngay
+                                    </Button>
+                                </Link>
+                            ) : (
+                                <Button primary hover large className={cx('btn-primary')} onClick={handleStartNow}>
+                                    Bắt đầu ngay
+                                </Button>
+                            )}
                             <Button outline hover large className={cx('btn-outline')} onClick={handleExplore}>
                                 Khám phá
                             </Button>
@@ -130,9 +141,17 @@ function Home() {
                             Học ngoại ngữ thật dễ dàng với lộ trình Học & Luyện Thi toàn diện, được cá nhân hóa riêng
                             biệt.
                         </p>
-                        <Button hover blue className={cx('course-button')} onClick={handleStartNow}>
-                            Học ngay
-                        </Button>
+                        {user ? (
+                            <Link to={routes.myCourse} className={cx('btn-link')}>
+                                <Button hover blue className={cx('course-button')}>
+                                    Học ngay
+                                </Button>
+                            </Link>
+                        ) : (
+                            <Button hover blue className={cx('course-button')} onClick={handleStartNow}>
+                                Học ngay
+                            </Button>
+                        )}
                     </div>
                     <div className={cx('course-list')}>
                         {courses.map((item, index) => (

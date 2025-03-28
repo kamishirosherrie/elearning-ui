@@ -1,13 +1,14 @@
 @import '../../../Variables.scss';
 
-.title {
-    margin-bottom: 15px;
+.column {
+    display: flex;
+    gap: 50px;
 }
 
 .info {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
 }
 
 .info-item {
@@ -24,6 +25,10 @@
     font-family: $font-family;
     border: none;
     outline: none;
-    border-bottom: 1px solid $secondary-color;
+    border-bottom: 1px solid #000;
     padding: 10px 0;
+}
+
+.btn-save {
+    margin-top: 20px;
 }

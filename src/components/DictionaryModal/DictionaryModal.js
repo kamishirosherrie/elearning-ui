@@ -10,19 +10,6 @@ function Dictionary({ word, className }) {
     const [define, setDefine] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
-    const defineWord = async () => {
-        try {
-            setIsLoading(true)
-            const response = await getWord(word)
-            setDefine(response.data[0])
-            console.log(response.data[0])
-        } catch (error) {
-            console.log('Get word from Dictionary failed: ', error)
-        } finally {
-            setIsLoading(false)
-        }
-    }
-
     const handleOnClickAudio = (event) => {
         event.stopPropagation()
         const audioUrl = define?.phonetics[0]?.audio
@@ -35,10 +22,23 @@ function Dictionary({ word, className }) {
     }
 
     useEffect(() => {
+        const defineWord = async () => {
+            try {
+                setIsLoading(true)
+                const response = await getWord(word)
+                setDefine(response.data[0])
+                console.log(response.data[0])
+            } catch (error) {
+                console.log('Get word from Dictionary failed: ', error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
         if (word) {
             defineWord()
         }
-    }, [word])
+    }, [define, word])
     return (
         <div className={className}>
             {isLoading ? (

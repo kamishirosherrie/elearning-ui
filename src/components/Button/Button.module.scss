@@ -4,6 +4,8 @@
     border: none;
     cursor: pointer;
     padding: 10px 20px;
+    font-family: $font-family;
+    font-size: 14px;
 }
 
 .blue.hover:hover {
@@ -64,8 +66,17 @@
 }
 
 .large {
-    padding: 15px 40px;
+    padding: 12px 30px;
     border-radius: 40px;
+}
+
+.normal {
+    color: #000;
+    outline: none;
+    border: none;
+    padding: 0;
+    background-color: unset;
+    font-weight: 700;
 }
 
 .fullWidth {

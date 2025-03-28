@@ -1,7 +1,12 @@
-import './ScrollTop.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import classNames from 'classnames/bind'
+import styles from './ScrollToTopButton.module.scss'
 
-function ScrollTop() {
+const cx = classNames.bind(styles)
+
+function ScrollToTopButton() {
+    const [active, setActive] = useState(false)
+
     const handleOnClick = () => {
         if (window.scrollY > window.innerHeight / 3) {
         }
@@ -13,11 +18,10 @@ function ScrollTop() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollButton = document.querySelector('.scroll-top')
             if (window.pageYOffset > window.innerHeight / 3) {
-                scrollButton.classList.add('active')
+                setActive(true)
             } else {
-                scrollButton.classList.remove('active')
+                setActive(false)
             }
         }
 
@@ -29,10 +33,10 @@ function ScrollTop() {
     }, [])
 
     return (
-        <div className="scroll-top" onClick={handleOnClick}>
+        <div className={cx('scroll-top', { active })} onClick={handleOnClick}>
             <span>^</span>
         </div>
     )
 }
 
-export default ScrollTop
+export default ScrollToTopButton

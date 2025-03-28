@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './LessonDetail.module.scss'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { getLessonBySlug } from '../../api/lessonApi'
 
 const cx = classNames.bind(styles)

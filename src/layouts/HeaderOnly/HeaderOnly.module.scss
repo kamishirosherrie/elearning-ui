@@ -4,18 +4,24 @@
     position: fixed;
     top: 0;
     width: 100%;
+    height: 85px;
     display: flex;
     padding: 10px 50px;
     justify-content: space-between;
     letter-spacing: 0.5px;
     background-color: #fff;
     // box-shadow: 0 0 30px #666666;
-    border-bottom: 1px solid $secondary-color;
+    border-bottom: 1px solid #000;
     z-index: 999;
 }
 
 .logo-wrapper {
     display: flex;
+
+    img {
+        width: 200px;
+        height: 65px;
+    }
 }
 
 .logo {
@@ -28,7 +34,17 @@
     align-content: center;
     text-align: right;
 }
+
 .user-icon {
     display: flex;
-    justify-content: right;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: $primary-color;
+}
+
+.icon {
+    color: $primary-color;
+    width: 20px;
+    height: 20px;
 }

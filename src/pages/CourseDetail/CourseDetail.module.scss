@@ -1,0 +1,64 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 50px;
+    padding: 20px 100px;
+}
+
+.column:first-child {
+    width: 60%;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.intro-item {
+    margin: 10px 0;
+}
+
+.intro-item > p,
+.content > p {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.intro-item:last-child span {
+    display: flex;
+    counter-increment: counter;
+
+    &::before {
+        content: counter(counter);
+        margin-right: 12px;
+        font-weight: bold;
+    }
+}
+
+.content-info {
+    display: flex;
+    gap: 10px;
+}
+
+.chapter-title {
+    cursor: pointer;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    &.active {
+        .collapsible {
+            display: block;
+        }
+    }
+}
+
+.collapsible {
+    display: none;
+}

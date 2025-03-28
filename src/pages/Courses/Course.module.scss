@@ -1,0 +1,61 @@
+@import '../../Variables.scss';
+
+.wrapper {
+    padding: 20px 100px;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.course-list {
+    display: flex;
+    position: relative;
+    // justify-content: right;
+    // padding-left: 50px;
+    width: 60%;
+    // top: 100px;
+    gap: 30px;
+}
+
+.course-item {
+    width: calc(100% / 3);
+    height: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    background-color: $primary-color;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: -10px 15px 50px -20px $primary-color;
+    cursor: default;
+
+    &:hover {
+        box-shadow: -10px 15px 50px -20px #0000008f;
+    }
+}
+
+.course-title {
+    font-size: 35px;
+}
+
+.course-icon {
+    transform: rotate(-90deg);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #fff;
+        color: $primary-color;
+    }
+}

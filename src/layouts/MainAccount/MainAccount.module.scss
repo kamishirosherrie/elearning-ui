@@ -1,11 +1,17 @@
+@import '../../Variables.scss';
 .container {
     display: flex;
     gap: 5%;
     position: relative;
-    top: 60px;
+    top: 85px;
     font-size: 14px;
 }
 
 .content {
     width: 80%;
+}
+
+.title {
+    margin-bottom: 15px;
+    color: $primary-color;
 }

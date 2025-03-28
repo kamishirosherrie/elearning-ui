@@ -11,4 +11,14 @@ export const loginUser = async (user) => {
     }
 }
 
+export const loginWithGoogle = async (user) => {
+    try {
+        const response = await axios.post(apiUrl.authUrl.loginWithGoogle, user)
+        return response.data
+    } catch (error) {
+        console.log('Login failed: ', error.message)
+        throw error
+    }
+}
+
 export const registerUser = async (user) => {}

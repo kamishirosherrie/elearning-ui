@@ -21,6 +21,18 @@ export const getUserByUserName = async (userName) => {
     }
 }
 
+export const getGoogleUserInfo = async (token) => {
+    try {
+        const response = await axios.get(apiUrl.googleUrl.getGoogleUserInfo({
+            headers:
+        }))
+        return response.data
+    } catch (error) {
+        console.log('Get user info failed: ', error)
+        throw error
+    }
+}
+
 export const addNewUser = async (user) => {
     try {
         const response = await axios.post(apiUrl.userUrl.addUser, user)

@@ -3,7 +3,7 @@ import styles from './MainLayout.module.scss'
 
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import ScrollTop from '../../components/ScrollTop/ScrollTop'
+import ScrollToTopButton from '../../components/ScrollToTopButton/ScrollToTopButton'
 
 const cx = classNames.bind(styles)
 
@@ -13,7 +13,7 @@ function MainLayout({ children }) {
             <Header />
             <div className={cx('children')}>{children}</div>
             <Footer />
-            <ScrollTop />
+            <ScrollToTopButton />
         </div>
     )
 }

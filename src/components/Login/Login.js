@@ -6,6 +6,7 @@ import styles from './Login.module.scss'
 import AuthContext from '../../context/AuthContext'
 import { loginUser } from '../../api/authApi'
 import Button from '../Button/Button'
+import GoogleLogin from '../SocialLogin/GoogleLogin/GoogleLogin'
 
 const cx = classNames.bind(styles)
 
@@ -36,7 +37,7 @@ const Login = ({ handleClickRegister }) => {
             e.preventDefault()
             if (user.identifier && user.passWord) {
                 const response = await loginUser(user)
-                login({ ...response })
+                login({ ...response.user })
                 navigate('/student/my-account')
             } else {
                 alert('Please enter username and password')
@@ -90,7 +91,11 @@ const Login = ({ handleClickRegister }) => {
                 </form>
                 <div className={cx('login-bottom')}>
                     <div className={cx('login-option')}>
-                        Hoặc đăng nhập với <span>Google</span> / <span>Facebook</span>
+                        Hoặc đăng nhập với{' '}
+                        <span>
+                            <GoogleLogin />
+                        </span>{' '}
+                        / <span>Facebook</span>
                     </div>
                     <div className={cx('register')}>
                         <span>Bạn chưa có tài khoản? </span>

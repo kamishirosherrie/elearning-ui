@@ -95,7 +95,7 @@ function Quizze() {
         })
         setTotalScore(score)
 
-        await addNewSubmit({ quizzeId: quizze._id, score, userId: user.user._id })
+        await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
     }
 
     return (

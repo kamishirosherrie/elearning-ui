@@ -2,6 +2,9 @@ import classNames from 'classnames/bind'
 import styles from './MyCourse.module.scss'
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
 import { useState } from 'react'
+import Button from '../../../components/Button/Button'
+import { Link } from 'react-router-dom'
+import { routes } from '../../../routes/route'
 
 const cx = classNames.bind(styles)
 
@@ -9,8 +12,7 @@ function MyCourse() {
     const [course, setCourse] = useState([])
     return (
         <div className={cx('wrapper')}>
-            <MainAccount>
-                <h1>Các khoá học của tôi</h1>
+            <MainAccount title="Các khoá học của tôi">
                 <div className={cx('course-list')}>
                     {course.length !== 0 ? (
                         course.map((item, index) => (
@@ -28,7 +30,12 @@ function MyCourse() {
                             </div>
                         ))
                     ) : (
-                        <span>Bạn chưa tham gia khoá học nào</span>
+                        <div className={cx('no-course')}>
+                            <span>Bạn chưa tham gia khoá học nào</span>
+                            <Link to={routes.course}>
+                                <Button normal>Nhấn vào đây để bắt đầu học</Button>
+                            </Link>
+                        </div>
                     )}
                 </div>
             </MainAccount>

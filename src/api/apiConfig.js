@@ -1,8 +1,11 @@
-const API_BASE_URL = 'http://localhost:8017'
+import { env } from '../config/environment'
+
+const API_BASE_URL = env.backEndUrl
 
 const apiUrl = {
     authUrl: {
         login: `${API_BASE_URL}/auth/login`,
+        loginWithGoogle: `${API_BASE_URL}/auth/login/google`,
         register: `${API_BASE_URL}/auth/register`,
     },
     roleUrl: {
@@ -48,6 +51,7 @@ const apiUrl = {
     dictionaryUrl: {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
     },
+    googleUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
 }
 
 export { API_BASE_URL, apiUrl }

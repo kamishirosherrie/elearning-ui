@@ -18,7 +18,7 @@ function Sidebar() {
             <div className={cx('navbar')}>
                 <div className={cx('navbar-item')}>
                     <Link to="#" className={cx('navbar-link')}>
-                        Xin chào Dương Hằng!
+                        Xin chào {user.fullName}!
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>

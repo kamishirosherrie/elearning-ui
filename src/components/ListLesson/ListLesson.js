@@ -7,7 +7,7 @@ import { getLessonByCourseSlug } from '../../api/lessonApi'
 
 const cx = classNames.bind(styles)
 
-function ListLesson({ slug }) {
+function ListLesson({ slug, subscribe }) {
     const [lessons, setLessons] = useState([])
     const [courseSlug, setCourseSlug] = useState('')
 
@@ -29,12 +29,15 @@ function ListLesson({ slug }) {
         <div className={cx('wrapper')}>
             {lessons.map((item, index) => (
                 <div key={index} className={cx('lesson')}>
-                    <h1>
+                    <div className={cx('lesson-name')}>
                         Bài {index + 1} - {item.title}
-                    </h1>
-                    <Link className={cx('learn-now')} to={`/${courseSlug}/${item.slug}`}>
-                        Học ngay
-                    </Link>
+                    </div>
+
+                    {subscribe ? (
+                        <Link className={cx('learn-now')} to={`/${courseSlug}/${item.slug}`}>
+                            Học ngay
+                        </Link>
+                    ) : null}
                 </div>
             ))}
         </div>

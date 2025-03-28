@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './HeaderOnly.module.scss'
 import AuthContext from '../../context/AuthContext'
-import { UserIcon } from '../../components/Icons/Icon'
 import Login from '../../components/Login/Login'
 import Button from '../../components/Button/Button'
 import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import Register from '../../components/Register/Register'
 import { image } from '../../assets/images/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const cx = classNames.bind(styles)
 
@@ -45,8 +46,8 @@ function HeaderOnly() {
                 {user ? (
                     <div className={cx('user')}>
                         <Link to="/student/my-account" className={cx('user-icon')}>
-                            <UserIcon width={19} height={19} />
-                            <span>{user.user.fullName}</span>
+                            <FontAwesomeIcon icon={faUser} className={cx('icon')} />
+                            <span>{user.fullName}</span>
                         </Link>
                     </div>
                 ) : (
