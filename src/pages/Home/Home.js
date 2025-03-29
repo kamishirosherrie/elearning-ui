@@ -168,9 +168,9 @@ function Home() {
             </MainLayout>
             <ModalPopup isOpen={isOpen} closeModal={closeModal}>
                 {isLoginOpen ? (
-                    <Login handleClickRegister={handleClickRegister} />
+                    <Login handleClickRegister={handleClickRegister} redirect={true} />
                 ) : (
-                    <Register handleClickLogin={handleClickLogin} />
+                    <Register handleClickLogin={handleClickLogin} redirect={true} />
                 )}
             </ModalPopup>
         </div>

@@ -1,21 +1,50 @@
 import classNames from 'classnames/bind'
 import styles from './CourseDetail.module.scss'
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { getCourseBySlug } from '../../api/courseApi'
 import ListLesson from '../../components/ListLesson/ListLesson'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
 import Button from '../../components/Button/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import AuthContext from '../../context/AuthContext'
+import ModalPopup from '../../components/ModalPopup/ModalPopup'
+import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import Login from '../../components/Login/Login'
+import Register from '../../components/Register/Register'
+import Checkout from '../../components/Checkout/Checkout'
 
 const cx = classNames.bind(styles)
 
 function CourseDetail() {
     const slug = useParams().courseName
-    const [course, setCourse] = useState({})
-    const [active, setActive] = useState(false)
+    const { user } = useContext(AuthContext)
 
-    const handleClickChapter = () => {
-        setActive((prev) => !prev)
+    const [course, setCourse] = useState({})
+    const [active, setActive] = useState({})
+    const [isOpen, setIsOpen] = useState(false)
+    const [isLoginOpen, setIsLoginOpen] = useState(true)
+
+    const handleClickChapter = (index) => {
+        setActive((prev) => ({ ...prev, [index]: !prev[index] }))
+    }
+
+    const handleClick = () => {
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsOpen(false)
+        setIsLoginOpen(true)
+    }
+
+    const handleClickRegister = () => {
+        setIsLoginOpen(false)
+    }
+
+    const handleClickLogin = () => {
+        setIsLoginOpen(true)
     }
 
     useEffect(() => {
@@ -60,20 +89,81 @@ function CourseDetail() {
                         </div>
                     </div>
                     <div className={cx('chapter')}>
-                        <div className={cx('chapter-title', { active })} onClick={handleClickChapter}>
-                            Chương 1
+                        <div
+                            className={cx('chapter-title', { active: active[1] })}
+                            onClick={() => handleClickChapter(1)}
+                        >
+                            <div className={cx('heading')}>
+                                Chương 1: Khái niệm cần biết
+                                <span>
+                                    {active[1] ? (
+                                        <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
+                                    )}
+                                </span>
+                            </div>
                             <div className={cx('collapsible')}>
                                 <ListLesson slug={slug} />
                             </div>
                         </div>
+                        <div
+                            className={cx('chapter-title', { active: active[2] })}
+                            onClick={() => handleClickChapter(2)}
+                        >
+                            <div className={cx('heading')}>
+                                Chương 1: Khái niệm cần biết
+                                <span>
+                                    {active[2] ? (
+                                        <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
+                                    )}
+                                </span>
+                            </div>
+                            <div className={cx('collapsible')}>
+                                <ListLesson slug={slug} />
+                            </div>
+                        </div>
+                        <div
+                            className={cx('chapter-title', { active: active[3] })}
+                            onClick={() => handleClickChapter(3)}
+                        >
+                            <div className={cx('heading')}>
+                                Chương 1: Khái niệm cần biết
+                                <span>
+                                    {active[3] ? (
+                                        <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
+                                    )}
+                                </span>
+                            </div>
+                            <div className={cx('collapsible')}>
+                                <ListLesson slug={slug} />
+                            </div>
+                        </div>{' '}
                     </div>
                 </div>
                 <div className={cx('column')}>
+                    <span className={cx('img')}></span>
                     <span className={cx('price')}>1.200.000đ</span>
-                    <Button blue>Đăng ký học</Button>
+                    <Button blue onClick={handleClick}>
+                        Đăng ký học
+                    </Button>
                     <span>Học mọi lúc, mọi nơi</span>
                 </div>
             </div>
+            <ModalPopup isOpen={isOpen} closeModal={closeModal}>
+                {user ? (
+                    <Checkout course={course} />
+                ) : isLoginOpen ? (
+                    <Login handleClickRegister={handleClickRegister} redirect={false} />
+                ) : (
+                    <Register handleClickLogin={handleClickLogin} redirect={false} />
+                )}
+            </ModalPopup>
+            <ScrollToTop />
         </MainLayout>
     )
 }

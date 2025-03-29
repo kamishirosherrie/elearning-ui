@@ -7,10 +7,12 @@ import AuthContext from '../../context/AuthContext'
 import { loginUser } from '../../api/authApi'
 import Button from '../Button/Button'
 import GoogleLogin from '../SocialLogin/GoogleLogin/GoogleLogin'
+import FacebookLogin from '../SocialLogin/FacebookLogin/FacebookLogin'
+import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
 
-const Login = ({ handleClickRegister }) => {
+const Login = ({ handleClickRegister, redirect }) => {
     const { login } = useContext(AuthContext)
     const navigate = useNavigate()
     const [user, setUser] = useState({})
@@ -38,7 +40,7 @@ const Login = ({ handleClickRegister }) => {
             if (user.identifier && user.passWord) {
                 const response = await loginUser(user)
                 login({ ...response.user })
-                navigate('/student/my-account')
+                if (redirect) navigate(routes.myAccount)
             } else {
                 alert('Please enter username and password')
             }
@@ -93,9 +95,12 @@ const Login = ({ handleClickRegister }) => {
                     <div className={cx('login-option')}>
                         Hoặc đăng nhập với{' '}
                         <span>
-                            <GoogleLogin />
+                            <GoogleLogin redirect={redirect} />
                         </span>{' '}
-                        / <span>Facebook</span>
+                        /{' '}
+                        <span>
+                            <FacebookLogin redirect={redirect} />
+                        </span>
                     </div>
                     <div className={cx('register')}>
                         <span>Bạn chưa có tài khoản? </span>

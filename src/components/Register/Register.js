@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 
-function Register({ handleClickLogin }) {
+function Register({ handleClickLogin, required }) {
     const [user, setUser] = useState({})
 
     const handleChangeGender = (e) => {}

@@ -11,9 +11,9 @@ export const loginUser = async (user) => {
     }
 }
 
-export const loginWithGoogle = async (user) => {
+export const socialLogin = async (user) => {
     try {
-        const response = await axios.post(apiUrl.authUrl.loginWithGoogle, user)
+        const response = await axios.post(apiUrl.authUrl.socialLogin, user)
         return response.data
     } catch (error) {
         console.log('Login failed: ', error.message)

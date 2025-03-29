@@ -5,7 +5,7 @@ const API_BASE_URL = env.backEndUrl
 const apiUrl = {
     authUrl: {
         login: `${API_BASE_URL}/auth/login`,
-        loginWithGoogle: `${API_BASE_URL}/auth/login/google`,
+        socialLogin: `${API_BASE_URL}/auth/login/social`,
         register: `${API_BASE_URL}/auth/register`,
     },
     roleUrl: {
@@ -52,6 +52,9 @@ const apiUrl = {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
     },
     googleUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
+    facebookUrl: {
+        getUserInfo: (accessToken) => `https://graph.facebook.com/me?access_token=${accessToken}&fields=id,name,email`,
+    },
 }
 
 export { API_BASE_URL, apiUrl }

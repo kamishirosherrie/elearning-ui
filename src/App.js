@@ -22,7 +22,8 @@ function App() {
                     <Route path={routes.myCourse} element={user ? <MyCourse /> : <Navigate to="/" />} />
                     <Route path={routes.changePassword} element={user ? <ChangePassword /> : <Navigate to="/" />} />
                     <Route path={routes.course} element={<Course />} />
-                    <Route path="/course/:courseName" element={<CourseDetail />} />
+
+                    <Route path={routes.courseDetail} element={<CourseDetail />} />
                     <Route path="/:courseName/:lessonName" element={<Lesson />} />
                     <Route path="/lesson/quizze/:quizzeSlug" element={<Quizze />} />
 
