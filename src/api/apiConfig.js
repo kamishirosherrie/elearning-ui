@@ -21,6 +21,7 @@ const apiUrl = {
         getCourse: '/course',
         getCourseBySlug: (slug) => `/course/slug/${slug}`,
         addNewCourse: '/course/addCourse',
+        getCourseEnrollment: '/course/getCourse/enrollment',
         addCourseEnrollment: '/course/addCourse/enrollment',
         updateCourse: '/course/updateCourse',
         deleteCourse: (id) => `/course/deleteCourse/${id}`,

@@ -21,6 +21,21 @@ export const getCourseBySlug = async (slug) => {
     }
 }
 
+export const getCourseEnrollment = async (data) => {
+    try {
+        const response = await axiosInstance.get(apiUrl.courseUrl.getCourseEnrollment, {
+            params: {
+                courseId: data.courseId,
+                userId: data.userId,
+            },
+        })
+        return response.data
+    } catch (error) {
+        console.log('Get course enrollment failed: ', error)
+        throw error
+    }
+}
+
 export const addNewCourse = async (course) => {
     try {
         const response = await axiosInstance.post(apiUrl.courseUrl.addNewCourse, course)

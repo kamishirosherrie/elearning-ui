@@ -1,27 +1,31 @@
 import classNames from 'classnames/bind'
 import styles from './CourseDetail.module.scss'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
-import { getCourseBySlug } from '../../api/courseApi'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+
+import { getCourseBySlug, getCourseEnrollment } from '../../api/courseApi'
 import ListLesson from '../../components/ListLesson/ListLesson'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
 import Button from '../../components/Button/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import AuthContext from '../../context/AuthContext'
 import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import Login from '../../components/Login/Login'
 import Register from '../../components/Register/Register'
 import Checkout from '../../components/Checkout/Checkout'
+import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
 
 function CourseDetail() {
     const slug = useParams().courseName
+    const navigate = useNavigate()
     const { user } = useContext(AuthContext)
 
     const [course, setCourse] = useState({})
+    const [isEnrolled, setIsEnrolled] = useState(false)
     const [active, setActive] = useState({})
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
@@ -32,6 +36,10 @@ function CourseDetail() {
 
     const handleClick = () => {
         setIsOpen(true)
+    }
+
+    const handleStartNow = () => {
+        navigate(routes.myCourse)
     }
 
     const closeModal = () => {
@@ -51,11 +59,20 @@ function CourseDetail() {
         const getCourseInfo = async () => {
             const response = await getCourseBySlug(slug)
             setCourse(response)
-        }
-        console.log(slug)
 
+            if (course._id && user._id) {
+                try {
+                    const response = await getCourseEnrollment({ courseId: course._id, userId: user._id })
+                    if (response.courseEnrollment) {
+                        setIsEnrolled(true)
+                    }
+                } catch (error) {
+                    console.log('Get course enrollment failed: ', error)
+                }
+            }
+        }
         getCourseInfo()
-    }, [slug])
+    }, [slug, course._id, user._id])
 
     return (
         <MainLayout>
@@ -148,9 +165,15 @@ function CourseDetail() {
                 <div className={cx('column')}>
                     <span className={cx('img')}></span>
                     <span className={cx('price')}>1.200.000VNĐ</span>
-                    <Button blue onClick={handleClick}>
-                        Đăng ký học
-                    </Button>
+                    {isEnrolled ? (
+                        <Button blue onClick={handleStartNow}>
+                            Học ngay
+                        </Button>
+                    ) : (
+                        <Button blue onClick={handleClick}>
+                            Đăng ký học
+                        </Button>
+                    )}
                     <span>Học mọi lúc, mọi nơi</span>
                 </div>
             </div>

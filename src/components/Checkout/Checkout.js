@@ -28,7 +28,8 @@ function Checkout({ course }) {
             console.log(response)
             alert('Đăng ký thành công!')
         } catch (error) {
-            console.log('Subscribe failed: ', error)
+            alert(error.response.data.message)
+            console.log('Subcreibe course failed: ', error.response.data.message)
         }
     }
     return (
