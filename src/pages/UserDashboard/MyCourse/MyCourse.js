@@ -39,7 +39,7 @@ function MyCourse() {
                                     </div>
                                 </div>
                                 <div className={cx('course-action')}>
-                                    <button className={cx('btn')}>Xem khoá học</button>
+                                    <Button blue>Xem khóa học</Button>
                                 </div>
                             </div>
                         ))

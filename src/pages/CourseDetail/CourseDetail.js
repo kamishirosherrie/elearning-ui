@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './CourseDetail.module.scss'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -16,6 +16,7 @@ import Login from '../../components/Login/Login'
 import Register from '../../components/Register/Register'
 import Checkout from '../../components/Checkout/Checkout'
 import { routes } from '../../routes/route'
+import { getLessonByCourseSlug } from '../../api/lessonApi'
 
 const cx = classNames.bind(styles)
 
@@ -25,6 +26,7 @@ function CourseDetail() {
     const { user } = useContext(AuthContext)
 
     const [course, setCourse] = useState({})
+    const [firstLesson, setFirstLesson] = useState({})
     const [isEnrolled, setIsEnrolled] = useState(false)
     const [active, setActive] = useState({})
     const [isOpen, setIsOpen] = useState(false)
@@ -60,11 +62,17 @@ function CourseDetail() {
             const response = await getCourseBySlug(slug)
             setCourse(response)
 
-            if (course._id && user._id) {
+            if (user && course._id) {
                 try {
-                    const response = await getCourseEnrollment({ courseId: course._id, userId: user._id })
-                    if (response.courseEnrollment) {
+                    const enrollment = await getCourseEnrollment({ courseId: course._id, userId: user._id })
+                    const lesson = await getLessonByCourseSlug(slug)
+
+                    if (enrollment.courseEnrollment) {
                         setIsEnrolled(true)
+                    }
+
+                    if (lesson && lesson.lessons.length > 0) {
+                        setFirstLesson(lesson.lessons[0])
                     }
                 } catch (error) {
                     console.log('Get course enrollment failed: ', error)
@@ -72,7 +80,7 @@ function CourseDetail() {
             }
         }
         getCourseInfo()
-    }, [slug, course._id, user._id])
+    }, [slug, course._id, user])
 
     return (
         <MainLayout>
@@ -166,9 +174,11 @@ function CourseDetail() {
                     <span className={cx('img')}></span>
                     <span className={cx('price')}>1.200.000VNĐ</span>
                     {isEnrolled ? (
-                        <Button blue onClick={handleStartNow}>
-                            Học ngay
-                        </Button>
+                        <Link to={`/course/${slug}/${firstLesson.slug}`}>
+                            <Button blue onClick={handleStartNow}>
+                                Học ngay
+                            </Button>
+                        </Link>
                     ) : (
                         <Button blue onClick={handleClick}>
                             Đăng ký học

@@ -10,6 +10,7 @@ import ChangePassword from './pages/UserDashboard/ChangePassword/ChangePassword'
 import MyCourse from './pages/UserDashboard/MyCourse/MyCourse'
 import { routes } from './routes/route'
 import CourseDetail from './pages/CourseDetail/CourseDetail'
+import Study from './pages/Study/Study'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -21,8 +22,9 @@ function App() {
                     <Route path={routes.myAccount} element={user ? <MyAccount /> : <Navigate to="/" />} />
                     <Route path={routes.myCourse} element={user ? <MyCourse /> : <Navigate to="/" />} />
                     <Route path={routes.changePassword} element={user ? <ChangePassword /> : <Navigate to="/" />} />
-                    <Route path={routes.course} element={<Course />} />
+                    <Route path={routes.study} element={user ? <Study /> : <Navigate to="/" />} />
 
+                    <Route path={routes.course} element={<Course />} />
                     <Route path={routes.courseDetail} element={<CourseDetail />} />
                     <Route path="/:courseName/:lessonName" element={<Lesson />} />
                     <Route path="/lesson/quizze/:quizzeSlug" element={<Quizze />} />

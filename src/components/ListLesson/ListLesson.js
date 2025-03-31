@@ -17,8 +17,6 @@ function ListLesson({ slug, subscribe }) {
                 const response = await getLessonByCourseSlug(slug)
                 setLessons((prev) => [...prev, ...response.lessons])
                 setCourseSlug(response.courseSlug)
-                console.log('Course slug:', response.courseSlug)
-                console.log('Lessons:', response.lessons)
             } catch (error) {
                 console.log('Error:', error)
             }

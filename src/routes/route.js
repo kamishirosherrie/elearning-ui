@@ -5,6 +5,7 @@ const routes = {
     changePassword: '/student/change-password',
     course: '/course',
     courseDetail: '/course/:courseName',
+    study: '/course/:courseName/:lessonName',
 }
 
 export { routes }

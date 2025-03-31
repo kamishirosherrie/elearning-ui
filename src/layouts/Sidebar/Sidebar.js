@@ -6,6 +6,7 @@ import AuthContext from '../../context/AuthContext'
 import classNames from 'classnames/bind'
 import styles from './Sidebar.module.scss'
 import { logoutUser } from '../../api/authApi'
+import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
 
@@ -29,19 +30,19 @@ function Sidebar() {
                 </div>
                 <div className={cx('navbar-item')}>
                     <UserSecurityIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="/student/my-account" className={cx('navbar-link')}>
+                    <Link to={routes.myAccount} className={cx('navbar-link')}>
                         Tài khoản của tôi
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
                     <UserSecurityIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="/student/my-course" className={cx('navbar-link')}>
+                    <Link to={routes.myCourse} className={cx('navbar-link')}>
                         Khoá học của tôi
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
                     <LockIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="/student/change-password" className={cx('navbar-link')}>
+                    <Link to={routes.changePassword} className={cx('navbar-link')}>
                         Mật khẩu
                     </Link>
                 </div>

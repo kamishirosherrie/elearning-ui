@@ -106,7 +106,7 @@ function Header() {
             <div className={cx('button')}>
                 {user ? (
                     <div className={cx('user')}>
-                        <Link to="/student/my-account" className={cx('user-icon')}>
+                        <Link to={routes.myAccount} className={cx('user-icon')}>
                             <FontAwesomeIcon icon={faUser} className={cx('icon')} />
                             <span>{user.fullName}</span>
                         </Link>
