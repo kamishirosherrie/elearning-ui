@@ -8,7 +8,7 @@ import { routes } from '../../../routes/route'
 import { getGoogleUserInfo } from '../../../api/socialAuthApi'
 import { env } from '../../../config/environment'
 
-function GoogleLogin({ redirect }) {
+function GoogleLogin({ redirect = true }) {
     const { login } = useContext(AuthContext)
     const navigate = useNavigate()
 
@@ -18,7 +18,7 @@ function GoogleLogin({ redirect }) {
             console.log(userInfo)
             const response = await socialLogin({ email: userInfo.email, fullName: userInfo.name })
             if (response) {
-                login({ userName: userInfo.email, email: userInfo.email, fullName: userInfo.name })
+                login({ ...response.user })
                 if (redirect) navigate(routes.myAccount)
             } else {
                 alert('Đăng nhập không thành công')

@@ -12,7 +12,7 @@ import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
 
-const Login = ({ handleClickRegister, redirect }) => {
+const Login = ({ handleClickRegister, redirect = true }) => {
     const { login } = useContext(AuthContext)
     const navigate = useNavigate()
     const [user, setUser] = useState({})

@@ -1,10 +1,11 @@
-import axios from 'axios'
+import axiosInstance from './axiosInstance'
 import { apiUrl } from './apiConfig'
 
 export const getGoogleUserInfo = async (accessToken) => {
     try {
-        const response = await axios.get(apiUrl.googleUrl, {
+        const response = await axiosInstance.get(apiUrl.googleUrl, {
             headers: { Authorization: `Bearer ${accessToken}` },
+            withCredentials: false,
         })
         return response.data
     } catch (error) {
@@ -15,7 +16,7 @@ export const getGoogleUserInfo = async (accessToken) => {
 
 export const getFacebookUserInfo = async (accessToken) => {
     try {
-        const response = await axios.get(apiUrl.facebookUrl.getUserInfo(accessToken))
+        const response = await axiosInstance.get(apiUrl.facebookUrl.getUserInfo(accessToken))
         return response.data
     } catch (error) {
         console.error('Error fetching user info from Facebook: ', error.message)

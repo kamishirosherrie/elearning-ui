@@ -7,7 +7,7 @@ import { useContext } from 'react'
 import AuthContext from '../../../context/AuthContext'
 import { routes } from '../../../routes/route'
 
-function FacebookLogin({ redirect }) {
+function FacebookLogin({ redirect = true }) {
     const navigate = useNavigate()
     const { login } = useContext(AuthContext)
     const handleResolve = async (data) => {
@@ -16,7 +16,7 @@ function FacebookLogin({ redirect }) {
             console.log(userInfo)
             const response = await socialLogin({ email: userInfo.email, fullName: userInfo.name })
             if (response) {
-                login({ userName: userInfo.email, email: userInfo.email, fullName: userInfo.name })
+                login({ ...response.user })
                 if (redirect) navigate(routes.myAccount)
             } else {
                 alert('Đăng nhập không thành công')

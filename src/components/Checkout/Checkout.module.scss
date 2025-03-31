@@ -1,0 +1,73 @@
+.container {
+    display: flex;
+    gap: 100px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.column,
+.next-step {
+    width: 400px;
+}
+
+.content {
+    font-size: 16px;
+    &.title,
+    &.price,
+    &.total {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.title {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+input.content,
+.content input {
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+input.content:read-only {
+    background-color: rgba(198, 198, 198, 0.247);
+    cursor: not-allowed;
+}
+
+.discount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    border: 1px solid rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    position: relative;
+}
+
+.icon {
+    width: 19px;
+    height: 19px;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.discount-value {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    margin-top: 10px;
+}

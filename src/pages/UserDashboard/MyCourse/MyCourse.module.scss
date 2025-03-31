@@ -3,3 +3,9 @@
     flex-direction: column;
     gap: 15px;
 }
+
+.course-list {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10rem;
+}

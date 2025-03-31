@@ -1,52 +1,52 @@
-import { env } from '../config/environment'
-
-const API_BASE_URL = env.backEndUrl
-
 const apiUrl = {
     authUrl: {
-        login: `${API_BASE_URL}/auth/login`,
-        socialLogin: `${API_BASE_URL}/auth/login/social`,
-        register: `${API_BASE_URL}/auth/register`,
+        login: '/auth/login',
+        socialLogin: '/auth/login/social',
+        register: '/auth/register',
+        logout: '/auth/logout',
     },
     roleUrl: {
-        getRole: `${API_BASE_URL}/role`,
+        getRole: '/role',
     },
     userUrl: {
-        getUser: `${API_BASE_URL}/user`,
-        getUserInfo: (userName) => `${API_BASE_URL}/user/getUserInfo/${userName}`,
-        addUser: `${API_BASE_URL}/user/addUser`,
-        updateUser: `${API_BASE_URL}/user/updateUserInfo`,
-        deleteUser: (userName) => `${API_BASE_URL}/user/deleteUser/${userName}`,
+        getUser: '/user',
+        getUserById: (userId) => `/user/${userId}`,
+        getUserInfo: (userName) => `/user/getUserInfo/${userName}`,
+        getUserCourses: (userId) => `/user/getUserInfo/course/${userId}`,
+        addUser: '/user/addUser',
+        updateUser: '/user/updateUserInfo',
+        deleteUser: (userName) => `/user/deleteUser/${userName}`,
     },
     courseUrl: {
-        getCourse: `${API_BASE_URL}/course`,
-        getCourseBySlug: (slug) => `${API_BASE_URL}/course/slug/${slug}`,
-        addNewCourse: `${API_BASE_URL}/course/addCourse`,
-        updateCourse: `${API_BASE_URL}/course/updateCourse`,
-        deleteCourse: (id) => `${API_BASE_URL}/course/deleteCourse/${id}`,
+        getCourse: '/course',
+        getCourseBySlug: (slug) => `/course/slug/${slug}`,
+        addNewCourse: '/course/addCourse',
+        addCourseEnrollment: '/course/addCourse/enrollment',
+        updateCourse: '/course/updateCourse',
+        deleteCourse: (id) => `/course/deleteCourse/${id}`,
     },
     lessonUrl: {
-        addNewLesson: `${API_BASE_URL}/lesson/addNewLesson`,
-        getAllLesson: `${API_BASE_URL}/lesson/`,
-        getLessonBySlug: (slug) => `${API_BASE_URL}/lesson/slug/${slug}`,
-        getLessonByCourseSlug: (slug) => `${API_BASE_URL}/lesson/${slug}`,
-        updateLesson: `${API_BASE_URL}/lesson/updateLesson`,
+        addNewLesson: '/lesson/addNewLesson',
+        getAllLesson: '/lesson/',
+        getLessonBySlug: (slug) => `/lesson/slug/${slug}`,
+        getLessonByCourseSlug: (slug) => `/lesson/${slug}`,
+        updateLesson: '/lesson/updateLesson',
     },
     quizzeUrl: {
-        addNewQuizze: `${API_BASE_URL}/quizze/addNewQuizze`,
-        getQuizzesWithQuestions: `${API_BASE_URL}/quizze/getQuizzesWithQuestions`,
-        getQuizzeBySlug: (quizzeSlug) => `${API_BASE_URL}/quizze/getQuizzeBySlug/${quizzeSlug}`,
-        getQuizzeByLessonSlug: (lessonSlug) => `${API_BASE_URL}/quizze/getQuizzeByLessonSlug/${lessonSlug}`,
+        addNewQuizze: '/quizze/addNewQuizze',
+        getQuizzesWithQuestions: '/quizze/getQuizzesWithQuestions',
+        getQuizzeBySlug: (quizzeSlug) => `/quizze/getQuizzeBySlug/${quizzeSlug}`,
+        getQuizzeByLessonSlug: (lessonSlug) => `/quizze/getQuizzeByLessonSlug/${lessonSlug}`,
     },
     questionUrl: {
-        getQuestionByQuizzeSlug: (quizzeSlug) => `${API_BASE_URL}/question/getQuestionByQuizzeSlug/${quizzeSlug}`,
-        addNewQuestion: `${API_BASE_URL}/question/addNewQuestion`,
+        getQuestionByQuizzeSlug: (quizzeSlug) => `/question/getQuestionByQuizzeSlug/${quizzeSlug}`,
+        addNewQuestion: '/question/addNewQuestion',
     },
     questionTypeUrl: {
-        getQuestionType: `${API_BASE_URL}/questionType/`,
+        getQuestionType: '/questionType/',
     },
     submissionUrl: {
-        addNewSubmission: `${API_BASE_URL}/submission/submit`,
+        addNewSubmission: '/submission/submit',
     },
     dictionaryUrl: {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
@@ -57,4 +57,4 @@ const apiUrl = {
     },
 }
 
-export { API_BASE_URL, apiUrl }
+export { apiUrl }

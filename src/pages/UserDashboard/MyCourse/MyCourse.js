@@ -1,27 +1,41 @@
 import classNames from 'classnames/bind'
 import styles from './MyCourse.module.scss'
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Button from '../../../components/Button/Button'
 import { Link } from 'react-router-dom'
 import { routes } from '../../../routes/route'
+import { getUserCourses } from '../../../api/userApi'
+import AuthContext from '../../../context/AuthContext'
 
 const cx = classNames.bind(styles)
 
 function MyCourse() {
-    const [course, setCourse] = useState([])
+    const { user } = useContext(AuthContext)
+    const [courses, setCourses] = useState([])
+
+    useEffect(() => {
+        const getCourses = async () => {
+            try {
+                const response = await getUserCourses(user._id)
+                setCourses(response)
+            } catch (error) {
+                console.log('Error:', error)
+            }
+        }
+        getCourses()
+    }, [user._id])
     return (
         <div className={cx('wrapper')}>
             <MainAccount title="Các khoá học của tôi">
                 <div className={cx('course-list')}>
-                    {course.length !== 0 ? (
-                        course.map((item, index) => (
+                    {courses.length !== 0 ? (
+                        courses.map((item, index) => (
                             <div key={index} className={cx('course-item')}>
                                 <div className={cx('course-info')}>
-                                    <img src={item.thumbnail} alt={item.title} />
+                                    <img src={item.courseId.thumbnail} alt={item.courseId.title} />
                                     <div className={cx('info')}>
-                                        <h2>{item.title}</h2>
-                                        <p>{item.description}</p>
+                                        <h2>{item.courseId.title}</h2>
                                     </div>
                                 </div>
                                 <div className={cx('course-action')}>

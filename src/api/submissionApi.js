@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axiosInstance from './axiosInstance'
 import { apiUrl } from './apiConfig'
 
 export const addNewSubmit = async (data) => {
     try {
-        const response = await axios.post(apiUrl.submissionUrl.addNewSubmission, data)
+        const response = await axiosInstance.post(apiUrl.submissionUrl.addNewSubmission, data)
         return response.data
     } catch (error) {
         console.log('Add new submit failed: ', error)

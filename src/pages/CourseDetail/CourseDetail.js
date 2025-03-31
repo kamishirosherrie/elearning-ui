@@ -147,7 +147,7 @@ function CourseDetail() {
                 </div>
                 <div className={cx('column')}>
                     <span className={cx('img')}></span>
-                    <span className={cx('price')}>1.200.000đ</span>
+                    <span className={cx('price')}>1.200.000VNĐ</span>
                     <Button blue onClick={handleClick}>
                         Đăng ký học
                     </Button>
