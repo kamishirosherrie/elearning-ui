@@ -24,6 +24,7 @@ function ListLesson({ slug, subscribe }) {
         getLessons()
     }, [slug])
     return (
+        // viết lại study và lesson
         <div className={cx('wrapper')}>
             {lessons.map((item, index) => (
                 <div key={index} className={cx('lesson')}>

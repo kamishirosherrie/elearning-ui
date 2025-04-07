@@ -1,13 +1,72 @@
+@import '../../Variables.scss';
+
 .wrapper {
     display: flex;
-    padding: 20px 100px;
+    padding: 0 100px;
+    gap: 5%;
+    position: relative;
 }
 
 .column:nth-child(odd) {
-    width: 70%;
+    width: 80%;
+    padding: 20px 0;
+
+    &::after {
+        content: '';
+        width: 1px;
+        height: 105%;
+        border-right: 1px solid;
+        position: absolute;
+        top: 0;
+        right: 22%;
+    }
 }
 
 .column:nth-child(even) {
+    width: 20%;
+    padding: 20px 20px 0 0;
     position: fixed;
-    right: 88px;
+    right: 0;
+}
+
+.lesson-title {
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.5rem;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        color: $primary-color;
+    }
+}
+
+.chapter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chapter-title {
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.lesson-item {
+    margin-left: 20px;
+}
+
+.quizze-item {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
 }

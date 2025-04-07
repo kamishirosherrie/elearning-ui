@@ -1,0 +1,9 @@
+.one-choice {
+    width: calc(80vw / 4);
+    display: flex;
+    gap: 10px;
+}
+
+.one-choice > input[type='radio'] {
+    width: 20px;
+}

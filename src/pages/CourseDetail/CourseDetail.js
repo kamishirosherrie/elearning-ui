@@ -1,12 +1,11 @@
 import classNames from 'classnames/bind'
 import styles from './CourseDetail.module.scss'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { getCourseBySlug, getCourseEnrollment } from '../../api/courseApi'
-import ListLesson from '../../components/ListLesson/ListLesson'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
 import Button from '../../components/Button/Button'
 import AuthContext from '../../context/AuthContext'
@@ -21,13 +20,16 @@ import { getLessonByCourseSlug } from '../../api/lessonApi'
 const cx = classNames.bind(styles)
 
 function CourseDetail() {
+    const { user } = useContext(AuthContext)
     const slug = useParams().courseName
     const navigate = useNavigate()
-    const { user } = useContext(AuthContext)
 
     const [course, setCourse] = useState({})
+    const [chapters, setChapters] = useState([])
     const [firstLesson, setFirstLesson] = useState({})
+
     const [isEnrolled, setIsEnrolled] = useState(false)
+
     const [active, setActive] = useState({})
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
@@ -65,15 +67,13 @@ function CourseDetail() {
             if (user && course._id) {
                 try {
                     const enrollment = await getCourseEnrollment({ courseId: course._id, userId: user._id })
-                    const lesson = await getLessonByCourseSlug(slug)
-
                     if (enrollment.courseEnrollment) {
                         setIsEnrolled(true)
                     }
 
-                    if (lesson && lesson.lessons.length > 0) {
-                        setFirstLesson(lesson.lessons[0])
-                    }
+                    const lessons = await getLessonByCourseSlug(slug)
+                    setChapters(lessons.chapters)
+                    setFirstLesson(lessons.chapters[0].lessons[0])
                 } catch (error) {
                     console.log('Get course enrollment failed: ', error)
                 }
@@ -87,23 +87,10 @@ function CourseDetail() {
             <div className={cx('wrapper')}>
                 <div className={cx('column')}>
                     <h1 className={cx('title')}>{course?.title}</h1>
-                    <span>{course?.description}</span>
+                    <span>{course?.shortDescription}</span>
                     <div className={cx('intro')}>
-                        <div className={cx('intro-item')}>
-                            <p>Giới thiệu khóa học</p>
-                            <span>
-                                Bạn đang tìm kiếm một khóa học tiếng Anh toàn diện giúp nâng cao cả 4 kỹ năng: Đọc,
-                                Nghe, Viết, Nói? Khóa học của chúng tôi được thiết kế dành riêng cho người học ở mọi
-                                trình độ, từ cơ bản đến nâng cao. Với phương pháp học tập hiện đại và giáo trình bài
-                                bản, bạn sẽ tự tin sử dụng tiếng Anh trong mọi tình huống.
-                            </span>
-                        </div>
-                        <div className={cx('intro-item')}>
-                            <p>Lợi ích khi tham gia khóa học</p>
-                            <span>Phát triển các kĩ năng Đọc - Nghe</span>
-                            <span>Học tập, tương tác linh hoạt</span>
-                            <span>Lộ Trình Cá Nhân Hóa</span>
-                        </div>
+                        <div dangerouslySetInnerHTML={{ __html: course?.description }}></div>
+                        <div className={cx('intro-item')}></div>
                     </div>
                     <div className={cx('content')}>
                         <p>Nội dung khóa học</p>
@@ -114,71 +101,44 @@ function CourseDetail() {
                         </div>
                     </div>
                     <div className={cx('chapter')}>
-                        <div
-                            className={cx('chapter-title', { active: active[1] })}
-                            onClick={() => handleClickChapter(1)}
-                        >
-                            <div className={cx('heading')}>
-                                Chương 1: Khái niệm cần biết
-                                <span>
-                                    {active[1] ? (
-                                        <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
-                                    ) : (
-                                        <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
-                                    )}
-                                </span>
+                        {chapters?.map((chapter, index) => (
+                            <div
+                                key={index}
+                                className={cx('chapter-title', { active: active[index] })}
+                                onClick={() => handleClickChapter(index)}
+                            >
+                                <div className={cx('heading')}>
+                                    <span>
+                                        Chương {chapter?.order} - {chapter?.title}
+                                    </span>
+                                    <span>
+                                        {active[index] ? (
+                                            <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
+                                        ) : (
+                                            <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
+                                        )}
+                                    </span>
+                                </div>
+                                <div className={cx('collapsible')}>
+                                    {chapter?.lessons?.map((lesson, index) => (
+                                        <div key={index} className={cx('lesson')}>
+                                            <p>
+                                                Bài {lesson.order} - {lesson.title}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                            <div className={cx('collapsible')}>
-                                <ListLesson slug={slug} />
-                            </div>
-                        </div>
-                        <div
-                            className={cx('chapter-title', { active: active[2] })}
-                            onClick={() => handleClickChapter(2)}
-                        >
-                            <div className={cx('heading')}>
-                                Chương 1: Khái niệm cần biết
-                                <span>
-                                    {active[2] ? (
-                                        <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
-                                    ) : (
-                                        <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
-                                    )}
-                                </span>
-                            </div>
-                            <div className={cx('collapsible')}>
-                                <ListLesson slug={slug} />
-                            </div>
-                        </div>
-                        <div
-                            className={cx('chapter-title', { active: active[3] })}
-                            onClick={() => handleClickChapter(3)}
-                        >
-                            <div className={cx('heading')}>
-                                Chương 1: Khái niệm cần biết
-                                <span>
-                                    {active[3] ? (
-                                        <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
-                                    ) : (
-                                        <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
-                                    )}
-                                </span>
-                            </div>
-                            <div className={cx('collapsible')}>
-                                <ListLesson slug={slug} />
-                            </div>
-                        </div>{' '}
+                        ))}
                     </div>
                 </div>
                 <div className={cx('column')}>
                     <span className={cx('img')}></span>
                     <span className={cx('price')}>1.200.000VNĐ</span>
                     {isEnrolled ? (
-                        <Link to={`/course/${slug}/${firstLesson.slug}`}>
-                            <Button blue onClick={handleStartNow}>
-                                Học ngay
-                            </Button>
-                        </Link>
+                        <Button href={`${routes.study}/${slug}/${firstLesson.slug}`} blue onClick={handleStartNow}>
+                            Học ngay
+                        </Button>
                     ) : (
                         <Button blue onClick={handleClick}>
                             Đăng ký học

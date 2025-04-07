@@ -1,16 +1,26 @@
 import classNames from 'classnames/bind'
 import styles from './Study.module.scss'
-import MainLayout from '../../layouts/MainLayout/MainLayout'
+import StudyZone from '../../layouts/StudyZone/StudyZone'
 import { useEffect, useState } from 'react'
 import { getLessonByCourseSlug, getLessonBySlug } from '../../api/lessonApi'
 import { useParams } from 'react-router-dom'
+import { routes } from '../../routes/route'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 
 const cx = classNames.bind(styles)
 
 function Study() {
     const { courseName, lessonName } = useParams()
     const [lesson, setLesson] = useState({})
-    const [lessons, setLessons] = useState([])
+
+    const [chapters, setChapters] = useState([])
+
+    const [active, setActive] = useState({})
+
+    const handleClickChapter = (index) => {
+        setActive((prev) => ({ ...prev, [index]: !prev[index] }))
+    }
 
     useEffect(() => {
         const getLesson = async () => {
@@ -23,21 +33,23 @@ function Study() {
             }
         }
 
-        const getLessons = async () => {
+        const getListLessons = async () => {
             try {
                 const response = await getLessonByCourseSlug(courseName)
-                setLessons([...response.lessons])
+                console.log('Response:', response.chapters)
+
+                setChapters(response.chapters)
             } catch (error) {
                 console.log('Error:', error)
             }
         }
 
         getLesson()
-        getLessons()
-    }, [lessonName])
+        getListLessons()
+    }, [lessonName, courseName])
 
     return (
-        <MainLayout>
+        <StudyZone>
             <div className={cx('wrapper')}>
                 <div className={cx('column')}>
                     <div className={cx('lesson')}>
@@ -46,14 +58,46 @@ function Study() {
                     </div>
                 </div>
                 <div className={cx('column')}>
-                    {lessons.map((lesson, index) => (
-                        <div className={cx('lesson')} key={index}>
-                            <h3 className={cx('lesson-title')}>{lesson?.title}</h3>
+                    <h3>Danh sách bài học</h3>
+                    {chapters.map((chapter, indexChapter) => (
+                        <div className={cx('chapter')} key={indexChapter}>
+                            <div className={cx('chapter-header')}>
+                                <h3 className={cx('chapter-title')} onClick={() => handleClickChapter(indexChapter)}>
+                                    {chapter?.order} - {chapter?.title}
+                                </h3>
+                                <FontAwesomeIcon
+                                    icon={!active[indexChapter] ? faAngleDown : faAngleUp}
+                                    className={cx('icon')}
+                                />
+                            </div>
+                            <div className={cx('dropdown', { active: active[indexChapter] })}>
+                                {chapter.lessons.map((lesson, indexLesson) => (
+                                    <div className={cx('lesson-item')} key={indexLesson}>
+                                        <a
+                                            href={`${routes.study}/${courseName}/${lesson.slug}`}
+                                            className={cx('lesson-link')}
+                                        >
+                                            {lesson.order} - {lesson.title}
+                                        </a>
+                                        <div className={cx('quizze-item')}>
+                                            {lesson.quizzes.map((quizze, indexQuizze) => (
+                                                <a
+                                                    href={`${routes.quizze}/${quizze.slug}`}
+                                                    className={cx('quizze-link')}
+                                                    key={indexQuizze}
+                                                >
+                                                    {indexQuizze + 1} - {quizze.title}
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
-        </MainLayout>
+        </StudyZone>
     )
 }
 

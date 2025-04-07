@@ -17,10 +17,9 @@ function SelectedWord({ children }) {
             setSelectedWord(word)
             setIsOpen(true)
 
-            // Get the position of the selected word
             const range = selection.getRangeAt(0)
             const rect = range.getBoundingClientRect()
-            setPosition({ top: rect.top + window.scrollY + 20, left: rect.left + window.scrollX })
+            setPosition({ top: rect.top + window.scrollY, left: rect.left + window.scrollX })
         } else if (event.target.closest('.dictionary-modal')) {
             return
         } else {

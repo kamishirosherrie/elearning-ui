@@ -18,6 +18,8 @@ function MyCourse() {
         const getCourses = async () => {
             try {
                 const response = await getUserCourses(user._id)
+                console.log(response)
+
                 setCourses(response)
             } catch (error) {
                 console.log('Error:', error)
@@ -39,7 +41,9 @@ function MyCourse() {
                                     </div>
                                 </div>
                                 <div className={cx('course-action')}>
-                                    <Button blue>Xem khóa học</Button>
+                                    <Button blue href={`${routes.course}/${item.courseId.slug}`}>
+                                        Xem khóa học
+                                    </Button>
                                 </div>
                             </div>
                         ))

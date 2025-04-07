@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind'
 import styles from './ChangePassword.module.scss'
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
+import Button from '../../../components/Button/Button'
 
 const cx = classNames.bind(styles)
 
@@ -21,7 +22,9 @@ function ChangePassword() {
                         <label className={cx('label')}>Nhập lại mật khẩu mới:</label>
                         <input className={cx('input')} type="password" />
                     </div>
-                    <button className={cx('btn-save')}>Lưu</button>
+                    <Button blue className={cx('btn-save')}>
+                        Cập nhật
+                    </Button>
                 </div>
             </MainAccount>
         </div>

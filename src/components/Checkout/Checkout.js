@@ -24,9 +24,9 @@ function Checkout({ course }) {
 
     const handleSubmit = async () => {
         try {
-            const response = await addCourseEnrollment({ courseId: course._id, userId: user._id })
-            console.log(response)
+            await addCourseEnrollment({ courseId: course._id, userId: user._id })
             alert('Đăng ký thành công!')
+            setIsOpen(false)
         } catch (error) {
             alert(error.response.data.message)
             console.log('Subcreibe course failed: ', error.response.data.message)

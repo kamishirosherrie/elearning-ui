@@ -1,0 +1,12 @@
+.fill {
+    display: flex;
+    gap: 20px;
+}
+
+.fill input {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #000;
+    padding: 5px 0;
+    font-size: 16px;
+}

@@ -26,6 +26,9 @@ const apiUrl = {
         updateCourse: '/course/updateCourse',
         deleteCourse: (id) => `/course/deleteCourse/${id}`,
     },
+    chapterUrl: {
+        getChapterByCourseId: (courseId) => `/chapter/course/${courseId}`,
+    },
     lessonUrl: {
         addNewLesson: '/lesson/addNewLesson',
         getAllLesson: '/lesson/',
@@ -40,7 +43,7 @@ const apiUrl = {
         getQuizzeByLessonSlug: (lessonSlug) => `/quizze/getQuizzeByLessonSlug/${lessonSlug}`,
     },
     questionUrl: {
-        getQuestionByQuizzeSlug: (quizzeSlug) => `/question/getQuestionByQuizzeSlug/${quizzeSlug}`,
+        getQuestionByQuizzeSlug: (quizzeSlug) => `/question/slug/${quizzeSlug}`,
         addNewQuestion: '/question/addNewQuestion',
     },
     questionTypeUrl: {

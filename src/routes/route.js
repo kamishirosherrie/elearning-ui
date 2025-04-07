@@ -4,8 +4,8 @@ const routes = {
     myCourse: '/student/my-course',
     changePassword: '/student/change-password',
     course: '/course',
-    courseDetail: '/course/:courseName',
-    study: '/course/:courseName/:lessonName',
+    study: '/study',
+    quizze: '/lesson/quizze',
 }
 
 export { routes }

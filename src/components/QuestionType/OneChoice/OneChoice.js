@@ -5,7 +5,7 @@ const cx = classNames.bind(styles)
 
 function OneChoice({ id, name, value, checked, onChange }) {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('one-choice')}>
             <input type="radio" id={id} name={name} value={value} checked={checked} onChange={onChange} />
             <label htmlFor={id}>{value}</label>
         </div>

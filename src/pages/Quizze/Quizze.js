@@ -13,6 +13,9 @@ import ShortAnswer from '../../components/QuestionType/ShortAnswer/ShortAnswer'
 import OneChoice from '../../components/QuestionType/OneChoice/OneChoice'
 import { addNewSubmit } from '../../api/submissionApi'
 import AuthContext from '../../context/AuthContext'
+import StudyZone from '../../layouts/StudyZone/StudyZone'
+import Button from '../../components/Button/Button'
+import CountdownTimer from '../../components/CountdownTimer/CountdownTimer'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
@@ -36,8 +39,10 @@ function Quizze() {
             try {
                 const response = await getQuestionByQuizzeSlug(quizzeSlug)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
-                setQuestions(response)
                 setQuizze(quizze)
+                setQuestions(response)
+                console.log('Question:', response)
+                console.log('Quizze:', quizze)
             } catch (error) {
                 console.log('Get question by quizze slug error:', error)
             }
@@ -45,6 +50,8 @@ function Quizze() {
 
         const getTypeOfQuestion = async () => {
             const response = await getQuestionType()
+            console.log('Response:', response)
+
             setQuestionTypes(response.questionTypes)
         }
 
@@ -78,38 +85,47 @@ function Quizze() {
         setIsOpen(true)
         let score = 0
         questions.forEach((question) => {
-            if (question.questionTypeId === questionTypes[0]._id) {
+            if (question.questionTypeId._id === questionTypes[0]._id) {
                 const correctAnswer = question.answer.find((answer) => answer.isCorrect === true)
                 if (oneChoice[question._id] === correctAnswer.text) {
                     score += 1
                 }
-            } else if (question.questionTypeId === questionTypes[2]._id) {
+            } else if (question.questionTypeId._id === questionTypes[2]._id) {
                 if (shortAnswer[question._id] === question.answer[0].text) {
                     score += 1
                 }
-            } else if (question.questionTypeId === questionTypes[3]._id) {
+            } else if (question.questionTypeId._id === questionTypes[3]._id) {
                 if (question.answer[0].text.includes(fillAnswer[question._id])) {
                     score += 1
                 }
             }
         })
+
         setTotalScore(score)
 
-        await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
+        // await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
     }
 
     return (
-        <div className={cx('wrapper')}>
+        <StudyZone>
             <div className={cx('header')}>
                 <h1>{quizze.title}</h1>
                 <p>{quizze.description}</p>
-                <button onClick={() => window.history.back()}>Back</button>
-                <div className={cx('count')}>
-                    Total: {Object.keys(oneChoice).length}/{questions.length}
+                <div className={cx('action')}>
+                    <Button blue border5 onClick={() => window.history.back()}>
+                        Back
+                    </Button>
+                    {Number(quizze.time) > 0 && (
+                        <div className={cx('count')}>
+                            Time left:
+                            <CountdownTimer initialTime={Number(quizze.time) * 60} />
+                        </div>
+                    )}
+
+                    <Button blue border5 type="submit" onClick={handleSubmit}>
+                        Submit
+                    </Button>
                 </div>
-                <button type="submit" onClick={handleSubmit}>
-                    Submit
-                </button>
             </div>
             <SelectedWord>
                 {
@@ -117,11 +133,11 @@ function Quizze() {
                         {questions.map((question, indexQuestion) => (
                             <div className={cx('question-wrapper')} key={question._id}>
                                 <div className={cx('question')}>
-                                    <h3>Question {indexQuestion + 1}</h3>
+                                    <h3>Question {indexQuestion + 1}.</h3>
                                     <span>{question.question}</span>
                                 </div>
                                 <div className={cx('answer')}>
-                                    {question.questionTypeId === questionTypes[0]._id ? (
+                                    {question.questionTypeId._id === questionTypes[0]._id ? (
                                         question.answer.map((answer, indexAnswer) => (
                                             <div key={indexAnswer}>
                                                 <OneChoice
@@ -133,13 +149,13 @@ function Quizze() {
                                                 />
                                             </div>
                                         ))
-                                    ) : question.questionTypeId === questionTypes[2]._id ? (
+                                    ) : question.questionTypeId._id === questionTypes[2]._id ? (
                                         <ShortAnswer
                                             id={question._id}
                                             name={question._id}
                                             onChange={(e) => handleChangeShortAnswer(question._id)}
                                         />
-                                    ) : question.questionTypeId === questionTypes[3]._id ? (
+                                    ) : question.questionTypeId._id === questionTypes[3]._id ? (
                                         <FillTheBlank
                                             id={question._id}
                                             name={question._id}
@@ -157,7 +173,7 @@ function Quizze() {
                 <span>Your total score: {totalScore}</span>
                 <button onClick={closeModal}>Close</button>
             </Modal>
-        </div>
+        </StudyZone>
     )
 }
 

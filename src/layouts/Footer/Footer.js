@@ -13,7 +13,7 @@ function Footer() {
                         <img src={image.logoWhite} alt="logo-text" />
                     </div>
                     <div className={cx('description')}>
-                        <p>Công ty TNHH ...</p>
+                        <p>Công ty TNHH EMaster</p>
                         <p>Địa chỉ liên hệ: Tầng 6, Số 3 đường Cầu Giấy, Quận Đống Đa, Thành phố Hà Nội, Việt Nam</p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ function Footer() {
                 </div>
             </div>
             <div className={cx('copy-right')}>
-                <p>© 2025 Công ty TNHH ...</p>
+                <p>© 2025 Công ty TNHH EMaster</p>
             </div>
         </div>
     )

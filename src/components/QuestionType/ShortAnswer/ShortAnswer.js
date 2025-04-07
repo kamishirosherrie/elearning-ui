@@ -5,7 +5,7 @@ const cx = classNames.bind(styles)
 
 function ShortAnswer({ id, name, onChange }) {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('short-answer')}>
             <h1>
                 <input type="text" id={id} name={name} onChange={onChange} />
             </h1>

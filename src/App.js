@@ -22,12 +22,15 @@ function App() {
                     <Route path={routes.myAccount} element={user ? <MyAccount /> : <Navigate to="/" />} />
                     <Route path={routes.myCourse} element={user ? <MyCourse /> : <Navigate to="/" />} />
                     <Route path={routes.changePassword} element={user ? <ChangePassword /> : <Navigate to="/" />} />
-                    <Route path={routes.study} element={user ? <Study /> : <Navigate to="/" />} />
+                    <Route
+                        path={`${routes.study}/:courseName/:lessonName`}
+                        element={user ? <Study /> : <Navigate to="/" />}
+                    />
 
                     <Route path={routes.course} element={<Course />} />
-                    <Route path={routes.courseDetail} element={<CourseDetail />} />
+                    <Route path={`${routes.course}/:courseName`} element={<CourseDetail />} />
                     <Route path="/:courseName/:lessonName" element={<Lesson />} />
-                    <Route path="/lesson/quizze/:quizzeSlug" element={<Quizze />} />
+                    <Route path={`${routes.quizze}/:quizzeSlug`} element={<Quizze />} />
 
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>

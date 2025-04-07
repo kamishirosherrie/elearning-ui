@@ -38,7 +38,7 @@ function Dictionary({ word, className }) {
         if (word) {
             defineWord()
         }
-    }, [define, word])
+    }, [word])
     return (
         <div className={className}>
             {isLoading ? (
