@@ -32,3 +32,43 @@ export const logoutUser = async () => {
 }
 
 export const registerUser = async (user) => {}
+
+export const changePassWord = async (user) => {
+    try {
+        const response = await axiosInstance.put(apiUrl.authUrl.changePassWord, user)
+        return response.data
+    } catch (error) {
+        console.log('Change password failed: ', error)
+        throw error
+    }
+}
+
+export const forgotPassWord = async (email) => {
+    try {
+        const response = await axiosInstance.post(apiUrl.authUrl.forgotPassWord, email)
+        return response.data
+    } catch (error) {
+        console.log('Forgot password failed: ', error)
+        throw error
+    }
+}
+
+export const verifyOtp = async (user) => {
+    try {
+        const response = await axiosInstance.post(apiUrl.authUrl.verifyOtp, user)
+        return response.data
+    } catch (error) {
+        console.log('Verify otp failed: ', error)
+        throw error
+    }
+}
+
+export const resetPassWord = async (user) => {
+    try {
+        const response = await axiosInstance.post(apiUrl.authUrl.resetPassWord, user)
+        return response.data
+    } catch (error) {
+        console.log('Reset password failed: ', error)
+        throw error
+    }
+}

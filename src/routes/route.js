@@ -5,7 +5,10 @@ const routes = {
     changePassword: '/student/change-password',
     course: '/course',
     study: '/study',
+    lesson: '/lesson',
     quizze: '/lesson/quizze',
+    forgotPassword: '/forgot-password',
+    resetPassword: '/reset-password',
 }
 
 export { routes }

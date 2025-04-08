@@ -4,6 +4,10 @@ const apiUrl = {
         socialLogin: '/auth/login/social',
         register: '/auth/register',
         logout: '/auth/logout',
+        changePassWord: 'auth/changePassWord',
+        forgotPassWord: '/auth/forgotPassWord',
+        resetPassWord: '/auth/resetPassWord',
+        verifyOtp: '/auth/verifyOtp',
     },
     roleUrl: {
         getRole: '/role',

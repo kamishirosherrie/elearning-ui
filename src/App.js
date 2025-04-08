@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home/Home'
-import Lesson from './pages/Lesson/Lesson'
 import Course from './pages/Courses/Course'
 import Quizze from './pages/Quizze/Quizze'
 import AuthContext from './context/AuthContext'
@@ -11,6 +10,8 @@ import MyCourse from './pages/UserDashboard/MyCourse/MyCourse'
 import { routes } from './routes/route'
 import CourseDetail from './pages/CourseDetail/CourseDetail'
 import Study from './pages/Study/Study'
+import ForgotPassWord from './pages/ForgotPassWord/ForgotPassWord'
+import ResetPassWord from './pages/ResetPassWord/ResetPassWord'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -27,9 +28,11 @@ function App() {
                         element={user ? <Study /> : <Navigate to="/" />}
                     />
 
+                    <Route path={routes.forgotPassword} element={<ForgotPassWord />} />
+                    <Route path={routes.resetPassword} element={<ResetPassWord />} />
+
                     <Route path={routes.course} element={<Course />} />
                     <Route path={`${routes.course}/:courseName`} element={<CourseDetail />} />
-                    <Route path="/:courseName/:lessonName" element={<Lesson />} />
                     <Route path={`${routes.quizze}/:quizzeSlug`} element={<Quizze />} />
 
                     <Route path="*" element={<Navigate to="/" />} />

@@ -83,7 +83,7 @@ const Login = ({ handleClickRegister, redirect = true }) => {
                         />
                     </div>
                     <div className={cx('forgot-password')}>
-                        <Link to="/">Quên mật khẩu?</Link>
+                        <Link to={routes.forgotPassword}>Quên mật khẩu?</Link>
                     </div>
                     <div className={cx('btn-wrapper')}>
                         <Button fullWidth shadow blue type="submit">
