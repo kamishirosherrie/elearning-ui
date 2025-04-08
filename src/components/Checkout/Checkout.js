@@ -10,7 +10,7 @@ import { ChevronRight } from '../Icons/Icon'
 
 const cx = classNames.bind(styles)
 
-function Checkout({ course }) {
+function Checkout({ course, setClose, setIsEnrolled }) {
     const { user } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
 
@@ -26,7 +26,8 @@ function Checkout({ course }) {
         try {
             await addCourseEnrollment({ courseId: course._id, userId: user._id })
             alert('Đăng ký thành công!')
-            setIsOpen(false)
+            setClose(false)
+            setIsEnrolled(true)
         } catch (error) {
             alert(error.response.data.message)
             console.log('Subcreibe course failed: ', error.response.data.message)

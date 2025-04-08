@@ -58,13 +58,13 @@ function Study() {
                     </div>
                 </div>
                 <div className={cx('column')}>
-                    <h3>Danh sách bài học</h3>
+                    <h3 className={cx('title')}>Danh sách bài học</h3>
                     {chapters.map((chapter, indexChapter) => (
                         <div className={cx('chapter')} key={indexChapter}>
                             <div className={cx('chapter-header')}>
-                                <h3 className={cx('chapter-title')} onClick={() => handleClickChapter(indexChapter)}>
+                                <h4 className={cx('chapter-title')} onClick={() => handleClickChapter(indexChapter)}>
                                     {chapter?.order} - {chapter?.title}
-                                </h3>
+                                </h4>
                                 <FontAwesomeIcon
                                     icon={!active[indexChapter] ? faAngleDown : faAngleUp}
                                     className={cx('icon')}

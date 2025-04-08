@@ -1,4 +1,4 @@
-import { LockIcon, UserSecurityIcon } from '../../components/Icons/Icon'
+import { CourseIcon, LockIcon, LogoutIcon, UserIcon } from '../../components/Icons/Icon'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
@@ -29,13 +29,13 @@ function Sidebar() {
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
-                    <UserSecurityIcon className={cx('icon')} width={24} height={24} />
+                    <UserIcon className={cx('icon')} width={24} height={24} />
                     <Link to={routes.myAccount} className={cx('navbar-link')}>
                         Tài khoản của tôi
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
-                    <UserSecurityIcon className={cx('icon')} width={24} height={24} />
+                    <CourseIcon className={cx('icon')} width={24} height={24} />
                     <Link to={routes.myCourse} className={cx('navbar-link')}>
                         Khoá học của tôi
                     </Link>
@@ -47,7 +47,7 @@ function Sidebar() {
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
-                    <UserSecurityIcon className={cx('icon')} width={24} height={24} />
+                    <LogoutIcon className={cx('icon')} width={24} height={24} />
                     <Link to="/" className={cx('navbar-link')} onClick={handleLogout}>
                         Đăng xuất
                     </Link>

@@ -64,16 +64,22 @@ function CourseDetail() {
             const response = await getCourseBySlug(slug)
             setCourse(response)
 
+            if (course._id) {
+                try {
+                    const lessons = await getLessonByCourseSlug(slug)
+                    setChapters(lessons.chapters)
+                    setFirstLesson(lessons.chapters[0].lessons[0])
+                } catch (error) {
+                    console.log('Get lessons failed: ', error)
+                }
+            }
+
             if (user && course._id) {
                 try {
                     const enrollment = await getCourseEnrollment({ courseId: course._id, userId: user._id })
                     if (enrollment.courseEnrollment) {
                         setIsEnrolled(true)
                     }
-
-                    const lessons = await getLessonByCourseSlug(slug)
-                    setChapters(lessons.chapters)
-                    setFirstLesson(lessons.chapters[0].lessons[0])
                 } catch (error) {
                     console.log('Get course enrollment failed: ', error)
                 }
@@ -149,7 +155,7 @@ function CourseDetail() {
             </div>
             <ModalPopup isOpen={isOpen} closeModal={closeModal}>
                 {user ? (
-                    <Checkout course={course} />
+                    <Checkout course={course} setClose={setIsOpen} setIsEnrolled={setIsEnrolled} />
                 ) : isLoginOpen ? (
                     <Login handleClickRegister={handleClickRegister} redirect={false} />
                 ) : (
