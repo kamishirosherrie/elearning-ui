@@ -58,7 +58,7 @@ function MyAccount() {
                             </Button>
                         </div>
                     </div>
-                    <div className={cx('info')}>
+                    {/* <div className={cx('info')}>
                         <div className={cx('info-item')}>
                             <label className={cx('label')}>Tỉnh/Thành phố</label>
                             <input className={cx('value')} value={user?.city} onChange={handleChange} />
@@ -71,7 +71,7 @@ function MyAccount() {
                             <label className={cx('label')}>Phường/Xã</label>
                             <input className={cx('value')} value={user?.ward} onChange={handleChange} />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </MainAccount>
         </div>

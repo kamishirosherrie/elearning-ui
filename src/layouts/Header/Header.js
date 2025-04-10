@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
@@ -12,15 +12,19 @@ import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import Register from '../../components/Register/Register'
 import { image } from '../../assets/images/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faClose, faUser } from '@fortawesome/free-solid-svg-icons'
 
 const cx = classNames.bind(styles)
 
 function Header() {
+    const navigate = useNavigate()
     const { user } = useContext(AuthContext)
+
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
     const [courses, setCourses] = useState([])
+
+    const [active, setActive] = useState(false)
 
     const handleLogin = () => {
         setIsOpen(true)
@@ -39,6 +43,19 @@ function Header() {
         setIsLoginOpen(true)
     }
 
+    const handleClickMenu = () => {
+        setActive((prev) => !prev)
+        document.querySelector('body').classList.toggle('no-scroll')
+    }
+
+    const handleClickUser = () => {
+        if (user) {
+            navigate(routes.myAccount)
+        } else {
+            setIsOpen(true)
+        }
+    }
+
     useEffect(() => {
         const getCourses = async () => {
             const response = await getCourse()
@@ -50,9 +67,66 @@ function Header() {
 
     return (
         <div className={cx('wrapper')}>
-            <a className={cx('logo-wrapper')} href="/">
+            <Link className={cx('logo-wrapper')} to={routes.home}>
                 <img src={image.logo} alt="logo" />
-            </a>
+            </Link>
+            <div className={cx('mobile-menu')}>
+                <div className={cx('icon-wrapper')}>
+                    <FontAwesomeIcon icon={faUser} className={cx('icon')} onClick={handleClickUser} />
+                    <FontAwesomeIcon icon={faBars} className={cx('icon')} onClick={handleClickMenu} />
+                </div>
+                <ul className={cx('mobile-menu-list', { active })}>
+                    <li className={cx('mobile-menu-header')}>
+                        <Link className={cx('logo-wrapper')} to={routes.home}>
+                            <img src={image.logo} alt="logo" />
+                        </Link>
+                        <FontAwesomeIcon icon={faClose} className={cx('icon')} onClick={handleClickMenu} />
+                    </li>
+                    <li className={cx('menu-item')}>
+                        <span>Khóa học</span>
+                        <div className={cx('dropdown')}>
+                            {courses?.map((course) => (
+                                <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
+                                    <p>{course.title}</p>
+                                </a>
+                            ))}
+                        </div>
+                    </li>
+                    <li className={cx('menu-item')}>
+                        <span>Kiểm tra đầu vào</span>
+                        <div className={cx('dropdown')}>
+                            {courses?.map((course) => (
+                                <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
+                                    <p>{course.title}</p>
+                                </a>
+                            ))}
+                        </div>
+                    </li>
+                    <li className={cx('menu-item')}>
+                        <span>Luyện đề</span>
+                        <div className={cx('dropdown')}>
+                            {courses?.map((course) => (
+                                <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
+                                    <p>Luyện đề {course.title}</p>
+                                </a>
+                            ))}
+                        </div>
+                    </li>
+                    <li className={cx('menu-item')}>
+                        <span>Blog</span>
+                        <div className={cx('dropdown')}>
+                            {courses?.map((course) => (
+                                <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
+                                    <p>{course.title}</p>
+                                </a>
+                            ))}
+                        </div>
+                    </li>
+                    <li className={cx('menu-item')}>
+                        <span>Về chúng tôi</span>
+                    </li>
+                </ul>
+            </div>
             <ul className={cx('menu-list')}>
                 <li className={cx('menu-item')}>
                     <Link to={routes.home}>

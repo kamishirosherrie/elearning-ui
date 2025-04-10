@@ -1,3 +1,5 @@
+@import '../../Variables.scss';
+
 .overlay {
     background-color: rgba(48, 48, 48, 0.8);
     position: fixed;
@@ -24,4 +26,17 @@
     right: 40px;
     cursor: pointer;
     z-index: 999;
+}
+
+@media (max-width: $breakpoint-sm) {
+    .wrapper {
+        padding: 30px 30px;
+        width: 95%;
+    }
+}
+
+@media (min-width: ($breakpoint-sm + 1px)) and (max-width: $breakpoint-m) {
+    .wrapper {
+        padding: 30px 30px;
+    }
 }

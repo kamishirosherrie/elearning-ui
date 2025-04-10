@@ -9,6 +9,13 @@ $scroll-bar: #71c7ec;
 
 $footer-color: #fff;
 
+$breakpoint-xxs: 376px;
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-m: 1024px;
+$breakpoint-l: 1025px;
+$breakpoint-xl: 1440px;
+
 @font-face {
     font-family: 'AvantGarde';
     src: url('/assets/fonts/Manrope-ExtraBold.ttf');

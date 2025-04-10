@@ -19,6 +19,10 @@
     padding: 1.5rem;
 }
 
+.navbar-mobile {
+    display: none;
+}
+
 .navbar-item {
     padding: 15px 0;
     position: relative;
@@ -42,5 +46,78 @@
 
     &:visited {
         color: #000;
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .wrapper {
+        width: 100%;
+
+        &::after {
+            content: unset;
+        }
+    }
+    .navbar {
+        display: none;
+    }
+
+    .navbar-link {
+        font-size: 20px;
+    }
+
+    .navbar-mobile {
+        display: block;
+    }
+
+    .navbar-mobile-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 15px;
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-mobile-menu {
+        width: 100%;
+    }
+
+    .navbar-mobile-menu.active {
+        .navbar-mobile-dropdown {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .navbar-mobile-dropdown {
+        display: none;
+        position: absolute;
+        width: 80%;
+        background-color: #fff;
+        border: 1px solid black;
+        border-radius: 5px;
+        z-index: 9;
+        left: 50%;
+        top: 110px;
+        transform: translateX(-50%);
+
+        .navbar-item {
+            padding: 15px 20px;
+            gap: 20px;
+        }
+
+        .navbar-item:not(:last-child) {
+            border-bottom: 1px solid black;
+        }
+    }
+
+    .icon {
+        position: relative;
     }
 }

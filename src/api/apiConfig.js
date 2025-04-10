@@ -38,6 +38,7 @@ const apiUrl = {
         getAllLesson: '/lesson/',
         getLessonBySlug: (slug) => `/lesson/slug/${slug}`,
         getLessonByCourseSlug: (slug) => `/lesson/${slug}`,
+        getTotalLessonNumber: (courseId) => `/lesson/totalLesson/${courseId}`,
         updateLesson: '/lesson/updateLesson',
     },
     quizzeUrl: {

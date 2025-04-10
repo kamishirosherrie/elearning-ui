@@ -6,7 +6,7 @@ import { getLessonByCourseSlug, getLessonBySlug } from '../../api/lessonApi'
 import { useParams } from 'react-router-dom'
 import { routes } from '../../routes/route'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleUp, faClose } from '@fortawesome/free-solid-svg-icons'
 
 const cx = classNames.bind(styles)
 
@@ -17,9 +17,18 @@ function Study() {
     const [chapters, setChapters] = useState([])
 
     const [active, setActive] = useState({})
+    const [activeMobileMenu, setActiveMobileMenu] = useState(false)
 
     const handleClickChapter = (index) => {
         setActive((prev) => ({ ...prev, [index]: !prev[index] }))
+    }
+
+    const hanleClickMenu = () => {
+        setActiveMobileMenu((prev) => !prev)
+    }
+
+    const handleCloseMenu = () => {
+        setActiveMobileMenu(false)
     }
 
     useEffect(() => {
@@ -57,12 +66,17 @@ function Study() {
                         <div dangerouslySetInnerHTML={{ __html: lesson?.content }}></div>
                     </div>
                 </div>
-                <div className={cx('column')}>
-                    <h3 className={cx('title')}>Danh sách bài học</h3>
+                <div className={cx('column', { activeMobileMenu })}>
+                    <h3 className={cx('title')}>
+                        Danh sách bài học
+                        {activeMobileMenu && (
+                            <FontAwesomeIcon icon={faClose} className={cx('close')} onClick={handleCloseMenu} />
+                        )}
+                    </h3>
                     {chapters.map((chapter, indexChapter) => (
                         <div className={cx('chapter')} key={indexChapter}>
-                            <div className={cx('chapter-header')}>
-                                <h4 className={cx('chapter-title')} onClick={() => handleClickChapter(indexChapter)}>
+                            <div className={cx('chapter-header')} onClick={() => handleClickChapter(indexChapter)}>
+                                <h4 className={cx('chapter-title')}>
                                     {chapter?.order} - {chapter?.title}
                                 </h4>
                                 <FontAwesomeIcon
@@ -95,6 +109,9 @@ function Study() {
                             </div>
                         </div>
                     ))}
+                </div>
+                <div className={cx('menu-mobile')} onClick={hanleClickMenu}>
+                    <h3 className={cx('mobile-title')}>Danh sách bài học</h3>
                 </div>
             </div>
         </StudyZone>

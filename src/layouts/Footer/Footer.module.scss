@@ -33,12 +33,7 @@
     height: 30px;
 }
 
-.content {
-    width: calc(100% / 5);
-}
-
 .content:first-child {
-    margin-right: 50px;
     .description {
         cursor: default;
     }
@@ -80,4 +75,33 @@
 .copy-right {
     text-align: center;
     padding: 10px 0;
+}
+
+@media (max-width: $breakpoint-sm) {
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .content {
+        flex-basis: 50%;
+        padding: 0 10px 30px 0;
+    }
+}
+
+@media (max-width: $breakpoint-m) {
+    .wrapper {
+        margin-top: 130px;
+        padding: 0 25px;
+    }
+}
+
+@media (min-width: $breakpoint-xl) {
+    .content {
+        width: calc(100% / 5);
+    }
+    .content:first-child {
+        margin-right: 50px;
+    }
 }

@@ -6,7 +6,6 @@ import styles from './Quizze.module.scss'
 
 import { getQuestionByQuizzeSlug } from '../../api/questionApi'
 import { getQuizzeBySlug } from '../../api/quizzeApi'
-import SelectedWord from '../../components/SelectedWord/SelectedWord'
 import { getQuestionType } from '../../api/questionTypeApi'
 import FillTheBlank from '../../components/QuestionType/FillTheBlank/FillTheBlank'
 import ShortAnswer from '../../components/QuestionType/ShortAnswer/ShortAnswer'
@@ -16,6 +15,7 @@ import AuthContext from '../../context/AuthContext'
 import StudyZone from '../../layouts/StudyZone/StudyZone'
 import Button from '../../components/Button/Button'
 import CountdownTimer from '../../components/CountdownTimer/CountdownTimer'
+import ModalPopup from '../../components/ModalPopup/ModalPopup'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
@@ -34,30 +34,9 @@ function Quizze() {
 
     const [totalScore, setTotalScore] = useState(0)
 
-    useEffect(() => {
-        const getQuestion = async () => {
-            try {
-                const response = await getQuestionByQuizzeSlug(quizzeSlug)
-                const quizze = await getQuizzeBySlug(quizzeSlug)
-                setQuizze(quizze)
-                setQuestions(response)
-                console.log('Question:', response)
-                console.log('Quizze:', quizze)
-            } catch (error) {
-                console.log('Get question by quizze slug error:', error)
-            }
-        }
-
-        const getTypeOfQuestion = async () => {
-            const response = await getQuestionType()
-            console.log('Response:', response)
-
-            setQuestionTypes(response.questionTypes)
-        }
-
-        getQuestion()
-        getTypeOfQuestion()
-    }, [quizzeSlug])
+    const handleOnExpire = () => {
+        alert('Time out')
+    }
 
     const closeModal = () => {
         setIsOpen(false)
@@ -103,8 +82,30 @@ function Quizze() {
 
         setTotalScore(score)
 
-        // await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
+        await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
     }
+
+    useEffect(() => {
+        const getQuestion = async () => {
+            try {
+                const response = await getQuestionByQuizzeSlug(quizzeSlug)
+                const quizze = await getQuizzeBySlug(quizzeSlug)
+                setQuizze(quizze)
+                setQuestions(response)
+            } catch (error) {
+                console.log('Get question by quizze slug error:', error)
+            }
+        }
+
+        const getTypeOfQuestion = async () => {
+            const response = await getQuestionType()
+
+            setQuestionTypes(response.questionTypes)
+        }
+
+        getQuestion()
+        getTypeOfQuestion()
+    }, [quizzeSlug])
 
     return (
         <StudyZone>
@@ -118,7 +119,7 @@ function Quizze() {
                     {Number(quizze.time) > 0 && (
                         <div className={cx('count')}>
                             Time left:
-                            <CountdownTimer initialTime={Number(quizze.time) * 60} />
+                            <CountdownTimer initialTime={Number(quizze.time) * 60} onExpire={handleOnExpire} />
                         </div>
                     )}
 
@@ -127,52 +128,49 @@ function Quizze() {
                     </Button>
                 </div>
             </div>
-            <SelectedWord>
-                {
-                    <div className={cx('content')}>
-                        {questions.map((question, indexQuestion) => (
-                            <div className={cx('question-wrapper')} key={question._id}>
-                                <div className={cx('question')}>
-                                    <h3>Question {indexQuestion + 1}.</h3>
-                                    <span>{question.question}</span>
-                                </div>
-                                <div className={cx('answer')}>
-                                    {question.questionTypeId._id === questionTypes[0]._id ? (
-                                        question.answer.map((answer, indexAnswer) => (
-                                            <div key={indexAnswer}>
-                                                <OneChoice
-                                                    id={answer._id}
-                                                    name={question._id}
-                                                    value={answer.text}
-                                                    checked={oneChoice[question._id] === answer.text}
-                                                    onChange={(e) => handleChangeOneChoice(e, question._id)}
-                                                />
-                                            </div>
-                                        ))
-                                    ) : question.questionTypeId._id === questionTypes[2]._id ? (
-                                        <ShortAnswer
-                                            id={question._id}
+            <div className={cx('content')}>
+                {questions.map((question, indexQuestion) => (
+                    <div className={cx('question-wrapper')} key={question._id}>
+                        <div className={cx('question')}>
+                            <h3>Question {indexQuestion + 1}.</h3>
+                            <span>{question.question}</span>
+                        </div>
+                        <div className={cx('answer')}>
+                            {question.questionTypeId._id === questionTypes[0]._id ? (
+                                question.answer.map((answer, indexAnswer) => (
+                                    <div key={indexAnswer}>
+                                        <OneChoice
+                                            id={answer._id}
                                             name={question._id}
-                                            onChange={(e) => handleChangeShortAnswer(question._id)}
+                                            value={answer.text}
+                                            checked={oneChoice[question._id] === answer.text}
+                                            onChange={(e) => handleChangeOneChoice(e, question._id)}
                                         />
-                                    ) : question.questionTypeId._id === questionTypes[3]._id ? (
-                                        <FillTheBlank
-                                            id={question._id}
-                                            name={question._id}
-                                            onChange={(e) => handleChangeFillAnswer(e, question._id)}
-                                        />
-                                    ) : null}
-                                </div>
-                            </div>
-                        ))}
+                                    </div>
+                                ))
+                            ) : question.questionTypeId._id === questionTypes[2]._id ? (
+                                <ShortAnswer
+                                    id={question._id}
+                                    name={question._id}
+                                    onChange={(e) => handleChangeShortAnswer(question._id)}
+                                />
+                            ) : question.questionTypeId._id === questionTypes[3]._id ? (
+                                <FillTheBlank
+                                    id={question._id}
+                                    name={question._id}
+                                    onChange={(e) => handleChangeFillAnswer(e, question._id)}
+                                />
+                            ) : null}
+                        </div>
                     </div>
-                }
-            </SelectedWord>
-            <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Total Exam">
-                <h2>Submited successfully!</h2>
-                <span>Your total score: {totalScore}</span>
-                <button onClick={closeModal}>Close</button>
-            </Modal>
+                ))}
+            </div>
+            <ModalPopup isOpen={isOpen} closeModal={closeModal} className={cx('modal-point', 'overlay')}>
+                <div className={cx('modal-content')}>
+                    <h2>Submited successfully!</h2>
+                    <span>Your total score: {totalScore}</span>
+                </div>
+            </ModalPopup>
         </StudyZone>
     )
 }

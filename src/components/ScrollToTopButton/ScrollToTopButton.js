@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './ScrollToTopButton.module.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAnglesUp } from '@fortawesome/free-solid-svg-icons'
 
 const cx = classNames.bind(styles)
 
@@ -34,7 +36,7 @@ function ScrollToTopButton() {
 
     return (
         <div className={cx('scroll-top', { active })} onClick={handleOnClick}>
-            <span>^</span>
+            <FontAwesomeIcon className={cx('icon')} icon={faAnglesUp} />
         </div>
     )
 }

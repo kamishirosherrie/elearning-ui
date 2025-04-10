@@ -8,7 +8,7 @@
 .info {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 50%;
 }
 
 .info-item {
@@ -31,4 +31,10 @@
 
 .btn-save {
     margin-top: 20px;
+}
+
+@media (max-width: $breakpoint-sm) {
+    .info {
+        width: 100%;
+    }
 }

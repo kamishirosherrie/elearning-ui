@@ -85,7 +85,10 @@ function Home() {
                     <div className={cx('image')}></div>
                     <div className={cx('content')}>
                         <div className={cx('title')}>
-                            <h1>Học tiếng Anh hiệu quả với phương pháp luyện tập thông minh</h1>
+                            <h1>
+                                Học tiếng Anh hiệu quả <br /> với phương pháp luyện tập <br />
+                                thông minh
+                            </h1>
                         </div>
                         <div className={cx('description')}>
                             Luyện tập mọi kỹ năng với bài tập phong phú, phù hợp với mọi trình độ.

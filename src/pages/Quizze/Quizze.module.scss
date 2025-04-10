@@ -1,3 +1,5 @@
+@import '../../Variables.scss';
+
 .header {
     text-align: center;
 
@@ -32,4 +34,21 @@
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
+}
+
+.modal-content {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > span {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .content {
+        padding: 0 20px 50px;
+    }
 }

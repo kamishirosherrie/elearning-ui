@@ -15,3 +15,10 @@
     margin-bottom: 15px;
     color: $primary-color;
 }
+
+@media (max-width: $breakpoint-sm) {
+    .container {
+        flex-direction: column;
+        padding: 0 20px 40px;
+    }
+}

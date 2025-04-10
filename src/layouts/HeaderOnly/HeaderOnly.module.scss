@@ -48,3 +48,29 @@
     width: 20px;
     height: 20px;
 }
+
+@media (max-width: $breakpoint-m) {
+    .wrapper {
+        padding: 0 20px;
+        align-items: center;
+    }
+
+    .logo-wrapper {
+        img {
+            width: 100px;
+            height: 50px;
+        }
+    }
+}
+
+@media (min-width: $breakpoint-m) {
+    .wrapper {
+        max-width: 100%;
+    }
+    .logo-wrapper {
+        img {
+            width: 100px;
+            height: 50px;
+        }
+    }
+}

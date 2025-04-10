@@ -41,6 +41,16 @@ export const getLessonByCourseSlug = async (slug) => {
     }
 }
 
+export const getTotalLessonNumber = async (courseId) => {
+    try {
+        const response = await axiosInstance.get(apiUrl.lessonUrl.getTotalLessonNumber(courseId))
+        return response.data.totalLesson
+    } catch (error) {
+        console.log('Get total lesson number failed')
+        throw error
+    }
+}
+
 export const updateLesson = async (lesson) => {
     try {
         const response = await axiosInstance.put(apiUrl.lessonUrl.updateLesson, lesson)

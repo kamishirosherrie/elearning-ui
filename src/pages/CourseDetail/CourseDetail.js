@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './CourseDetail.module.scss'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -15,22 +15,23 @@ import Login from '../../components/Login/Login'
 import Register from '../../components/Register/Register'
 import Checkout from '../../components/Checkout/Checkout'
 import { routes } from '../../routes/route'
-import { getLessonByCourseSlug } from '../../api/lessonApi'
+import { getLessonByCourseSlug, getTotalLessonNumber } from '../../api/lessonApi'
 
 const cx = classNames.bind(styles)
 
 function CourseDetail() {
     const { user } = useContext(AuthContext)
     const slug = useParams().courseName
-    const navigate = useNavigate()
 
     const [course, setCourse] = useState({})
     const [chapters, setChapters] = useState([])
     const [firstLesson, setFirstLesson] = useState({})
+    const [totalLesson, setTotalLesson] = useState(0)
 
     const [isEnrolled, setIsEnrolled] = useState(false)
 
     const [active, setActive] = useState({})
+    const [activeBtn, setActiveBtn] = useState({})
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
 
@@ -40,10 +41,6 @@ function CourseDetail() {
 
     const handleClick = () => {
         setIsOpen(true)
-    }
-
-    const handleStartNow = () => {
-        navigate(routes.myCourse)
     }
 
     const closeModal = () => {
@@ -64,29 +61,48 @@ function CourseDetail() {
             const response = await getCourseBySlug(slug)
             setCourse(response)
 
-            if (course._id) {
+            if (response._id) {
                 try {
                     const lessons = await getLessonByCourseSlug(slug)
+                    const total = await getTotalLessonNumber(response._id)
+                    setTotalLesson(total)
+
                     setChapters(lessons.chapters)
                     setFirstLesson(lessons.chapters[0].lessons[0])
                 } catch (error) {
                     console.log('Get lessons failed: ', error)
                 }
-            }
 
-            if (user && course._id) {
-                try {
-                    const enrollment = await getCourseEnrollment({ courseId: course._id, userId: user._id })
-                    if (enrollment.courseEnrollment) {
-                        setIsEnrolled(true)
+                if (user) {
+                    try {
+                        const enrollment = await getCourseEnrollment({ courseId: response._id, userId: user._id })
+                        if (enrollment.courseEnrollment) {
+                            setIsEnrolled(true)
+                        }
+                    } catch (error) {
+                        console.log('Get course enrollment failed: ', error)
                     }
-                } catch (error) {
-                    console.log('Get course enrollment failed: ', error)
                 }
             }
         }
         getCourseInfo()
-    }, [slug, course._id, user])
+    }, [slug, user])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.pageYOffset > window.innerHeight / 3) {
+                setActiveBtn(true)
+            } else {
+                setActiveBtn(false)
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll)
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     return (
         <MainLayout>
@@ -94,16 +110,13 @@ function CourseDetail() {
                 <div className={cx('column')}>
                     <h1 className={cx('title')}>{course?.title}</h1>
                     <span>{course?.shortDescription}</span>
-                    <div className={cx('intro')}>
-                        <div dangerouslySetInnerHTML={{ __html: course?.description }}></div>
-                        <div className={cx('intro-item')}></div>
-                    </div>
+                    <div className={cx('intro')} dangerouslySetInnerHTML={{ __html: course?.description }} />
                     <div className={cx('content')}>
                         <p>Nội dung khóa học</p>
                         <div className={cx('content-info')}>
-                            <span>4 chương</span>
+                            <span>{chapters.length} chương</span>
                             <span>-</span>
-                            <span>12 bài học</span>
+                            <span>{totalLesson} bài học</span>
                         </div>
                     </div>
                     <div className={cx('chapter')}>
@@ -142,17 +155,29 @@ function CourseDetail() {
                     <span className={cx('img')}></span>
                     <span className={cx('price')}>1.200.000VNĐ</span>
                     {isEnrolled ? (
-                        <Button href={`${routes.study}/${slug}/${firstLesson.slug}`} blue onClick={handleStartNow}>
+                        <Button className={cx('button')} href={`${routes.study}/${slug}/${firstLesson.slug}`} blue>
                             Học ngay
                         </Button>
                     ) : (
-                        <Button blue onClick={handleClick}>
+                        <Button className={cx('button')} blue onClick={handleClick}>
                             Đăng ký học
                         </Button>
                     )}
-                    <span>Học mọi lúc, mọi nơi</span>
                 </div>
             </div>
+            {isEnrolled ? (
+                <Button
+                    className={cx('button', 'mobile-button', { activeBtn })}
+                    href={`${routes.study}/${slug}/${firstLesson.slug}`}
+                    blue
+                >
+                    Học ngay
+                </Button>
+            ) : (
+                <Button className={cx('button', 'mobile-button', { activeBtn })} blue onClick={handleClick}>
+                    Đăng ký học
+                </Button>
+            )}
             <ModalPopup isOpen={isOpen} closeModal={closeModal}>
                 {user ? (
                     <Checkout course={course} setClose={setIsOpen} setIsEnrolled={setIsEnrolled} />

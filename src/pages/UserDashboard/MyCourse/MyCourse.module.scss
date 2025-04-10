@@ -33,3 +33,15 @@
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: $breakpoint-sm) {
+    .course-list {
+        padding: 0;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .course-item {
+        width: 100%;
+    }
+}

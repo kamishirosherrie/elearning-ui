@@ -12,6 +12,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+body.no-scroll {
+    overflow: hidden !important;
+}
+
 a {
     text-decoration: none;
     color: inherit;
