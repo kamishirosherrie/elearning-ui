@@ -51,9 +51,9 @@ export const addNewUser = async (user) => {
     }
 }
 
-export const updateUser = async (user) => {
+export const updateUserProfile = async (user) => {
     try {
-        const response = await axiosInstance.put(apiUrl.userUrl.updateUser, user)
+        const response = await axiosInstance.put(apiUrl.userUrl.updateUserProfile, user)
         return response.data
     } catch (error) {
         console.log('Update user failed: ', error)

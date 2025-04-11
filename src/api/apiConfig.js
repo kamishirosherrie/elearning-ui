@@ -19,6 +19,7 @@ const apiUrl = {
         getUserCourses: (userId) => `/user/getUserInfo/course/${userId}`,
         addUser: '/user/addUser',
         updateUser: '/user/updateUserInfo',
+        updateUserProfile: '/user/updateUserProfile',
         deleteUser: (userName) => `/user/deleteUser/${userName}`,
     },
     courseUrl: {

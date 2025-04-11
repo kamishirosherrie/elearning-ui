@@ -80,3 +80,9 @@
 .term-and-condition span a {
     font-weight: bold;
 }
+
+@media (max-width: $breakpoint-xs) {
+    .wrapper {
+        width: 250px;
+    }
+}

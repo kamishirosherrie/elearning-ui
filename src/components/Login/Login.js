@@ -94,13 +94,11 @@ const Login = ({ handleClickRegister, redirect = true }) => {
                 <div className={cx('login-bottom')}>
                     <div className={cx('login-option')}>
                         Hoặc đăng nhập với{' '}
-                        <span>
+                        <div className={cx('social-login')}>
                             <GoogleLogin redirect={redirect} />
-                        </span>{' '}
-                        /{' '}
-                        <span>
+                            /
                             <FacebookLogin redirect={redirect} />
-                        </span>
+                        </div>
                     </div>
                     <div className={cx('register')}>
                         <span>Bạn chưa có tài khoản? </span>

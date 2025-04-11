@@ -6,7 +6,7 @@ export const loginUser = async (user) => {
         const response = await axiosInstance.post(apiUrl.authUrl.login, user)
         return response.data
     } catch (error) {
-        console.log('Login failed: ', error.message)
+        console.log('Login failed: ', error)
         throw error
     }
 }
@@ -16,7 +16,7 @@ export const socialLogin = async (user) => {
         const response = await axiosInstance.post(apiUrl.authUrl.socialLogin, user)
         return response.data
     } catch (error) {
-        console.log('Login failed: ', error.message)
+        console.log('Login failed: ', error)
         throw error
     }
 }
@@ -26,12 +26,20 @@ export const logoutUser = async () => {
         const response = await axiosInstance.post(apiUrl.authUrl.logout)
         return response.data
     } catch (error) {
-        console.log('Logout failed: ', error.message)
+        console.log('Logout failed: ', error)
         throw error
     }
 }
 
-export const registerUser = async (user) => {}
+export const registerUser = async (user) => {
+    try {
+        const response = await axiosInstance.post(apiUrl.authUrl.register, user)
+        return response.data
+    } catch (error) {
+        console.log('Register failed: ', error.message)
+        throw error
+    }
+}
 
 export const changePassWord = async (user) => {
     try {

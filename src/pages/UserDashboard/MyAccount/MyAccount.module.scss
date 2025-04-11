@@ -15,6 +15,10 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+
+    > input:read-only {
+        cursor: not-allowed;
+    }
 }
 
 .label {

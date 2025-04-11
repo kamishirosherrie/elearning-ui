@@ -11,10 +11,7 @@
 .course-list {
     display: flex;
     position: relative;
-    // justify-content: right;
-    // padding-left: 50px;
     width: 60%;
-    // top: 100px;
     gap: 30px;
 }
 
@@ -57,5 +54,43 @@
     &:hover {
         background-color: #fff;
         color: $primary-color;
+    }
+}
+
+@media (max-width: $breakpoint-xs) {
+    .wrapper {
+        padding: 20px 40px;
+    }
+
+    .course-list {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .course-item {
+        width: 100%;
+    }
+}
+
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+    .wrapper {
+        padding: 20px 40px;
+    }
+    .course-list {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .course-item {
+        width: 45%;
+    }
+}
+
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-xl) {
+    .course-list {
+        width: 100%;
+        justify-content: space-between;
     }
 }

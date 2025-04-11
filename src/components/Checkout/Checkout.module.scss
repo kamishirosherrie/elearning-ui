@@ -26,6 +26,7 @@
 }
 
 .title {
+    display: flex;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 20px;
@@ -94,15 +95,18 @@ input.content:read-only {
     }
 
     .title {
-        display: flex;
         justify-content: left;
+        flex-wrap: wrap;
         gap: 10px;
+
+        > span {
+            padding-right: 40px;
+        }
     }
 }
 
 @media (min-width: ($breakpoint-sm + 1px)) and (max-width: $breakpoint-m) {
     .title {
-        display: flex;
         justify-content: left;
         gap: 10px;
     }
@@ -111,5 +115,14 @@ input.content:read-only {
         display: flex;
         flex-direction: column;
         gap: 35px;
+    }
+}
+
+@media (min-width: $breakpoint-m) {
+    .title {
+        justify-content: space-between;
+        > span {
+            padding-right: 0;
+        }
     }
 }

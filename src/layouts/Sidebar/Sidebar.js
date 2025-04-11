@@ -63,7 +63,7 @@ function Sidebar() {
                 </div>
                 <div className={cx('navbar-item')}>
                     <LogoutIcon className={cx('icon')} width={24} height={24} />
-                    <Link to="/" className={cx('navbar-link')} onClick={handleLogout}>
+                    <Link to={routes.home} className={cx('navbar-link')} onClick={handleLogout}>
                         Đăng xuất
                     </Link>
                 </div>
@@ -92,7 +92,7 @@ function Sidebar() {
                             <LockIcon className={cx('icon')} width={24} height={24} />
                             Mật khẩu
                         </Link>
-                        <Link to="/" className={cx('navbar-item')} onClick={handleLogout}>
+                        <Link to={routes.home} className={cx('navbar-item')} onClick={handleLogout}>
                             <LogoutIcon className={cx('icon')} width={24} height={24} />
                             Đăng xuất
                         </Link>
