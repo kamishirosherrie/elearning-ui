@@ -70,11 +70,11 @@ function Quizze() {
                     score += 1
                 }
             } else if (question.questionTypeId._id === questionTypes[2]._id) {
-                if (shortAnswer[question._id] === question.answer[0].text) {
+                if (fillAnswer[question._id] === question.answer[0].text) {
                     score += 1
                 }
             } else if (question.questionTypeId._id === questionTypes[3]._id) {
-                if (question.answer[0].text.includes(fillAnswer[question._id])) {
+                if (question.answer[0].text.includes(shortAnswer[question._id])) {
                     score += 1
                 }
             }
@@ -82,7 +82,11 @@ function Quizze() {
 
         setTotalScore(score)
 
-        await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
+        console.log('oneChoice', oneChoice)
+        console.log('shortAnswer', shortAnswer)
+        console.log('fillAnswer', fillAnswer)
+
+        // await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
     }
 
     useEffect(() => {

@@ -12,6 +12,7 @@ import CourseDetail from './pages/CourseDetail/CourseDetail'
 import Study from './pages/Study/Study'
 import ForgotPassWord from './pages/ForgotPassWord/ForgotPassWord'
 import ResetPassWord from './pages/ResetPassWord/ResetPassWord'
+import MySubmission from './pages/UserDashboard/MySubmission/MySubmission'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -22,6 +23,7 @@ function App() {
                     <Route path={routes.home} element={<Home />} />
                     <Route path={routes.myAccount} element={user ? <MyAccount /> : <Navigate to="/" />} />
                     <Route path={routes.myCourse} element={user ? <MyCourse /> : <Navigate to="/" />} />
+                    <Route path={routes.mySubmission} element={user ? <MySubmission /> : <Navigate to="/" />} />
                     <Route path={routes.changePassword} element={user ? <ChangePassword /> : <Navigate to="/" />} />
                     <Route
                         path={`${routes.study}/:courseName/:lessonName`}

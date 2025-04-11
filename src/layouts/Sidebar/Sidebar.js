@@ -50,6 +50,12 @@ function Sidebar() {
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
+                    <CourseIcon className={cx('icon')} width={24} height={24} />
+                    <Link to={routes.mySubmission} className={cx('navbar-link')}>
+                        Tiến độ học tập
+                    </Link>
+                </div>
+                <div className={cx('navbar-item')}>
                     <LockIcon className={cx('icon')} width={24} height={24} />
                     <Link to={routes.changePassword} className={cx('navbar-link')}>
                         Mật khẩu
