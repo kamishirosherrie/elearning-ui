@@ -8,6 +8,7 @@ const routes = {
     study: '/study',
     lesson: '/lesson',
     quizze: '/lesson/quizze',
+    quizzeView: '/quizze/view',
     forgotPassword: '/forgot-password',
     resetPassword: '/reset-password',
 }

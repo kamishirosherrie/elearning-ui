@@ -13,34 +13,39 @@ import Study from './pages/Study/Study'
 import ForgotPassWord from './pages/ForgotPassWord/ForgotPassWord'
 import ResetPassWord from './pages/ResetPassWord/ResetPassWord'
 import MySubmission from './pages/UserDashboard/MySubmission/MySubmission'
+import QuizzeView from './pages/Quizze/QuizzeView'
+import { SubmissionProvider } from './context/SubmissionContext'
 
 function App() {
     const { user } = useContext(AuthContext)
     return (
-        <div className="App">
-            <Router>
-                <Routes>
-                    <Route path={routes.home} element={<Home />} />
-                    <Route path={routes.myAccount} element={user ? <MyAccount /> : <Navigate to="/" />} />
-                    <Route path={routes.myCourse} element={user ? <MyCourse /> : <Navigate to="/" />} />
-                    <Route path={routes.mySubmission} element={user ? <MySubmission /> : <Navigate to="/" />} />
-                    <Route path={routes.changePassword} element={user ? <ChangePassword /> : <Navigate to="/" />} />
-                    <Route
-                        path={`${routes.study}/:courseName/:lessonName`}
-                        element={user ? <Study /> : <Navigate to="/" />}
-                    />
+        <SubmissionProvider>
+            <div className="App">
+                <Router>
+                    <Routes>
+                        <Route path={routes.home} element={<Home />} />
+                        <Route path={routes.myAccount} element={user ? <MyAccount /> : <Navigate to="/" />} />
+                        <Route path={routes.myCourse} element={user ? <MyCourse /> : <Navigate to="/" />} />
+                        <Route path={routes.mySubmission} element={user ? <MySubmission /> : <Navigate to="/" />} />
+                        <Route path={routes.changePassword} element={user ? <ChangePassword /> : <Navigate to="/" />} />
+                        <Route
+                            path={`${routes.study}/:courseName/:lessonName`}
+                            element={user ? <Study /> : <Navigate to="/" />}
+                        />
 
-                    <Route path={routes.forgotPassword} element={<ForgotPassWord />} />
-                    <Route path={routes.resetPassword} element={<ResetPassWord />} />
+                        <Route path={routes.forgotPassword} element={<ForgotPassWord />} />
+                        <Route path={routes.resetPassword} element={<ResetPassWord />} />
 
-                    <Route path={routes.course} element={<Course />} />
-                    <Route path={`${routes.course}/:courseName`} element={<CourseDetail />} />
-                    <Route path={`${routes.quizze}/:quizzeSlug`} element={<Quizze />} />
+                        <Route path={routes.course} element={<Course />} />
+                        <Route path={`${routes.course}/:courseName`} element={<CourseDetail />} />
+                        <Route path={`${routes.quizze}/:quizzeSlug`} element={<Quizze />} />
+                        <Route path={`${routes.quizzeView}/:quizzeSlug`} element={<QuizzeView />} />
 
-                    <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-            </Router>
-        </div>
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                </Router>
+            </div>
+        </SubmissionProvider>
     )
 }
 

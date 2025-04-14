@@ -57,6 +57,8 @@ const apiUrl = {
     },
     submissionUrl: {
         addNewSubmission: '/submission/submit',
+        getSubmissionById: (id) => `/submission/getSubmission/${id}`,
+        getSubmissionsByUserId: (userId) => `/submission/getSubmissions/${userId}`,
     },
     dictionaryUrl: {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,

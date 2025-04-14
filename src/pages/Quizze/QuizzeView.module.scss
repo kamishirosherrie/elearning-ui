@@ -1,0 +1,24 @@
+.answer {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.correct {
+    background-color: #d4edda; /* Green background */
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.incorrect {
+    background-color: #f8d7da; /* Red background */
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.user-correct {
+    background-color: #d4edda; /* Green background for user's correct answer */
+    border-color: #c3e6cb;
+    color: #155724;
+}

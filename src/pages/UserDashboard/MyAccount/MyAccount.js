@@ -19,7 +19,7 @@ const formatDate = (isoDate) => {
 }
 
 function MyAccount() {
-    const { user } = useContext(AuthContext)
+    const { user, login } = useContext(AuthContext)
 
     const [userInfo, setUserInfo] = useState({
         _id: user._id,
@@ -40,7 +40,7 @@ function MyAccount() {
             const response = await updateUserProfile(userInfo)
             if (response) {
                 alert('Update user successfully')
-                localStorage.setItem('user', JSON.stringify(userInfo))
+                login(userInfo)
             }
         } catch (error) {
             console.log('Update user failed: ', error)

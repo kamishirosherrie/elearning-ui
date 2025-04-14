@@ -33,6 +33,8 @@ function Quizze() {
     const [fillAnswer, setFillAnswer] = useState({})
 
     const [totalScore, setTotalScore] = useState(0)
+    const [startTime, setStartTime] = useState(null)
+    const [timerKey, setTimerKey] = useState(0)
 
     const handleOnExpire = () => {
         alert('Time out')
@@ -63,30 +65,57 @@ function Quizze() {
     const handleSubmit = async () => {
         setIsOpen(true)
         let score = 0
+        const answers = []
+
         questions.forEach((question) => {
-            if (question.questionTypeId._id === questionTypes[0]._id) {
-                const correctAnswer = question.answer.find((answer) => answer.isCorrect === true)
-                if (oneChoice[question._id] === correctAnswer.text) {
-                    score += 1
-                }
-            } else if (question.questionTypeId._id === questionTypes[2]._id) {
-                if (fillAnswer[question._id] === question.answer[0].text) {
-                    score += 1
-                }
-            } else if (question.questionTypeId._id === questionTypes[3]._id) {
-                if (question.answer[0].text.includes(shortAnswer[question._id])) {
-                    score += 1
-                }
+            switch (question.questionTypeId._id) {
+                case questionTypes[0]._id:
+                    const correctAnswer = question.answer.find((answer) => answer.isCorrect === true)
+                    if (oneChoice[question._id] === correctAnswer.text) {
+                        score += 1
+                    }
+                    answers.push({ questionId: question._id, text: oneChoice[question._id] || '' })
+                    break
+                case questionTypes[2]._id:
+                    if (question.answer[0].text.includes(shortAnswer[question._id])) {
+                        score += 1
+                    }
+                    answers.push({ questionId: question._id, text: shortAnswer[question._id] || '' })
+                    break
+                case questionTypes[3]._id:
+                    const correctAnswers = question.answer.map((answer) => answer.text)
+                    if (correctAnswers.includes(fillAnswer[question._id])) {
+                        score += 1
+                    }
+                    answers.push({ questionId: question._id, text: fillAnswer[question._id] || '' })
+                    break
+                default:
+                    break
             }
         })
 
         setTotalScore(score)
 
-        console.log('oneChoice', oneChoice)
-        console.log('shortAnswer', shortAnswer)
-        console.log('fillAnswer', fillAnswer)
+        const endTime = new Date()
+        const timeSpent = Math.floor((endTime - startTime) / 1000)
 
-        // await addNewSubmit({ quizzeId: quizze._id, score, userId: user._id })
+        const submissionData = {
+            quizzeId: quizze._id,
+            userId: user._id,
+            timeTaken: timeSpent,
+            answers: answers,
+        }
+
+        console.log('Submission Data:', submissionData)
+
+        try {
+            const response = await addNewSubmit(submissionData)
+            console.log(response)
+            setStartTime(new Date())
+            setTimerKey((prevKey) => prevKey + 1)
+        } catch (error) {
+            console.log('Submission failed:', error)
+        }
     }
 
     useEffect(() => {
@@ -96,6 +125,7 @@ function Quizze() {
                 const quizze = await getQuizzeBySlug(quizzeSlug)
                 setQuizze(quizze)
                 setQuestions(response)
+                setStartTime(new Date())
             } catch (error) {
                 console.log('Get question by quizze slug error:', error)
             }
@@ -123,7 +153,11 @@ function Quizze() {
                     {Number(quizze.time) > 0 && (
                         <div className={cx('count')}>
                             Time left:
-                            <CountdownTimer initialTime={Number(quizze.time) * 60} onExpire={handleOnExpire} />
+                            <CountdownTimer
+                                key={timerKey}
+                                initialTime={Number(quizze.time) * 60}
+                                onExpire={handleOnExpire}
+                            />
                         </div>
                     )}
 
