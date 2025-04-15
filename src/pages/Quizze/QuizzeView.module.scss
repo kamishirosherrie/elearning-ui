@@ -1,24 +1,55 @@
+@import '../../Variables.scss';
+
+.wrapper {
+    padding: 20px 80px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+
+    > h1 {
+        margin-bottom: 10px;
+    }
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
 .answer {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 5px;
+    height: 40px;
+    display: flex;
+    align-items: center;
 }
 
 .correct {
-    background-color: #d4edda; /* Green background */
+    background-color: #d4edda;
     border-color: #c3e6cb;
     color: #155724;
 }
 
 .incorrect {
-    background-color: #f8d7da; /* Red background */
+    background-color: #f8d7da;
     border-color: #f5c6cb;
     color: #721c24;
 }
 
 .user-correct {
-    background-color: #d4edda; /* Green background for user's correct answer */
+    background-color: #d4edda;
     border-color: #c3e6cb;
     color: #155724;
+}
+
+@media (max-width: $breakpoint-sm) {
+    .wrapper {
+        padding: 20px;
+    }
 }

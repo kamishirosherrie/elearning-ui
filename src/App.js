@@ -15,6 +15,8 @@ import ResetPassWord from './pages/ResetPassWord/ResetPassWord'
 import MySubmission from './pages/UserDashboard/MySubmission/MySubmission'
 import QuizzeView from './pages/Quizze/QuizzeView'
 import { SubmissionProvider } from './context/SubmissionContext'
+import EntryTest from './pages/EntryTest/EntryTest'
+import TestPractice from './pages/UserDashboard/TestPractice/TestPractice'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -32,14 +34,22 @@ function App() {
                             path={`${routes.study}/:courseName/:lessonName`}
                             element={user ? <Study /> : <Navigate to="/" />}
                         />
+                        <Route
+                            path={`${routes.quizzeView}/:quizzeSlug`}
+                            element={user ? <QuizzeView /> : <Navigate to="/" />}
+                        />
+                        <Route
+                            path={`${routes.quizze}/:quizzeSlug`}
+                            element={user ? <Quizze /> : <Navigate to="/" />}
+                        />
+                        <Route path={routes.testPractice} element={user ? <TestPractice /> : <Navigate to="/" />} />
 
                         <Route path={routes.forgotPassword} element={<ForgotPassWord />} />
                         <Route path={routes.resetPassword} element={<ResetPassWord />} />
 
                         <Route path={routes.course} element={<Course />} />
                         <Route path={`${routes.course}/:courseName`} element={<CourseDetail />} />
-                        <Route path={`${routes.quizze}/:quizzeSlug`} element={<Quizze />} />
-                        <Route path={`${routes.quizzeView}/:quizzeSlug`} element={<QuizzeView />} />
+                        <Route path={routes.entryTest} element={<EntryTest />} />
 
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>

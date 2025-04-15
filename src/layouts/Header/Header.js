@@ -56,6 +56,14 @@ function Header() {
         }
     }
 
+    const handleClickPractice = () => {
+        if (user) {
+            navigate(routes.testPractice)
+        } else {
+            setIsOpen(true)
+        }
+    }
+
     useEffect(() => {
         const getCourses = async () => {
             const response = await getCourse()
@@ -83,7 +91,9 @@ function Header() {
                         <FontAwesomeIcon icon={faClose} className={cx('icon')} onClick={handleClickMenu} />
                     </li>
                     <li className={cx('menu-item')}>
-                        <span>Khóa học</span>
+                        <Link to={routes.course}>
+                            <span>Khóa học</span>
+                        </Link>
                         <div className={cx('dropdown')}>
                             {courses?.map((course) => (
                                 <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
@@ -93,24 +103,17 @@ function Header() {
                         </div>
                     </li>
                     <li className={cx('menu-item')}>
-                        <span>Kiểm tra đầu vào</span>
-                        <div className={cx('dropdown')}>
-                            {courses?.map((course) => (
-                                <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
-                                    <p>{course.title}</p>
-                                </a>
-                            ))}
-                        </div>
+                        <Link to={routes.entryTest}>Kiểm tra đầu vào</Link>
                     </li>
-                    <li className={cx('menu-item')}>
+                    <li className={cx('menu-item')} onClick={handleClickPractice}>
                         <span>Luyện đề</span>
-                        <div className={cx('dropdown')}>
+                        {/* <div className={cx('dropdown')}>
                             {courses?.map((course) => (
                                 <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
                                     <p>Luyện đề {course.title}</p>
                                 </a>
                             ))}
-                        </div>
+                        </div> */}
                     </li>
                     <li className={cx('menu-item')}>
                         <span>Blog</span>
@@ -123,7 +126,7 @@ function Header() {
                         </div>
                     </li>
                     <li className={cx('menu-item')}>
-                        <span>Về chúng tôi</span>
+                        <a href="/">Về chúng tôi</a>
                     </li>
                 </ul>
             </div>
@@ -134,7 +137,9 @@ function Header() {
                     </Link>
                 </li>
                 <li className={cx('menu-item')}>
-                    <span>Khóa học</span>
+                    <Link to={routes.course}>
+                        <span>Khóa học</span>
+                    </Link>
                     <div className={cx('dropdown')}>
                         {courses?.map((course) => (
                             <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
@@ -144,24 +149,17 @@ function Header() {
                     </div>
                 </li>
                 <li className={cx('menu-item')}>
-                    <span>Kiểm tra đầu vào</span>
-                    <div className={cx('dropdown')}>
-                        {courses?.map((course) => (
-                            <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
-                                <p>{course.title}</p>
-                            </a>
-                        ))}
-                    </div>
+                    <Link to={routes.entryTest}>Kiểm tra đầu vào</Link>
                 </li>
-                <li className={cx('menu-item')}>
+                <li className={cx('menu-item')} onClick={handleClickPractice}>
                     <span>Luyện đề</span>
-                    <div className={cx('dropdown')}>
+                    {/* <div className={cx('dropdown')}>
                         {courses?.map((course) => (
                             <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
                                 <p>Luyện đề {course.title}</p>
                             </a>
                         ))}
-                    </div>
+                    </div> */}
                 </li>
                 <li className={cx('menu-item')}>
                     <span>Blog</span>
@@ -174,7 +172,7 @@ function Header() {
                     </div>
                 </li>
                 <li className={cx('menu-item')}>
-                    <span>Về chúng tôi</span>
+                    <a href="/">Về chúng tôi</a>
                 </li>
             </ul>
             <div className={cx('button')}>

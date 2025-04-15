@@ -9,6 +9,8 @@ const routes = {
     lesson: '/lesson',
     quizze: '/lesson/quizze',
     quizzeView: '/quizze/view',
+    entryTest: '/entry-test',
+    testPractice: '/test-practice',
     forgotPassword: '/forgot-password',
     resetPassword: '/reset-password',
 }

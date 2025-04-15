@@ -13,6 +13,7 @@ import Register from '../../components/Register/Register'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import AuthContext from '../../context/AuthContext'
 import { routes } from '../../routes/route'
+import { image } from '../../assets/images/image'
 
 const cx = classNames.bind(styles)
 
@@ -50,7 +51,7 @@ function Home() {
     }
 
     useEffect(() => {
-        document.title = 'Trang chủ'
+        // document.title = 'Trang chủ'
         const getAllCourse = async () => {
             const response = await getCourse()
             setCourse(response.courses)
@@ -82,7 +83,9 @@ function Home() {
         <div className={cx('wrapper')}>
             <MainLayout>
                 <div className={cx('banner')}>
-                    <div className={cx('image')}></div>
+                    <div className={cx('image')}>
+                        <img src={image.banner} alt="banner" />
+                    </div>
                     <div className={cx('content')}>
                         <div className={cx('title')}>
                             <h1>

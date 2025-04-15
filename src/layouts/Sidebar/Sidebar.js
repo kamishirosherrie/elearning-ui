@@ -56,6 +56,12 @@ function Sidebar() {
                     </Link>
                 </div>
                 <div className={cx('navbar-item')}>
+                    <CourseIcon className={cx('icon')} width={24} height={24} />
+                    <Link to={routes.testPractice} className={cx('navbar-link')}>
+                        Luyện đề
+                    </Link>
+                </div>
+                <div className={cx('navbar-item')}>
                     <LockIcon className={cx('icon')} width={24} height={24} />
                     <Link to={routes.changePassword} className={cx('navbar-link')}>
                         Mật khẩu
@@ -87,6 +93,14 @@ function Sidebar() {
                         <Link to={routes.myCourse} className={cx('navbar-item')}>
                             <CourseIcon className={cx('icon')} width={24} height={24} />
                             Khoá học của tôi
+                        </Link>
+                        <Link to={routes.mySubmission} className={cx('navbar-item')}>
+                            <CourseIcon className={cx('icon')} width={24} height={24} />
+                            Tiến độ học tập
+                        </Link>
+                        <Link to={routes.testPractice} className={cx('navbar-item')}>
+                            <CourseIcon className={cx('icon')} width={24} height={24} />
+                            Luyện đề
                         </Link>
                         <Link to={routes.changePassword} className={cx('navbar-item')}>
                             <LockIcon className={cx('icon')} width={24} height={24} />

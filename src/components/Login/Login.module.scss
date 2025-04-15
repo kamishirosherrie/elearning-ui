@@ -71,9 +71,12 @@
     font-weight: bold;
     display: flex;
     gap: 10px;
-    transition: all 0.3s;
 
-    &:hover {
+    & > div {
+        transition: all 0.3s;
+    }
+
+    & > div:hover {
         color: $primary-color;
     }
 }
