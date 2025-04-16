@@ -1,8 +1,23 @@
+@import '../../Variables.scss';
+
 .wrapper {
-    width: 100%;
     padding-top: 1.5rem;
 }
 
 .content {
     width: 100%;
+}
+
+@media (min-width: $breakpoint-sm) {
+    .wrapper {
+        width: 80%;
+        margin-left: 25%;
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .wrapper {
+        width: 100%;
+        margin-left: 0;
+    }
 }

@@ -1,9 +1,6 @@
 @import '../../Variables.scss';
 
 .wrapper {
-    width: 30%;
-    position: relative;
-
     &::after {
         content: '';
         width: 1px;
@@ -49,9 +46,18 @@
     }
 }
 
+@media (min-width: $breakpoint-sm) {
+    .wrapper {
+        width: 20%;
+        position: fixed;
+        background-color: #fff;
+    }
+}
+
 @media (max-width: $breakpoint-sm) {
     .wrapper {
         width: 100%;
+        position: relative;
 
         &::after {
             content: unset;
