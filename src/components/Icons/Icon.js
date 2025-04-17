@@ -111,14 +111,122 @@ export const UserSecurityIcon = ({ width, height, className }) => (
 )
 
 export const UserIcon = ({ width, height, className }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width={width} height={height} className={className}>
-        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
+
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
+
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <circle cx="12" cy="9" r="3" stroke="#000000" strokeWidth="1.5" />{' '}
+            <circle cx="12" cy="12" r="10" stroke="#000000" strokeWidth="1.5" />{' '}
+            <path
+                d="M17.9691 20C17.81 17.1085 16.9247 15 11.9999 15C7.07521 15 6.18991 17.1085 6.03076 20"
+                stroke="#000000"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+            />{' '}
+        </g>
+    </svg>
+)
+
+export const UserActiveIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 15.00 15.00"
+        fill="none"
+        stroke="#000000"
+        strokeWidth="0.00015000000000000001"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
+
+        <g
+            id="SVGRepo_tracerCarrier"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            stroke="#CCCCCC"
+            strokeWidth="0.48"
+        />
+
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <path
+                d="M5 5.5C5 4.11929 6.11929 3 7.5 3C8.88071 3 10 4.11929 10 5.5C10 6.88071 8.88071 8 7.5 8C6.11929 8 5 6.88071 5 5.5Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0ZM1 7.5C1 3.91015 3.91015 1 7.5 1C11.0899 1 14 3.91015 14 7.5C14 9.34956 13.2275 11.0187 11.9875 12.2024C11.8365 10.4086 10.3328 9 8.5 9H6.5C4.66724 9 3.16345 10.4086 3.01247 12.2024C1.77251 11.0187 1 9.34956 1 7.5Z"
+                fill="#4169e1"
+            />{' '}
+        </g>
     </svg>
 )
 
 export const LockIcon = ({ width, height, className }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} className={className} viewBox="0 0 448 512">
-        <path d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z" />
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
+
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
+
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <path
+                d="M2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.75736 10 5.17157 10 8 10H16C18.8284 10 20.2426 10 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16Z"
+                stroke="#000000"
+                strokeWidth="1.5"
+            />{' '}
+            <path
+                d="M6 10V8C6 4.68629 8.68629 2 12 2C14.7958 2 17.1449 3.91216 17.811 6.5"
+                stroke="#000000"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+            />{' '}
+            <path d="M12 14V18" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />{' '}
+        </g>
+    </svg>
+)
+
+export const LockActiveIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
+
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
+
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 2.75C9.10051 2.75 6.75 5.10051 6.75 8V10.0036C7.13301 10 7.54849 10 8 10H16C18.8284 10 20.2426 10 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.40931 10.348 4.13525 10.1379 5.25 10.0546V8C5.25 4.27208 8.27208 1.25 12 1.25C15.1463 1.25 17.788 3.4019 18.5373 6.31306C18.6405 6.7142 18.3991 7.12308 17.9979 7.22633C17.5968 7.32957 17.1879 7.08808 17.0846 6.68694C16.5018 4.42242 14.4453 2.75 12 2.75ZM12.75 14C12.75 13.5858 12.4142 13.25 12 13.25C11.5858 13.25 11.25 13.5858 11.25 14V18C11.25 18.4142 11.5858 18.75 12 18.75C12.4142 18.75 12.75 18.4142 12.75 18V14Z"
+                fill="#4169e1"
+            />{' '}
+        </g>
     </svg>
 )
 
@@ -141,6 +249,125 @@ export const ChevronRight = ({ width, height, className }) => (
     </svg>
 )
 
+export const CourseActiveIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
+
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
+
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <path
+                d="M22 4.84969V16.7397C22 17.7097 21.21 18.5997 20.24 18.7197L19.93 18.7597C18.29 18.9797 15.98 19.6597 14.12 20.4397C13.47 20.7097 12.75 20.2197 12.75 19.5097V5.59969C12.75 5.22969 12.96 4.88969 13.29 4.70969C15.12 3.71969 17.89 2.83969 19.77 2.67969H19.83C21.03 2.67969 22 3.64969 22 4.84969Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                d="M10.7083 4.70969C8.87828 3.71969 6.10828 2.83969 4.22828 2.67969H4.15828C2.95828 2.67969 1.98828 3.64969 1.98828 4.84969V16.7397C1.98828 17.7097 2.77828 18.5997 3.74828 18.7197L4.05828 18.7597C5.69828 18.9797 8.00828 19.6597 9.86828 20.4397C10.5183 20.7097 11.2383 20.2197 11.2383 19.5097V5.59969C11.2383 5.21969 11.0383 4.88969 10.7083 4.70969ZM4.99828 7.73969H7.24828C7.65828 7.73969 7.99828 8.07969 7.99828 8.48969C7.99828 8.90969 7.65828 9.23969 7.24828 9.23969H4.99828C4.58828 9.23969 4.24828 8.90969 4.24828 8.48969C4.24828 8.07969 4.58828 7.73969 4.99828 7.73969ZM7.99828 12.2397H4.99828C4.58828 12.2397 4.24828 11.9097 4.24828 11.4897C4.24828 11.0797 4.58828 10.7397 4.99828 10.7397H7.99828C8.40828 10.7397 8.74828 11.0797 8.74828 11.4897C8.74828 11.9097 8.40828 12.2397 7.99828 12.2397Z"
+                fill="#4169e1"
+            />{' '}
+        </g>
+    </svg>
+)
+
+export const LogoutIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            stroke="#000000"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M20 12h-9.5m7.5 3l3-3-3-3m-5-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5a2 2 0 002-2v-1"
+        />
+    </svg>
+)
+
+export const StudyProgressActiveIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="#4169e1"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24.00 24.00"
+        stroke="#4169e1"
+        strokeWidth="0.00024000000000000003"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
+
+        <g
+            id="SVGRepo_tracerCarrier"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            stroke="#CCCCCC"
+            strokeWidth="0.192"
+        />
+
+        <g id="SVGRepo_iconCarrier">
+            <path
+                id="primary"
+                d="M13.41,15.41a2,2,0,0,1-2.83,0l-4-4a2,2,0,0,1,0-2.83,2,2,0,0,1,2.82,0L12,11.17l6.63-6.63a10,10,0,1,0,3.15,9.53,9.87,9.87,0,0,0-.73-6.29Z"
+                style={{ fill: '#0000004169e1' }}
+            />
+
+            <path
+                id="secondary"
+                d="M12,15a1,1,0,0,1-.71-.29l-4-4A1,1,0,1,1,8.71,9.29L12,12.59l8.29-8.3a1,1,0,1,1,1.42,1.42l-9,9A1,1,0,0,1,12,15Z"
+                style={{ fill: '#0000004169e12ca9bc' }}
+            />
+        </g>
+    </svg>
+)
+
+export const StudyProgressIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="#000000"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 24 24"
+        id="check-mark-circle-2"
+    >
+        <path
+            id="primary"
+            d="M20.94,11A8.26,8.26,0,0,1,21,12a9,9,0,1,1-9-9,8.83,8.83,0,0,1,4,1"
+            style={{
+                fill: 'none',
+                stroke: 'rgb(0, 0, 0)',
+                strokeLinecap: 'round',
+                strokeLinejoin: 'round',
+                strokeWidth: 1.5,
+            }}
+        />
+        <polyline
+            id="primary-2"
+            data-name="primary"
+            points="21 5 12 14 8 10"
+            style={{
+                fill: 'none',
+                stroke: 'rgb(0, 0, 0)',
+                strokeLinecap: 'round',
+                strokeLinejoin: 'round',
+                strokeWidth: 1.5,
+            }}
+        />
+    </svg>
+)
+
 export const CourseIcon = ({ width, height, className }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -151,18 +378,159 @@ export const CourseIcon = ({ width, height, className }) => (
         fill="none"
     >
         <path
-            d="M22 4.85005V16.7401C22 17.7101 21.21 18.6001 20.24 18.7201L19.93 18.7601C18.29 18.9801 15.98 19.6601 14.12 20.4401C13.47 20.7101 12.75 20.2201 12.75 19.5101V5.60005C12.75 5.23005 12.96 4.89005 13.29 4.71005C15.12 3.72005 17.89 2.84005 19.77 2.68005H19.83C21.03 2.68005 22 3.65005 22 4.85005Z"
-            fill="#0071F9"
+            d="M22 16.7399V4.66994C22 3.46994 21.02 2.57994 19.83 2.67994H19.77C17.67 2.85994 14.48 3.92994 12.7 5.04994L12.53 5.15994C12.24 5.33994 11.76 5.33994 11.47 5.15994L11.22 5.00994C9.44 3.89994 6.26 2.83994 4.16 2.66994C2.97 2.56994 2 3.46994 2 4.65994V16.7399C2 17.6999 2.78 18.5999 3.74 18.7199L4.03 18.7599C6.2 19.0499 9.55 20.1499 11.47 21.1999L11.51 21.2199C11.78 21.3699 12.21 21.3699 12.47 21.2199C14.39 20.1599 17.75 19.0499 19.93 18.7599L20.26 18.7199C21.22 18.5999 22 17.6999 22 16.7399Z"
+            stroke="#292D32"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path d="M12 5.48999V20.49" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7.75 8.48999H5.5" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8.5 11.49H5.5" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+)
+
+export const TestPracticeIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 48 48"
+        fill="none"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M8 42H32C33.1046 42 34 41.1046 34 40V8C34 6.89543 33.1046 6 32 6H8C6.89543 6 6 6.89543 6 8V40C6 41.1046 6.89543 42 8 42ZM32 44H8C5.79086 44 4 42.2091 4 40V8C4 5.79086 5.79086 4 8 4H32C34.2091 4 36 5.79086 36 8V40C36 42.2091 34.2091 44 32 44Z"
+            fill="#333333"
         />
         <path
-            d="M10.7102 4.71005C8.88023 3.72005 6.11023 2.84005 4.23023 2.68005H4.16023C2.96023 2.68005 1.99023 3.65005 1.99023 4.85005V16.7401C1.99023 17.7101 2.78023 18.6001 3.75023 18.7201L4.06023 18.7601C5.70023 18.9801 8.01023 19.6601 9.87023 20.4401C10.5202 20.7101 11.2402 20.2201 11.2402 19.5101V5.60005C11.2402 5.22005 11.0402 4.89005 10.7102 4.71005ZM5.00023 7.74005H7.25023C7.66023 7.74005 8.00023 8.08005 8.00023 8.49005C8.00023 8.91005 7.66023 9.24005 7.25023 9.24005H5.00023C4.59023 9.24005 4.25023 8.91005 4.25023 8.49005C4.25023 8.08005 4.59023 7.74005 5.00023 7.74005ZM8.00023 12.2401H5.00023C4.59023 12.2401 4.25023 11.9101 4.25023 11.4901C4.25023 11.0801 4.59023 10.7401 5.00023 10.7401H8.00023C8.41023 10.7401 8.75023 11.0801 8.75023 11.4901C8.75023 11.9101 8.41023 12.2401 8.00023 12.2401Z"
-            fill="#0071F9"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M18 13C18 12.4477 18.4477 12 19 12H31C31.5523 12 32 12.4477 32 13C32 13.5523 31.5523 14 31 14H19C18.4477 14 18 13.5523 18 13Z"
+            fill="#333333"
+        />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M18 17C18 16.4477 18.4477 16 19 16H31C31.5523 16 32 16.4477 32 17C32 17.5523 31.5523 18 31 18H19C18.4477 18 18 17.5523 18 17Z"
+            fill="#333333"
+        />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M18 25C18 24.4477 18.4477 24 19 24H31C31.5523 24 32 24.4477 32 25C32 25.5523 31.5523 26 31 26H19C18.4477 26 18 25.5523 18 25Z"
+            fill="#333333"
+        />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M18 29C18 28.4477 18.4477 28 19 28H31C31.5523 28 32 28.4477 32 29C32 29.5523 31.5523 30 31 30H19C18.4477 30 18 29.5523 18 29Z"
+            fill="#333333"
+        />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M10 26V29H13V26H10ZM9 24H14C14.5523 24 15 24.4477 15 25V30C15 30.5523 14.5523 31 14 31H9C8.44772 31 8 30.5523 8 30V25C8 24.4477 8.44772 24 9 24Z"
+            fill="#333333"
+        />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M15.7071 12.2929C16.0976 12.6834 16.0976 13.3166 15.7071 13.7071L11 18.4142L8.29289 15.7071C7.90237 15.3166 7.90237 14.6834 8.29289 14.2929C8.68342 13.9024 9.31658 13.9024 9.70711 14.2929L11 15.5858L14.2929 12.2929C14.6834 11.9024 15.3166 11.9024 15.7071 12.2929Z"
+            fill="#333333"
+        />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M42 24H40V39.3333L41 40.6667L42 39.3333V24ZM44 40L41 44L38 40V22H44V40Z"
+            fill="#333333"
+        />
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M42 17H40V19H42V17ZM40 15H42C43.1046 15 44 15.8954 44 17V21H38V17C38 15.8954 38.8954 15 40 15Z"
+            fill="#333333"
         />
     </svg>
 )
 
-export const LogoutIcon = ({ width, height, className }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} className={className} viewBox="0 0 512 512">
-        <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
+export const TestPracticeActiveIcon = ({ width, height, className }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 48 48"
+        fill="none"
+    >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" />
+
+        <g
+            id="SVGRepo_tracerCarrier"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            stroke="#CCCCCC"
+            strokeWidth="0.768"
+        />
+
+        <g id="SVGRepo_iconCarrier">
+            {' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M8 42H32C33.1046 42 34 41.1046 34 40V8C34 6.89543 33.1046 6 32 6H8C6.89543 6 6 6.89543 6 8V40C6 41.1046 6.89543 42 8 42ZM32 44H8C5.79086 44 4 42.2091 4 40V8C4 5.79086 5.79086 4 8 4H32C34.2091 4 36 5.79086 36 8V40C36 42.2091 34.2091 44 32 44Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M18 13C18 12.4477 18.4477 12 19 12H31C31.5523 12 32 12.4477 32 13C32 13.5523 31.5523 14 31 14H19C18.4477 14 18 13.5523 18 13Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M18 17C18 16.4477 18.4477 16 19 16H31C31.5523 16 32 16.4477 32 17C32 17.5523 31.5523 18 31 18H19C18.4477 18 18 17.5523 18 17Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M18 25C18 24.4477 18.4477 24 19 24H31C31.5523 24 32 24.4477 32 25C32 25.5523 31.5523 26 31 26H19C18.4477 26 18 25.5523 18 25Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M18 29C18 28.4477 18.4477 28 19 28H31C31.5523 28 32 28.4477 32 29C32 29.5523 31.5523 30 31 30H19C18.4477 30 18 29.5523 18 29Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M10 26V29H13V26H10ZM9 24H14C14.5523 24 15 24.4477 15 25V30C15 30.5523 14.5523 31 14 31H9C8.44772 31 8 30.5523 8 30V25C8 24.4477 8.44772 24 9 24Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M15.7071 12.2929C16.0976 12.6834 16.0976 13.3166 15.7071 13.7071L11 18.4142L8.29289 15.7071C7.90237 15.3166 7.90237 14.6834 8.29289 14.2929C8.68342 13.9024 9.31658 13.9024 9.70711 14.2929L11 15.5858L14.2929 12.2929C14.6834 11.9024 15.3166 11.9024 15.7071 12.2929Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M42 24H40V39.3333L41 40.6667L42 39.3333V24ZM44 40L41 44L38 40V22H44V40Z"
+                fill="#4169e1"
+            />{' '}
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M42 17H40V19H42V17ZM40 15H42C43.1046 15 44 15.8954 44 17V21H38V17C38 15.8954 38.8954 15 40 15Z"
+                fill="#4169e1"
+            />{' '}
+        </g>
     </svg>
 )

@@ -31,6 +31,16 @@ export const getQuizzeByLessonSlug = async (lessonSlug) => {
     }
 }
 
+export const getQuizzeByType = async (quizzeType) => {
+    try {
+        const response = await axiosInstance.get(apiUrl.quizzeUrl.getQuizzeByType(quizzeType))
+        return response.data.quizzes
+    } catch (error) {
+        console.log('Get quizze by type failed')
+        throw error
+    }
+}
+
 export const addNewQuizze = async (quizze) => {
     try {
         const response = await axiosInstance.post(apiUrl.quizzeUrl.addNewQuizze, quizze)

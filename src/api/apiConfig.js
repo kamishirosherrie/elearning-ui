@@ -47,6 +47,7 @@ const apiUrl = {
         getQuizzesWithQuestions: '/quizze/getQuizzesWithQuestions',
         getQuizzeBySlug: (quizzeSlug) => `/quizze/getQuizzeBySlug/${quizzeSlug}`,
         getQuizzeByLessonSlug: (lessonSlug) => `/quizze/getQuizzeByLessonSlug/${lessonSlug}`,
+        getQuizzeByType: (quizzeType) => `/quizze/getQuizzeByType/${quizzeType}`,
     },
     questionUrl: {
         getQuestionByQuizzeSlug: (quizzeSlug) => `/question/slug/${quizzeSlug}`,
@@ -57,6 +58,7 @@ const apiUrl = {
     },
     submissionUrl: {
         addNewSubmission: '/submission/submit',
+        submitWriting: '/submit/writing',
         getSubmissionById: (id) => `/submission/getSubmission/${id}`,
         getSubmissionsByUserId: (userId) => `/submission/getSubmissions/${userId}`,
     },

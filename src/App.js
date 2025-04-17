@@ -17,6 +17,7 @@ import QuizzeView from './pages/Quizze/QuizzeView'
 import { SubmissionProvider } from './context/SubmissionContext'
 import EntryTest from './pages/EntryTest/EntryTest'
 import TestPractice from './pages/UserDashboard/TestPractice/TestPractice'
+import WritingPractice from './pages/WritingPractice/WritingPractice'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -43,6 +44,10 @@ function App() {
                             element={user ? <Quizze /> : <Navigate to="/" />}
                         />
                         <Route path={routes.testPractice} element={user ? <TestPractice /> : <Navigate to="/" />} />
+                        <Route
+                            path={`${routes.writingPractice}/:quizzeSlug`}
+                            element={user ? <WritingPractice /> : <Navigate to="/" />}
+                        />
 
                         <Route path={routes.forgotPassword} element={<ForgotPassWord />} />
                         <Route path={routes.resetPassword} element={<ResetPassWord />} />

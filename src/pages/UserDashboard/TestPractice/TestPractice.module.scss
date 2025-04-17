@@ -1,3 +1,5 @@
+@import '../../../Variables.scss';
+
 .wrapper {
     width: 90%;
 }
@@ -23,31 +25,21 @@
     margin-bottom: 10px;
 }
 
-.upgrade-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-        background-color: #333;
-    }
+.header > ul {
+    margin-left: 20px;
 }
 
-.test-types {
+.test-type {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: space-around;
     margin-bottom: 20px;
 }
 
-.test-type {
+.item {
     flex: 1;
+    font-weight: bold;
     max-width: 200px;
     padding: 15px;
     border: 1px solid #ccc;
@@ -55,51 +47,29 @@
     text-align: center;
     background-color: #fff;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
         transform: translateY(-5px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: $primary-color;
     }
 
-    &.selected {
+    &.active {
         border-color: #0056b3;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        color: $primary-color;
     }
 
     h3 {
         font-size: 1.2rem;
         font-weight: bold;
-        color: #007bff;
+        color: $primary-color;
     }
 
     p {
         font-size: 1rem;
         color: #555;
-    }
-}
-
-.start-button {
-    display: block;
-    margin: 0 auto;
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-
-    &:hover {
-        background-color: #0056b3;
-        transform: translateY(-3px);
-    }
-
-    &:active {
-        background-color: #004085;
-        transform: translateY(0);
     }
 }
 
@@ -158,7 +128,7 @@
     h4 {
         font-size: 1rem;
         font-weight: bold;
-        color: #007bff;
+        color: $primary-color;
         margin-bottom: 5px;
     }
 
@@ -171,11 +141,6 @@
 @media (max-width: 768px) {
     .wrapper {
         width: 100%;
-    }
-
-    .start-button {
-        width: 100%;
-        font-size: 1rem;
     }
 
     .practice-header {

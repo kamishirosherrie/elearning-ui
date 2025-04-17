@@ -11,6 +11,7 @@ const routes = {
     quizzeView: '/quizze/view',
     entryTest: '/entry-test',
     testPractice: '/test-practice',
+    writingPractice: '/writing-practice',
     forgotPassword: '/forgot-password',
     resetPassword: '/reset-password',
 }

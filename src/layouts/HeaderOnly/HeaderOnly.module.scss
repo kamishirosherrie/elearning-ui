@@ -17,11 +17,7 @@
 
 .logo-wrapper {
     display: flex;
-
-    img {
-        width: 200px;
-        height: 65px;
-    }
+    align-items: center;
 }
 
 .logo {
@@ -69,8 +65,8 @@
     }
     .logo-wrapper {
         img {
-            width: 100px;
-            height: 50px;
+            width: 200px;
+            height: 65px;
         }
     }
 }

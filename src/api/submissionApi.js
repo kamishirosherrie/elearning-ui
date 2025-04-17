@@ -11,6 +11,16 @@ export const addNewSubmit = async (data) => {
     }
 }
 
+export const submitWritingTest = async (data) => {
+    try {
+        const response = await axiosInstance.post(apiUrl.submissionUrl.submitWriting, data)
+        return response.data.submission
+    } catch (error) {
+        console.log('Submit writing failed: ', error)
+        throw error
+    }
+}
+
 export const getAllSubmissionsByUserId = async (userId) => {
     try {
         const response = await axiosInstance.get(apiUrl.submissionUrl.getSubmissionsByUserId(userId))
