@@ -21,6 +21,15 @@ function QuizzeView() {
     const [questions, setQuestions] = useState([])
     const [userAnswer, setUserAnswer] = useState({})
 
+    const totalQuestions = questions.length
+    const answered = userAnswer?.answers || []
+
+    const totalScore = userAnswer.score
+    const correctCount = answered.filter((ans) => ans.isCorrect).length
+    const answeredCount = answered.length
+    const incorrectCount = answeredCount - correctCount
+    const accuracy = ((correctCount / totalQuestions) * 100).toFixed(1)
+
     useEffect(() => {
         const getData = async () => {
             try {
@@ -30,6 +39,7 @@ function QuizzeView() {
                 setQuestions(questionData)
 
                 const userAnswersData = await getSubmissionById(info.submissionId)
+                console.log('userAnswersData: ', userAnswersData)
 
                 setUserAnswer(userAnswersData)
             } catch (error) {
@@ -47,44 +57,61 @@ function QuizzeView() {
                     <h1 className={cx('title')}>{quizze.title}</h1>
                     <p className={cx('description')}>{quizze.description}</p>
                 </div>
-                <div className={cx('questions')}>
-                    {questions.map((question, index) => {
-                        const userAnswerForQuestion = userAnswer.answers?.find((ans) => ans.questionId === question._id)
+                <div className={cx('summary')}>
+                    <h2 className={cx('title')}>📊 Your Result Summary</h2>
+                    <p>Total questions: {totalQuestions}</p>
+                    <p>Total score: {totalScore}</p>
+                    <p>
+                        Answered: {answeredCount} / {totalQuestions}
+                    </p>
+                    <p>✅ Correct: {correctCount}</p>
+                    <p>❌ Incorrect: {incorrectCount}</p>
+                    <p>🎯 Accuracy: {accuracy}%</p>
+                </div>
 
-                        return (
-                            <div key={question._id} className={cx('question')}>
-                                <h4>Question {index + 1}</h4>
-                                <p>{question.question}</p>
-                                <div className={cx('answers')}>
-                                    {question.answer.map((ans, idx) => {
-                                        const isUserAnswer = userAnswerForQuestion?.text === ans.text
-                                        const isCorrectUserAnswer = userAnswerForQuestion?.isCorrect
-                                        const answerClass = cx('answer', {
-                                            correct: ans.isCorrect || (isUserAnswer && isCorrectUserAnswer),
-                                            incorrect: isUserAnswer && !isCorrectUserAnswer,
-                                        })
+                {questions.map((question, indexQuestion) => {
+                    const currentUserAnswer = userAnswer?.answers?.find((ans) => ans.questionId === question._id)
 
-                                        return (
-                                            <div key={idx} className={answerClass}>
-                                                <span>{ans.text}</span>
-                                            </div>
-                                        )
+                    return (
+                        <div className={cx('questions')} key={indexQuestion}>
+                            <div className={cx('header')}>
+                                <span className={cx('title')}>Question {indexQuestion + 1}: </span>
+                                <span>{question.question}</span>
+                            </div>
+
+                            <div className={cx('answer-item')}>
+                                {question.answer?.map((answer, indexAnswer) => (
+                                    <div
+                                        key={indexAnswer}
+                                        className={cx('answer', {
+                                            correct: answer.isCorrect,
+                                        })}
+                                    >
+                                        {answer.text}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className={cx('user-answer')}>
+                                <div className={cx('title')}>Your answer: </div>
+                                <div
+                                    className={cx('answer', {
+                                        correct: currentUserAnswer?.isCorrect,
                                     })}
-                                    {userAnswerForQuestion &&
-                                        !question.answer.some((ans) => ans.text === userAnswerForQuestion.text) && (
-                                            <div
-                                                className={cx('answer', {
-                                                    incorrect: !userAnswerForQuestion.isCorrect,
-                                                })}
-                                            >
-                                                <span>{userAnswerForQuestion.text}</span>
-                                            </div>
-                                        )}
+                                >
+                                    {currentUserAnswer?.text || 'No answer submitted.'}
                                 </div>
                             </div>
-                        )
-                    })}
-                </div>
+
+                            {currentUserAnswer?.aiFeedback && (
+                                <div className={cx('explanation')}>
+                                    <div className={cx('title')}>Explanation: </div>
+                                    <div className={cx('answer')}>{currentUserAnswer.aiFeedback}</div>
+                                </div>
+                            )}
+                        </div>
+                    )
+                })}
             </div>
         </StudyZone>
     )

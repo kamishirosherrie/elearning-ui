@@ -1,4 +1,4 @@
-import { use, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './WritingPractice.module.scss'
 import StudyZone from '../../layouts/StudyZone/StudyZone'

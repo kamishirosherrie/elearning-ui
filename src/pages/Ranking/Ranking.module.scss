@@ -1,0 +1,41 @@
+.leaderboard {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    th,
+    td {
+        padding: 12px 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .row {
+        &.first {
+            background: linear-gradient(to right, #fff9c4, #ffe082);
+            font-weight: bold;
+            color: #bfa700;
+        }
+
+        &.second {
+            background: linear-gradient(to right, #e0e0e0, #cfd8dc);
+            font-weight: bold;
+            color: #616161;
+        }
+
+        &.third {
+            background: linear-gradient(to right, #ffe0b2, #ffcc80);
+            font-weight: bold;
+            color: #8d6e63;
+        }
+
+        &.first,
+        &.second,
+        &.third {
+            box-shadow: 0 0 8px rgba(255, 200, 0, 0.3);
+        }
+    }
+
+    .me {
+        font-weight: bold;
+        color: #2c7be5 !important;
+    }
+}

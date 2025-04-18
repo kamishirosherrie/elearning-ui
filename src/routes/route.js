@@ -12,6 +12,7 @@ const routes = {
     entryTest: '/entry-test',
     testPractice: '/test-practice',
     writingPractice: '/writing-practice',
+    ranking: '/ranking',
     forgotPassword: '/forgot-password',
     resetPassword: '/reset-password',
 }

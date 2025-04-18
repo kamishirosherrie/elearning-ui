@@ -18,6 +18,7 @@ import { SubmissionProvider } from './context/SubmissionContext'
 import EntryTest from './pages/EntryTest/EntryTest'
 import TestPractice from './pages/UserDashboard/TestPractice/TestPractice'
 import WritingPractice from './pages/WritingPractice/WritingPractice'
+import Ranking from './pages/Ranking/Ranking'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -55,6 +56,7 @@ function App() {
                         <Route path={routes.course} element={<Course />} />
                         <Route path={`${routes.course}/:courseName`} element={<CourseDetail />} />
                         <Route path={routes.entryTest} element={<EntryTest />} />
+                        <Route path={routes.ranking} element={<Ranking />} />
 
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>

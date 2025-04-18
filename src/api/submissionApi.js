@@ -40,3 +40,13 @@ export const getSubmissionById = async (id) => {
         throw error
     }
 }
+
+export const getRanking = async () => {
+    try {
+        const response = await axiosInstance.get(apiUrl.submissionUrl.getGlobalRanking)
+        return response.data.rankingWithRank
+    } catch (error) {
+        console.log('Get ranking failed: ', error)
+        throw error
+    }
+}

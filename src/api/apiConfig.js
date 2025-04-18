@@ -61,6 +61,7 @@ const apiUrl = {
         submitWriting: '/submit/writing',
         getSubmissionById: (id) => `/submission/getSubmission/${id}`,
         getSubmissionsByUserId: (userId) => `/submission/getSubmissions/${userId}`,
+        getGlobalRanking: '/submission/ranking',
     },
     dictionaryUrl: {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
