@@ -97,6 +97,7 @@ function QuizzeView() {
                                 <div
                                     className={cx('answer', {
                                         correct: currentUserAnswer?.isCorrect,
+                                        incorrect: !currentUserAnswer?.isCorrect,
                                     })}
                                 >
                                     {currentUserAnswer?.text || 'No answer submitted.'}

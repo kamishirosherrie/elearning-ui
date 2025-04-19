@@ -37,9 +37,9 @@ function EntryTest() {
     }
 
     const handleSubmit = () => {
-        if (test === 'quick-test') {
+        if (test === 'toeic-reading-quick-test') {
             navigate(`${routes.quizze}/${test}`)
-        } else if (test === 'full-test') {
+        } else if (test === 'toeic-reading-full-test') {
             navigate(`${routes.quizze}/${test}`)
         } else return
     }
@@ -50,16 +50,16 @@ function EntryTest() {
                 <h2 className={cx('title')}>Entry test</h2>
                 <div className={cx('content')}>
                     <div
-                        className={cx('content-item', { selected: test === 'quick-test' })}
-                        onClick={() => handleClick('quick-test')}
+                        className={cx('content-item', { selected: test === 'toeic-reading-quick-test' })}
+                        onClick={() => handleClick('toeic-reading-quick-test')}
                     >
                         <h3 className={cx('content-title')}>Quick test</h3>
                         <p className={cx('content-description')}>Thời gian làm bài: 00:30:00</p>
                         <p className={cx('content-description')}>Quick test description</p>
                     </div>
                     <div
-                        className={cx('content-item', { selected: test === 'full-test' })}
-                        onClick={() => handleClick('full-test')}
+                        className={cx('content-item', { selected: test === 'toeic-reading-full-test' })}
+                        onClick={() => handleClick('toeic-reading-full-test')}
                     >
                         <h3 className={cx('content-title')}>Full test</h3>
                         <p className={cx('content-description')}>Thời gian làm bài: 02:00:00</p>

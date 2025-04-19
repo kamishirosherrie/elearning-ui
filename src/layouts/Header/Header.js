@@ -103,13 +103,17 @@ function Header() {
                         </div>
                     </li>
                     <li className={cx('menu-item')}>
-                        <Link to={routes.entryTest}>Kiểm tra đầu vào</Link>
+                        <Link to={routes.entryTest}>
+                            <span>Kiểm tra đầu vào</span>
+                        </Link>
                     </li>
                     <li className={cx('menu-item')} onClick={handleClickPractice}>
                         <span>Luyện đề</span>
                     </li>
                     <li className={cx('menu-item')}>
-                        <Link to={routes.ranking}>Xếp hạng</Link>
+                        <Link to={routes.ranking}>
+                            <span>Xếp hạng</span>
+                        </Link>
                     </li>
                 </ul>
             </div>

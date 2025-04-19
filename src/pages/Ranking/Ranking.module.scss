@@ -1,7 +1,29 @@
+@import '../../Variables.scss';
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
 .leaderboard {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
+    overflow: hidden;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+
+    thead {
+        border-top: 1px solid #ddd;
+        background-color: $primary-color;
+        color: #fff;
+    }
     th,
     td {
         padding: 12px 8px;
@@ -9,22 +31,31 @@
     }
 
     .row {
+        &:hover {
+            background-color: #f1f1f1;
+        }
         &.first {
-            background: linear-gradient(to right, #fff9c4, #ffe082);
+            background: linear-gradient(135deg, #fff8e1, #ffecb3, #ffe082, #ffd54f, #ffecb3);
+            background-size: 400% 400%;
+            animation: shineGold 8s ease infinite;
+            color: #a67c00;
             font-weight: bold;
-            color: #bfa700;
         }
 
         &.second {
-            background: linear-gradient(to right, #e0e0e0, #cfd8dc);
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0, #cfd8dc, #b0bec5, #e0e0e0);
+            background-size: 400% 400%;
+            animation: shineSilver 8s ease infinite;
+            color: #5c5c5c;
             font-weight: bold;
-            color: #616161;
         }
 
         &.third {
-            background: linear-gradient(to right, #ffe0b2, #ffcc80);
+            background: linear-gradient(135deg, #e2b07e, #c98a55, #eb995f, #a45e3d);
+            background-size: 400% 400%;
+            animation: shineBronze 6s ease infinite;
+            color: #653d23;
             font-weight: bold;
-            color: #8d6e63;
         }
 
         &.first,
@@ -37,5 +68,126 @@
     .me {
         font-weight: bold;
         color: #2c7be5 !important;
+    }
+}
+
+.rank-up-toast {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: linear-gradient(to right, #fff3c4, #ffeaa7);
+    border: 1px solid #f1c40f;
+    color: #5c4400;
+    padding: 14px 20px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    animation: slideInRight 0.5s forwards;
+    overflow: hidden;
+}
+
+.rank-up-toast.hide {
+    animation: slideOutRight 0.5s forwards;
+}
+
+.rank-up-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(to right, #f39c12, #f1c40f);
+    animation: shrinkBar 5s linear forwards;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    width: 100%;
+}
+
+.user-info {
+    flex: 0 0 300px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    object-fit: cover;
+}
+
+@keyframes shrinkBar {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+@keyframes shineGold {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes shineSilver {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes shineBronze {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (min-width: $breakpoint-sm) {
+    .wrapper {
+        padding: 0 100px;
     }
 }
