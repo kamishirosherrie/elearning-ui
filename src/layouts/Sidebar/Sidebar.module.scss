@@ -33,7 +33,7 @@
     position: relative;
     font-weight: 700;
 
-    &:hover {
+    &:not(:first-child):hover {
         background-color: #e6f7ff;
     }
 

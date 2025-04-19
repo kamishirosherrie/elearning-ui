@@ -13,9 +13,8 @@ import OneChoice from '../../components/QuestionType/OneChoice/OneChoice'
 import { addNewSubmit } from '../../api/submissionApi'
 import AuthContext from '../../context/AuthContext'
 import StudyZone from '../../layouts/StudyZone/StudyZone'
-import Button from '../../components/Button/Button'
-import CountdownTimer from '../../components/CountdownTimer/CountdownTimer'
 import ModalPopup from '../../components/ModalPopup/ModalPopup'
+import QuizzeHeader from '../../components/QuizzeHeader/QuizzeHeader'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
@@ -27,6 +26,7 @@ function Quizze() {
     const [questions, setQuestions] = useState([])
     const [questionTypes, setQuestionTypes] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const [isPaused, setIsPaused] = useState(false)
 
     const [oneChoice, setOneChoice] = useState({})
     const [shortAnswer, setShortAnswer] = useState({})
@@ -36,12 +36,11 @@ function Quizze() {
     const [startTime, setStartTime] = useState(null)
     const [timerKey, setTimerKey] = useState(0)
 
-    const handleOnExpire = () => {
-        alert('Time out')
-    }
-
     const closeModal = () => {
         setIsOpen(false)
+        setIsPaused(false)
+        setStartTime(new Date())
+        setTimerKey((prevKey) => prevKey + 1)
     }
 
     const handleChangeOneChoice = (event, questionId) => {
@@ -64,6 +63,7 @@ function Quizze() {
 
     const handleSubmit = async () => {
         setIsOpen(true)
+        setIsPaused(true)
         let score = 0
         const answers = []
 
@@ -111,8 +111,6 @@ function Quizze() {
         try {
             const response = await addNewSubmit(submissionData)
             console.log(response)
-            setStartTime(new Date())
-            setTimerKey((prevKey) => prevKey + 1)
         } catch (error) {
             console.log('Submission failed:', error)
         }
@@ -143,29 +141,14 @@ function Quizze() {
 
     return (
         <StudyZone>
-            <div className={cx('header')}>
-                <h1>{quizze.title}</h1>
-                <p>{quizze.description}</p>
-                <div className={cx('action')}>
-                    <Button blue border5 onClick={() => window.history.back()}>
-                        Back
-                    </Button>
-                    {Number(quizze.time) > 0 && (
-                        <div className={cx('count')}>
-                            Time left:
-                            <CountdownTimer
-                                key={timerKey}
-                                initialTime={Number(quizze.time) * 60}
-                                onExpire={handleOnExpire}
-                            />
-                        </div>
-                    )}
-
-                    <Button blue border5 type="submit" onClick={handleSubmit}>
-                        Submit
-                    </Button>
-                </div>
-            </div>
+            <QuizzeHeader
+                title={quizze.title}
+                description={quizze.description}
+                time={quizze.time}
+                timerKey={timerKey}
+                isPaused={isPaused}
+                handleSubmit={handleSubmit}
+            />
             <div className={cx('content')}>
                 {questions.map((question, indexQuestion) => (
                     <div className={cx('question-wrapper')} key={question._id}>

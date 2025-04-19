@@ -1,170 +1,59 @@
 import classNames from 'classnames/bind'
 import styles from './TestPractice.module.scss'
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getAllTestSets } from '../../../api/testSetApi'
+import { useNavigate } from 'react-router-dom'
+import { routes } from '../../../routes/route'
 
 const cx = classNames.bind(styles)
 
-const skillPractices = {
-    all: [
-        ...Object.values({
-            listening: [
-                {
-                    id: 1,
-                    title: 'TOEIC Listening Practice 1',
-                    completed: 2,
-                    total: 5,
-                    tests: [
-                        { id: 1, name: 'Listening Test 01', room: 'Virtual Listening Room' },
-                        { id: 2, name: 'Listening Test 02', room: 'Virtual Listening Room' },
-                        { id: 3, name: 'Listening Test 03', room: 'Virtual Listening Room' },
-                        { id: 4, name: 'Listening Test 04', room: 'Virtual Listening Room' },
-                        { id: 5, name: 'Listening Test 05', room: 'Virtual Listening Room' },
-                    ],
-                },
-            ],
-            reading: [
-                {
-                    id: 2,
-                    title: 'TOEIC Reading Practice 1',
-                    completed: 1,
-                    total: 5,
-                    tests: [
-                        { id: 6, name: 'Reading Test 01', room: 'Virtual Reading Room' },
-                        { id: 7, name: 'Reading Test 02', room: 'Virtual Reading Room' },
-                        { id: 8, name: 'Reading Test 03', room: 'Virtual Reading Room' },
-                        { id: 9, name: 'Reading Test 04', room: 'Virtual Reading Room' },
-                        { id: 10, name: 'Reading Test 05', room: 'Virtual Reading Room' },
-                    ],
-                },
-            ],
-            speaking: [
-                {
-                    id: 3,
-                    title: 'TOEIC Speaking Practice 1',
-                    completed: 3,
-                    total: 5,
-                    tests: [
-                        { id: 11, name: 'Speaking Test 01', room: 'Virtual Speaking Room' },
-                        { id: 12, name: 'Speaking Test 02', room: 'Virtual Speaking Room' },
-                        { id: 13, name: 'Speaking Test 03', room: 'Virtual Speaking Room' },
-                        { id: 14, name: 'Speaking Test 04', room: 'Virtual Speaking Room' },
-                        { id: 15, name: 'Speaking Test 05', room: 'Virtual Speaking Room' },
-                    ],
-                },
-            ],
-            writing: [
-                {
-                    id: 1,
-                    title: 'TOEIC Writing Essential 1',
-                    completed: 0,
-                    total: 5,
-                    tests: [
-                        { id: 1, name: 'Đề 01', room: 'Virtual Writing Room' },
-                        { id: 2, name: 'Đề 02', room: 'Virtual Writing Room' },
-                        { id: 3, name: 'Đề 03', room: 'Virtual Writing Room' },
-                        { id: 4, name: 'Đề 04', room: 'Virtual Writing Room' },
-                        { id: 5, name: 'Đề 05', room: 'Virtual Writing Room' },
-                    ],
-                },
-                {
-                    id: 2,
-                    title: 'TOEIC Writing Essential 2',
-                    completed: 0,
-                    total: 5,
-                    tests: [
-                        { id: 6, name: 'Đề 06', room: 'Virtual Writing Room' },
-                        { id: 7, name: 'Đề 07', room: 'Virtual Writing Room' },
-                        { id: 8, name: 'Đề 08', room: 'Virtual Writing Room' },
-                        { id: 9, name: 'Đề 09', room: 'Virtual Writing Room' },
-                        { id: 10, name: 'Đề 10', room: 'Virtual Writing Room' },
-                    ],
-                },
-            ],
-        })
-            .flat()
-            .map((practice) => ({
-                ...practice,
-                tests: [...practice.tests],
-            })),
-    ],
-    listening: [
-        {
-            id: 1,
-            title: 'TOEIC Listening Practice 1',
-            completed: 2,
-            total: 5,
-            tests: [
-                { id: 1, name: 'Listening Test 01', room: 'Virtual Listening Room' },
-                { id: 2, name: 'Listening Test 02', room: 'Virtual Listening Room' },
-                { id: 3, name: 'Listening Test 03', room: 'Virtual Listening Room' },
-                { id: 4, name: 'Listening Test 04', room: 'Virtual Listening Room' },
-                { id: 5, name: 'Listening Test 05', room: 'Virtual Listening Room' },
-            ],
-        },
-    ],
-    reading: [
-        {
-            id: 2,
-            title: 'TOEIC Reading Practice 1',
-            completed: 1,
-            total: 5,
-            tests: [
-                { id: 6, name: 'Reading Test 01', room: 'Virtual Reading Room' },
-                { id: 7, name: 'Reading Test 02', room: 'Virtual Reading Room' },
-                { id: 8, name: 'Reading Test 03', room: 'Virtual Reading Room' },
-                { id: 9, name: 'Reading Test 04', room: 'Virtual Reading Room' },
-                { id: 10, name: 'Reading Test 05', room: 'Virtual Reading Room' },
-            ],
-        },
-    ],
-    speaking: [
-        {
-            id: 3,
-            title: 'TOEIC Speaking Practice 1',
-            completed: 3,
-            total: 5,
-            tests: [
-                { id: 11, name: 'Speaking Test 01', room: 'Virtual Speaking Room' },
-                { id: 12, name: 'Speaking Test 02', room: 'Virtual Speaking Room' },
-                { id: 13, name: 'Speaking Test 03', room: 'Virtual Speaking Room' },
-                { id: 14, name: 'Speaking Test 04', room: 'Virtual Speaking Room' },
-                { id: 15, name: 'Speaking Test 05', room: 'Virtual Speaking Room' },
-            ],
-        },
-    ],
-    writing: [
-        {
-            id: 1,
-            title: 'TOEIC Writing Essential 1',
-            completed: 0,
-            total: 5,
-            tests: [
-                { id: 1, name: 'Đề 01', room: 'Virtual Writing Room' },
-                { id: 2, name: 'Đề 02', room: 'Virtual Writing Room' },
-                { id: 3, name: 'Đề 03', room: 'Virtual Writing Room' },
-                { id: 4, name: 'Đề 04', room: 'Virtual Writing Room' },
-                { id: 5, name: 'Đề 05', room: 'Virtual Writing Room' },
-            ],
-        },
-        {
-            id: 2,
-            title: 'TOEIC Writing Essential 2',
-            completed: 0,
-            total: 5,
-            tests: [
-                { id: 6, name: 'Đề 06', room: 'Virtual Writing Room' },
-                { id: 7, name: 'Đề 07', room: 'Virtual Writing Room' },
-                { id: 8, name: 'Đề 08', room: 'Virtual Writing Room' },
-                { id: 9, name: 'Đề 09', room: 'Virtual Writing Room' },
-                { id: 10, name: 'Đề 10', room: 'Virtual Writing Room' },
-            ],
-        },
-    ],
-}
-
 function TestPractice() {
+    const navigate = useNavigate()
+    const [testSets, setTestSets] = useState([])
+    const [listeningSets, setListeningSets] = useState([])
+    const [readingSets, setReadingSets] = useState([])
+    const [speakingSets, setSpeakingSets] = useState([])
+    const [writingSets, setWritingSets] = useState([])
+
     const [activeTab, setActiveTab] = useState('all')
+
+    const handleClick = (skill, slug) => {
+        switch (skill) {
+            case 'Listening':
+                navigate(`${routes.listeningPractice}/${slug}`)
+                break
+            case 'Reading':
+                navigate(`${routes.readingPractice}/${slug}`)
+                break
+            case 'Speaking':
+                navigate(`${routes.speakingPractice}/${slug}`)
+                break
+            case 'Writing':
+                navigate(`${routes.writingPractice}/${slug}`)
+                break
+            default:
+                break
+        }
+    }
+
+    useEffect(() => {
+        const getTestSets = async () => {
+            const testSets = await getAllTestSets()
+            console.log('testSets: ', testSets)
+            const listening = testSets.filter((item) => item.skill === 'Listening')
+            const reading = testSets.filter((item) => item.skill === 'Reading')
+            const speaking = testSets.filter((item) => item.skill === 'Speaking')
+            const writing = testSets.filter((item) => item.skill === 'Writing')
+            setTestSets(testSets)
+            setListeningSets(listening)
+            setReadingSets(reading)
+            setSpeakingSets(speaking)
+            setWritingSets(writing)
+        }
+
+        getTestSets()
+    }, [])
 
     return (
         <MainAccount>
@@ -214,95 +103,90 @@ function TestPractice() {
                     </div>
                 </div>
                 {activeTab === 'all' &&
-                    skillPractices.all.map((practice) => (
-                        <div key={practice.id} className={cx('practice')}>
-                            <div className={cx('practice-header')}>
-                                <h3>{practice.title}</h3>
+                    testSets.map((testSet) => (
+                        <div className={cx('practice')}>
+                            <div className={cx('practice-header')} key={testSet._id}>
+                                <h3>{testSet.title}</h3>
                                 <span>
-                                    {practice.completed}/{practice.total} Đề
+                                    {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
                                 </span>
                             </div>
                             <div className={cx('practice-tests')}>
-                                {practice.tests.map((test) => (
-                                    <div key={test.id} className={cx('test')}>
-                                        <h4>{test.name}</h4>
-                                        <p>{test.room}</p>
+                                {testSet.quizzes?.map((quizze) => (
+                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                        <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ))}
                 {activeTab === 'listening' &&
-                    skillPractices.listening.map((practice) => (
-                        <div key={practice.id} className={cx('practice')}>
-                            <div className={cx('practice-header')}>
-                                <h3>{practice.title}</h3>
+                    listeningSets.map((testSet) => (
+                        <div className={cx('practice')}>
+                            <div className={cx('practice-header')} key={testSet._id}>
+                                <h3>{testSet.title}</h3>
                                 <span>
-                                    {practice.completed}/{practice.total} Đề
+                                    {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
                                 </span>
                             </div>
                             <div className={cx('practice-tests')}>
-                                {practice.tests.map((test) => (
-                                    <div key={test.id} className={cx('test')}>
-                                        <h4>{test.name}</h4>
-                                        <p>{test.room}</p>
+                                {testSet.quizzes?.map((quizze) => (
+                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                        <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ))}
                 {activeTab === 'reading' &&
-                    skillPractices.reading.map((practice) => (
-                        <div key={practice.id} className={cx('practice')}>
-                            <div className={cx('practice-header')}>
-                                <h3>{practice.title}</h3>
+                    readingSets.map((testSet) => (
+                        <div className={cx('practice')}>
+                            <div className={cx('practice-header')} key={testSet._id}>
+                                <h3>{testSet.title}</h3>
                                 <span>
-                                    {practice.completed}/{practice.total} Đề
+                                    {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
                                 </span>
                             </div>
                             <div className={cx('practice-tests')}>
-                                {practice.tests.map((test) => (
-                                    <div key={test.id} className={cx('test')}>
-                                        <h4>{test.name}</h4>
-                                        <p>{test.room}</p>
+                                {testSet.quizzes?.map((quizze) => (
+                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                        <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ))}
                 {activeTab === 'speaking' &&
-                    skillPractices.speaking.map((practice) => (
-                        <div key={practice.id} className={cx('practice')}>
-                            <div className={cx('practice-header')}>
-                                <h3>{practice.title}</h3>
+                    speakingSets.map((testSet) => (
+                        <div className={cx('practice')}>
+                            <div className={cx('practice-header')} key={testSet._id}>
+                                <h3>{testSet.title}</h3>
                                 <span>
-                                    {practice.completed}/{practice.total} Đề
+                                    {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
                                 </span>
                             </div>
                             <div className={cx('practice-tests')}>
-                                {practice.tests.map((test) => (
-                                    <div key={test.id} className={cx('test')}>
-                                        <h4>{test.name}</h4>
-                                        <p>{test.room}</p>
+                                {testSet.quizzes?.map((quizze) => (
+                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                        <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ))}
                 {activeTab === 'writing' &&
-                    skillPractices.writing.map((practice) => (
-                        <div key={practice.id} className={cx('practice')}>
-                            <div className={cx('practice-header')}>
-                                <h3>{practice.title}</h3>
+                    writingSets.map((testSet) => (
+                        <div className={cx('practice')}>
+                            <div className={cx('practice-header')} key={testSet._id}>
+                                <h3>{testSet.title}</h3>
                                 <span>
-                                    {practice.completed}/{practice.total} Đề
+                                    {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
                                 </span>
                             </div>
                             <div className={cx('practice-tests')}>
-                                {practice.tests.map((test) => (
-                                    <div key={test.id} className={cx('test')}>
-                                        <h4>{test.name}</h4>
-                                        <p>{test.room}</p>
+                                {testSet.quizzes?.map((quizze) => (
+                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                        <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
                             </div>

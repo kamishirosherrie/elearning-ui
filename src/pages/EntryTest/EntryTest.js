@@ -37,11 +37,15 @@ function EntryTest() {
     }
 
     const handleSubmit = () => {
-        if (test === 'toeic-reading-quick-test') {
-            navigate(`${routes.quizze}/${test}`)
-        } else if (test === 'toeic-reading-full-test') {
-            navigate(`${routes.quizze}/${test}`)
-        } else return
+        if (user) {
+            if (test === 'toeic-reading-quick-test') {
+                navigate(`${routes.quizze}/${test}`)
+            } else if (test === 'toeic-reading-full-test') {
+                navigate(`${routes.quizze}/${test}`)
+            } else return
+        } else {
+            setIsOpen(true)
+        }
     }
 
     return (

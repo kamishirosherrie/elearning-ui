@@ -102,19 +102,20 @@ function Ranking() {
                         </tbody>
                     </table>
                     <div className={cx('user-info')}>
-                        <img src={userRankInfo.avatar} alt="Avatar" className={cx('avatar')} />
-                        <h2>{userRankInfo.fullName}</h2>
+                        <img src={user.avatar} alt="Avatar" className={cx('avatar')} />
+                        <h2>{user.fullName}</h2>
                         <p>
-                            Hạng: <strong>{userRankInfo.rankTitle}</strong>
+                            Hạng: <strong>{userRankInfo?.rankTitle || 'Chưa xếp hạng'}</strong>
                         </p>
                         <p>
-                            Tổng điểm: <strong>{userRankInfo.totalScore}</strong>
+                            Tổng điểm: <strong>{userRankInfo?.totalScore || 0}</strong>
                         </p>
                         <p>
-                            Số bài đã làm: <strong>{userRankInfo.quizzeCount}</strong>
+                            Số bài đã làm: <strong>{userRankInfo?.quizzeCount || 0}</strong>
                         </p>
                         <p>
-                            Vị trí bảng xếp hạng: <strong>Top {userRankIndex + 1}</strong>
+                            Vị trí bảng xếp hạng:{' '}
+                            <strong>{userRankInfo.rankTitle ? userRankIndex + 1 : 'Unrank'}</strong>
                         </p>
                     </div>
                 </div>

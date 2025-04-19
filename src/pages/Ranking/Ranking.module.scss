@@ -1,8 +1,24 @@
 @import '../../Variables.scss';
 
+.wrapper {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+
+    .title {
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .subtext {
+        font-size: 18px;
+        color: #777;
+    }
 }
 
 .content {
@@ -16,8 +32,9 @@
     border-collapse: collapse;
     text-align: center;
     overflow: hidden;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
     thead {
         border-top: 1px solid #ddd;
@@ -104,16 +121,31 @@
 }
 
 .user-info {
-    flex: 0 0 300px;
+    width: 280px;
+    flex-shrink: 0;
     background: #fff;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+
+    h2 {
+        margin-bottom: 8px;
+    }
+
+    p {
+        margin: 4px 0;
+        font-size: 14px;
+    }
+
+    strong {
+        color: #333;
+    }
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin-bottom: 12px;
     object-fit: cover;
@@ -186,8 +218,34 @@
     }
 }
 
-@media (min-width: $breakpoint-sm) {
-    .wrapper {
-        padding: 0 100px;
+@media (max-width: $breakpoint-sm) {
+    .content {
+        flex-direction: column-reverse;
+    }
+
+    .leaderboard {
+        font-size: 14px;
+
+        th,
+        td {
+            padding: 8px;
+        }
+    }
+
+    .rank-up-toast {
+        max-width: 250px;
+    }
+
+    .user-info {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .header .title {
+        font-size: 24px;
+    }
+
+    .header .subtext {
+        font-size: 16px;
     }
 }

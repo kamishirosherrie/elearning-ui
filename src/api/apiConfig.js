@@ -42,6 +42,9 @@ const apiUrl = {
         getTotalLessonNumber: (courseId) => `/lesson/totalLesson/${courseId}`,
         updateLesson: '/lesson/updateLesson',
     },
+    testSetUrl: {
+        getAllTestSet: '/testset',
+    },
     quizzeUrl: {
         addNewQuizze: '/quizze/addNewQuizze',
         getQuizzesWithQuestions: '/quizze/getQuizzesWithQuestions',

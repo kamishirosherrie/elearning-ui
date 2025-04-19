@@ -17,8 +17,11 @@ import QuizzeView from './pages/Quizze/QuizzeView'
 import { SubmissionProvider } from './context/SubmissionContext'
 import EntryTest from './pages/EntryTest/EntryTest'
 import TestPractice from './pages/UserDashboard/TestPractice/TestPractice'
-import WritingPractice from './pages/WritingPractice/WritingPractice'
 import Ranking from './pages/Ranking/Ranking'
+import WritingPractice from './pages/TestPractice/WritingPractice/WritingPractice'
+import ListeningPractice from './pages/TestPractice/ListeningPractice/ListeningPractice'
+import ReadingPractice from './pages/TestPractice/ReadingPractice/ReadingPractice'
+import SpeakingPractice from './pages/TestPractice/SpeakingPractice/SpeakingPractice'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -45,6 +48,19 @@ function App() {
                             element={user ? <Quizze /> : <Navigate to="/" />}
                         />
                         <Route path={routes.testPractice} element={user ? <TestPractice /> : <Navigate to="/" />} />
+
+                        <Route
+                            path={`${routes.listeningPractice}/:quizzeSlug`}
+                            element={user ? <ListeningPractice /> : <Navigate to="/" />}
+                        />
+                        <Route
+                            path={`${routes.readingPractice}/:quizzeSlug`}
+                            element={user ? <ReadingPractice /> : <Navigate to="/" />}
+                        />
+                        <Route
+                            path={`${routes.speakingPractice}/:quizzeSlug`}
+                            element={user ? <SpeakingPractice /> : <Navigate to="/" />}
+                        />
                         <Route
                             path={`${routes.writingPractice}/:quizzeSlug`}
                             element={user ? <WritingPractice /> : <Navigate to="/" />}

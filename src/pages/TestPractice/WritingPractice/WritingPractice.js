@@ -1,18 +1,17 @@
 import { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './WritingPractice.module.scss'
-import StudyZone from '../../layouts/StudyZone/StudyZone'
-import Button from '../../components/Button/Button'
-import ModalPopup from '../../components/ModalPopup/ModalPopup'
-import Writing from '../../components/QuestionType/Writing/Writing'
-import CountdownTimer from '../../components/CountdownTimer/CountdownTimer'
-import { getQuizzeBySlug } from '../../api/quizzeApi'
+import StudyZone from '../../../layouts/StudyZone/StudyZone'
+import ModalPopup from '../../../components/ModalPopup/ModalPopup'
+import Writing from '../../../components/QuestionType/Writing/Writing'
+import { getQuizzeBySlug } from '../../../api/quizzeApi'
 import { Link, useParams } from 'react-router-dom'
-import AuthContext from '../../context/AuthContext'
-import { getQuestionByQuizzeSlug } from '../../api/questionApi'
+import AuthContext from '../../../context/AuthContext'
+import { getQuestionByQuizzeSlug } from '../../../api/questionApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { routes } from '../../routes/route'
+import { routes } from '../../../routes/route'
+import QuizzeHeader from '../../../components/QuizzeHeader/QuizzeHeader'
 
 const cx = classNames.bind(styles)
 
@@ -61,11 +60,6 @@ function WritingPractice() {
             ...prev,
             [name]: value,
         }))
-    }
-
-    const handleOnExpire = () => {
-        alert('Time is up!')
-        handleSubmit()
     }
 
     const handleSubmit = () => {
@@ -125,27 +119,14 @@ function WritingPractice() {
     return (
         <StudyZone>
             <div className={cx('wrapper')}>
-                <div className={cx('header')}>
-                    <h1 className={cx('title')}>{writingExam.title}</h1>
-                    <p className={cx('description')}>{writingExam.description}</p>
-                    <div className={cx('actions')}>
-                        <Button blue border5 onClick={() => window.history.back()}>
-                            Back
-                        </Button>
-                        <div className={cx('countdown')}>
-                            <span>Time left:</span>
-                            <CountdownTimer
-                                key={timerKey}
-                                initialTime={30 * 60}
-                                onExpire={handleOnExpire}
-                                isPaused={isPaused}
-                            />
-                        </div>
-                        <Button blue border5 type="submit" onClick={handleSubmit}>
-                            Submit
-                        </Button>
-                    </div>
-                </div>
+                <QuizzeHeader
+                    title={quizze.title}
+                    description={quizze.description}
+                    time={quizze.time}
+                    timerKey={timerKey}
+                    isPaused={isPaused}
+                    handleSubmit={handleSubmit}
+                />
                 <div className={cx('content')}>
                     {writingExam.sections.map((section, index) => (
                         <div key={section.questionId} className={cx('question-wrapper')}>
