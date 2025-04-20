@@ -50,3 +50,13 @@ export const addNewQuizze = async (quizze) => {
         throw error
     }
 }
+
+export const getSpeakingReply = async (conversation) => {
+    try {
+        const response = await axiosInstance.post(apiUrl.quizzeUrl.speakingReply, conversation)
+        return response.data
+    } catch (error) {
+        console.log('Get speaking reply failed')
+        throw error
+    }
+}

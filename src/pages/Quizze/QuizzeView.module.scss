@@ -1,9 +1,5 @@
 @import '../../Variables.scss';
 
-.wrapper {
-    padding: 20px 80px;
-}
-
 .summary {
     background-color: #f0f4ff;
     border-radius: 16px;
@@ -67,10 +63,4 @@
     background-color: #d4edda;
     border-color: #c3e6cb;
     color: #155724;
-}
-
-@media (max-width: $breakpoint-sm) {
-    .wrapper {
-        padding: 20px;
-    }
 }

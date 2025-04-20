@@ -65,7 +65,7 @@ function Ranking() {
         <MainLayout>
             <div className={cx('wrapper')}>
                 <div className={cx('header')}>
-                    <h1 className={cx('title')}>🔥 Bảng Xếp Hạng Toàn Trường 🔥</h1>
+                    <h1 className={cx('title')}>Bảng Xếp Hạng Toàn Trường</h1>
                     <p className={cx('subtext')}>Cạnh tranh lành mạnh - Chạm đỉnh vinh quang!</p>
                 </div>
                 <div className={cx('content')}>
@@ -89,11 +89,10 @@ function Ranking() {
                                         { first: index === 0, second: index === 1, third: index === 2 },
                                     )}
                                 >
-                                    <td>{index + 1}</td>
-                                    <td>
-                                        {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : null}
-                                        {item.user.fullName}
+                                    <td className={cx({ medal: index < 3 })}>
+                                        {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}
                                     </td>
+                                    <td>{item.user.fullName}</td>
                                     <td>{item.rankTitle}</td>
                                     <td>{item.quizzeCount}</td>
                                     <td>{item.totalScore}</td>

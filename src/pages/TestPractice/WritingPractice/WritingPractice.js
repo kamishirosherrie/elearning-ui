@@ -15,32 +15,6 @@ import QuizzeHeader from '../../../components/QuizzeHeader/QuizzeHeader'
 
 const cx = classNames.bind(styles)
 
-const writingExam = {
-    id: 1,
-    title: 'TOEIC Writing Practice Test',
-    description: 'Practice your writing skills with this TOEIC Writing Practice Test.',
-    sections: [
-        {
-            questionId: '67deed29e78fa892dd3be2a2',
-            questionTypeId: '67ff3251a73bf8253bab8772',
-            title: 'Task 1: Write a Sentence Based on a Picture',
-            content: 'Look at the picture and write a sentence that describes what is happening.',
-        },
-        {
-            questionId: '67deed29e78fa892dd3be2a4',
-            questionTypeId: '67ff3251a73bf8253bab8772',
-            title: 'Task 2: Respond to a Written Request',
-            content: 'Read the email below and write a response to the request.',
-        },
-        {
-            questionId: '67deed29e78fa892dd3be2b0',
-            questionTypeId: '67ff3251a73bf8253bab8772',
-            title: 'Task 3: Write an Opinion Essay',
-            content: 'Write an essay expressing your opinion on the topic provided.',
-        },
-    ],
-}
-
 function WritingPractice() {
     const { user } = useContext(AuthContext)
     const { quizzeSlug } = useParams()
@@ -64,7 +38,7 @@ function WritingPractice() {
 
     const handleSubmit = () => {
         const enrichedAnswers = Object.entries(answer).map(([questionId, text]) => {
-            const question = writingExam.sections.find((section) => section.questionId === questionId)
+            const question = questions.find((question) => question.questionId === questionId)
             return {
                 questionId,
                 question: question?.content || '',
@@ -105,6 +79,7 @@ function WritingPractice() {
                 const quizze = await getQuizzeBySlug(quizzeSlug)
                 const questions = await getQuestionByQuizzeSlug(quizzeSlug)
                 console.log('Quizze: ', quizze)
+                console.log('Questions: ', questions)
 
                 setQuizze(quizze)
                 setQuestions(questions)
@@ -128,16 +103,19 @@ function WritingPractice() {
                     handleSubmit={handleSubmit}
                 />
                 <div className={cx('content')}>
-                    {writingExam.sections.map((section, index) => (
-                        <div key={section.questionId} className={cx('question-wrapper')}>
+                    {questions.map((question, index) => (
+                        <div key={index} className={cx('question-wrapper')}>
                             <div className={cx('question')}>
-                                <h3 className={cx('task-title')}>
-                                    Task {index + 1}: {section.title}
-                                </h3>
-                                <p className={cx('task-content')}>{section.content}</p>
+                                <h3 className={cx('task-title')}>{question.part}</h3>
+                                <p className={cx('task-content')}>{question.question}</p>
+                                {question.context && <img src={question.context} alt="" className={cx('image')} />}
                             </div>
                             <div className={cx('answer')}>
-                                <Writing name={section.questionId} onChange={handleChange} className={cx('textarea')} />
+                                <Writing
+                                    name={question.questionId}
+                                    onChange={handleChange}
+                                    className={cx('textarea')}
+                                />
                             </div>
                         </div>
                     ))}

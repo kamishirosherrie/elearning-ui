@@ -51,6 +51,7 @@ const apiUrl = {
         getQuizzeBySlug: (quizzeSlug) => `/quizze/getQuizzeBySlug/${quizzeSlug}`,
         getQuizzeByLessonSlug: (lessonSlug) => `/quizze/getQuizzeByLessonSlug/${lessonSlug}`,
         getQuizzeByType: (quizzeType) => `/quizze/getQuizzeByType/${quizzeType}`,
+        speakingReply: '/quizze/speaking/conversation',
     },
     questionUrl: {
         getQuestionByQuizzeSlug: (quizzeSlug) => `/question/slug/${quizzeSlug}`,

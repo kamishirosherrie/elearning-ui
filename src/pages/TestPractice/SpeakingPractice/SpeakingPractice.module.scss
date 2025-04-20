@@ -1,0 +1,151 @@
+@import '../../../Variables.scss';
+
+.modal-content {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > span {
+        font-size: 16px;
+    }
+}
+
+.speaking-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.speaking-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+}
+
+.speaking-card {
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.speaking-chatbox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.chat-bubble {
+    padding: 0.75rem 1rem;
+    border-radius: 20px;
+    max-width: 80%;
+    font-size: 1rem;
+    line-height: 1.5;
+    position: relative;
+}
+
+.chat-bubble.ai {
+    background-color: #eef4ff;
+    align-self: flex-start;
+    color: #1a237e;
+}
+
+.chat-bubble.user {
+    background-color: #d8f8dc;
+    align-self: flex-end;
+    color: #1b5e20;
+}
+
+.speaking-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.record-button {
+    background-color: #1976d2;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.record-button:hover {
+    background-color: #1565c0;
+}
+
+.record-button.recording {
+    background-color: #d32f2f;
+}
+
+.send-button {
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    color: #333;
+    transition: background-color 0.2s ease;
+}
+
+.send-button:hover {
+    background-color: #ececec;
+}
+
+.typing {
+    display: inline-flex;
+    gap: 4px;
+    .dot {
+        width: 6px;
+        height: 6px;
+        background: #555;
+        border-radius: 50%;
+        animation: blink 1.2s infinite ease-in-out;
+    }
+
+    .dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+}
+
+@keyframes blink {
+    0%,
+    80%,
+    100% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 640px) {
+    .speaking-card {
+        padding: 1rem;
+    }
+
+    .chat-bubble {
+        font-size: 0.95rem;
+    }
+
+    .speaking-controls {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: $breakpoint-xxs) {
+    .modal-content {
+        width: 100%;
+    }
+}

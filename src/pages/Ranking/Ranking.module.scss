@@ -82,6 +82,11 @@
         }
     }
 
+    .medal {
+        font-size: 30px;
+        padding: 0;
+    }
+
     .me {
         font-weight: bold;
         color: #2c7be5 !important;
@@ -123,11 +128,13 @@
 .user-info {
     width: 280px;
     flex-shrink: 0;
-    background: #fff;
+    background: $primary-color;
+    color: #fff;
     padding: 16px;
-    border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 
     h2 {
         margin-bottom: 8px;
@@ -139,7 +146,7 @@
     }
 
     strong {
-        color: #333;
+        color: #fff;
     }
 }
 

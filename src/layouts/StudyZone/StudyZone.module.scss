@@ -3,6 +3,8 @@
 .children {
     position: relative;
     top: 85px;
+    max-width: 80%;
+    margin: 0 auto;
 
     &::before {
         content: '';
@@ -11,5 +13,6 @@
         border-top: 1px solid;
         position: fixed;
         left: 0;
+        z-index: 999;
     }
 }
