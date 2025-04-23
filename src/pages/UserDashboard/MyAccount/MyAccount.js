@@ -6,6 +6,7 @@ import styles from './MyAccount.module.scss'
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
 import Button from '../../../components/Button/Button'
 import { updateUserProfile } from '../../../api/userApi'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
@@ -37,13 +38,11 @@ function MyAccount() {
 
     const handleSubmit = async () => {
         try {
-            const response = await updateUserProfile(userInfo)
-            if (response) {
-                alert('Update user successfully')
-                login(userInfo)
-            }
+            await updateUserProfile(userInfo)
+            toast.success('Cập nhật thông tin thành công!')
+            login(userInfo)
         } catch (error) {
-            console.log('Update user failed: ', error)
+            toast.error(error.response?.data?.message || 'Cập nhật thông tin thất bại!')
         }
     }
 

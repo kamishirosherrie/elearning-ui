@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind'
 import styles from './Study.module.scss'
-import StudyZone from '../../layouts/StudyZone/StudyZone'
 import { useEffect, useState } from 'react'
 import { getLessonByCourseSlug, getLessonBySlug } from '../../api/lessonApi'
 import { useParams } from 'react-router-dom'
 import { routes } from '../../routes/route'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faAngleUp, faClose } from '@fortawesome/free-solid-svg-icons'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
+import CollapsibleSection from '../../components/CollapsibleSection/CollapsibleSection'
+import MainLayout from '../../layouts/MainLayout/MainLayout'
 
 const cx = classNames.bind(styles)
 
@@ -16,12 +17,7 @@ function Study() {
 
     const [chapters, setChapters] = useState([])
 
-    const [active, setActive] = useState({})
     const [activeMobileMenu, setActiveMobileMenu] = useState(false)
-
-    const handleClickChapter = (index) => {
-        setActive((prev) => ({ ...prev, [index]: !prev[index] }))
-    }
 
     const hanleClickMenu = () => {
         setActiveMobileMenu((prev) => !prev)
@@ -58,7 +54,7 @@ function Study() {
     }, [lessonName, courseName])
 
     return (
-        <StudyZone>
+        <MainLayout>
             <div className={cx('wrapper')}>
                 <div className={cx('column')}>
                     <div className={cx('lesson')}>
@@ -75,38 +71,29 @@ function Study() {
                     </h3>
                     {chapters.map((chapter, indexChapter) => (
                         <div className={cx('chapter')} key={indexChapter}>
-                            <div className={cx('chapter-header')} onClick={() => handleClickChapter(indexChapter)}>
-                                <h4 className={cx('chapter-title')}>
-                                    {chapter?.order} - {chapter?.title}
-                                </h4>
-                                <FontAwesomeIcon
-                                    icon={!active[indexChapter] ? faAngleDown : faAngleUp}
-                                    className={cx('icon')}
-                                />
-                            </div>
-                            <div className={cx('dropdown', { active: active[indexChapter] })}>
-                                {chapter.lessons.map((lesson, indexLesson) => (
-                                    <div className={cx('lesson-item')} key={indexLesson}>
+                            <CollapsibleSection key={indexChapter} title={`${chapter?.order} - ${chapter?.title}`}>
+                                {chapter?.lessons?.map((lesson, indexLesson) => (
+                                    <div key={indexLesson} className={cx('lesson-item')}>
                                         <a
-                                            href={`${routes.study}/${courseName}/${lesson.slug}`}
+                                            href={`${routes.study}/${courseName}/${lesson?.slug}`}
                                             className={cx('lesson-link')}
                                         >
-                                            {lesson.order} - {lesson.title}
+                                            {lesson?.order} - {lesson?.title}
                                         </a>
                                         <div className={cx('quizze-item')}>
-                                            {lesson.quizzes.map((quizze, indexQuizze) => (
+                                            {lesson?.quizzes?.map((quizze, indexQuizze) => (
                                                 <a
-                                                    href={`${routes.quizze}/${quizze.slug}`}
+                                                    href={`${routes.quizze}/${quizze?.slug}`}
                                                     className={cx('quizze-link')}
                                                     key={indexQuizze}
                                                 >
-                                                    {indexQuizze + 1} - {quizze.title}
+                                                    {indexQuizze + 1} - {quizze?.title}
                                                 </a>
                                             ))}
                                         </div>
                                     </div>
                                 ))}
-                            </div>
+                            </CollapsibleSection>
                         </div>
                     ))}
                 </div>
@@ -114,7 +101,7 @@ function Study() {
                     <h3 className={cx('mobile-title')}>Danh sách bài học</h3>
                 </div>
             </div>
-        </StudyZone>
+        </MainLayout>
     )
 }
 

@@ -6,23 +6,21 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import AuthContext from '../../../context/AuthContext'
 import { routes } from '../../../routes/route'
+import { toast } from 'react-toastify'
 
 function FacebookLogin({ redirect = true }) {
     const navigate = useNavigate()
     const { login } = useContext(AuthContext)
+
     const handleResolve = async (data) => {
         try {
             const userInfo = await getFacebookUserInfo(data.accessToken)
-            console.log(userInfo)
             const response = await socialLogin({ email: userInfo.email, fullName: userInfo.name })
-            if (response) {
-                login({ ...response.user })
-                if (redirect) navigate(routes.myAccount)
-            } else {
-                alert('Đăng nhập không thành công')
-            }
+            login({ ...response.user })
+            toast.success('Đăng nhập thành công')
+            if (redirect) navigate(routes.myAccount)
         } catch (error) {
-            console.log('Login with Facebook failed: ', error)
+            toast.error(error.response?.data?.message || 'Đăng nhập không thành công')
         }
     }
     return (

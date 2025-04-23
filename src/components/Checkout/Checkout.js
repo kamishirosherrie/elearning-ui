@@ -7,11 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { addCourseEnrollment } from '../../api/courseApi'
 import { ChevronRight } from '../Icons/Icon'
+import { useLoading } from '../../context/LoadingContext'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
 function Checkout({ course, setClose, setIsEnrolled }) {
     const { user } = useContext(AuthContext)
+    const { setIsLoading } = useLoading()
+
     const [isOpen, setIsOpen] = useState(false)
 
     const handleClick = () => {
@@ -23,14 +27,16 @@ function Checkout({ course, setClose, setIsEnrolled }) {
     }
 
     const handleSubmit = async () => {
+        setIsLoading(true)
         try {
             await addCourseEnrollment({ courseId: course._id, userId: user._id })
-            alert('Đăng ký thành công!')
+            toast.success('Đăng ký khóa học thành công!')
             setClose(false)
             setIsEnrolled(true)
         } catch (error) {
-            alert(error.response.data.message)
-            console.log('Subcreibe course failed: ', error.response.data.message)
+            toast.error(error.response?.data?.message)
+        } finally {
+            setIsLoading(false)
         }
     }
     return (

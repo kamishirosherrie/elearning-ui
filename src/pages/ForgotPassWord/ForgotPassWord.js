@@ -5,13 +5,16 @@ import { image } from '../../assets/images/image'
 import { useCallback, useState } from 'react'
 import { forgotPassWord, verifyOtp } from '../../api/authApi'
 import OTPInput from '../../components/OTPInput/OTPInput'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { routes } from '../../routes/route'
+import { useLoading } from '../../context/LoadingContext'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
 function ForgotPassWord() {
     const navigate = useNavigate()
+    const { setIsLoading } = useLoading()
 
     const [email, setEmail] = useState('')
     const [clicked, setClicked] = useState(false)
@@ -22,43 +25,50 @@ function ForgotPassWord() {
     }
 
     const handleSendOTP = async () => {
+        setIsLoading(true)
         try {
             if (email !== '') {
                 const response = await forgotPassWord({ email })
                 if (response) {
-                    alert('Đã gửi OTP đến email của bạn')
+                    toast.success('Gửi OTP thành công')
                     setClicked(true)
                 }
             } else {
-                alert('Vui lòng nhập email')
+                toast.error('Vui lòng nhập email')
             }
         } catch (error) {
-            alert('Đã xảy ra lỗi, vui lòng thử lại sau')
+            toast.error('Gửi OTP thất bại')
+        } finally {
+            setIsLoading(false)
         }
     }
 
     const handleOnComplete = useCallback(
         async (otpCode) => {
-            console.log('OTP code: ', otpCode)
+            setIsLoading(true)
             try {
                 const response = await verifyOtp({ email, otp: otpCode })
-                console.log('Response: ', response)
 
                 if (response) {
                     navigate(routes.resetPassword)
+                    toast.success('Xác thực OTP thành công')
                 }
             } catch (error) {
-                console.log('Verify otp failed: ', error)
+                toast.error('Xác thực OTP thất bại')
+            } finally {
+                setIsLoading(false)
             }
         },
-        [email, navigate],
+        [email, navigate, setIsLoading],
     )
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('logo-wrapper')}>
-                    <img src={image.logo} alt="logo" className={cx('logo')} />
+                    <Link to={routes.home}>
+                        <img src={image.logo} alt="logo" className={cx('logo')} />
+                    </Link>
                 </div>
                 <h2 className={cx('title')}>Quên mật khẩu</h2>
                 {!clicked ? (

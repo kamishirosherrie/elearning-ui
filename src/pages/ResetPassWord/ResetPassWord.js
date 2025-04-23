@@ -6,11 +6,15 @@ import { useState } from 'react'
 import { resetPassWord } from '../../api/authApi'
 import { Link, useNavigate } from 'react-router-dom'
 import { routes } from '../../routes/route'
+import { useLoading } from '../../context/LoadingContext'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
 function ResetPassWord() {
     const navigate = useNavigate()
+    const { setIsLoading } = useLoading()
+
     const [userInfo, setUserInfo] = useState({})
 
     const handleChange = (e) => {
@@ -19,15 +23,20 @@ function ResetPassWord() {
     }
 
     const handleSubmit = async () => {
+        setIsLoading(true)
         try {
             const response = await resetPassWord(userInfo)
             console.log(response)
             if (response) {
-                alert('Đổi mật khẩu thành công')
                 navigate(routes.home)
+                setIsLoading(false)
+                toast.success('Cập nhật mật khẩu thành công')
             }
         } catch (error) {
             console.log('Reset password failed: ', error)
+            toast.error('Cập nhật mật khẩu thất bại')
+        } finally {
+            setIsLoading(false)
         }
     }
     return (

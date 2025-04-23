@@ -40,7 +40,6 @@ function TestPractice() {
     useEffect(() => {
         const getTestSets = async () => {
             const testSets = await getAllTestSets()
-            console.log('testSets: ', testSets)
             const listening = testSets.filter((item) => item.skill === 'Listening')
             const reading = testSets.filter((item) => item.skill === 'Reading')
             const speaking = testSets.filter((item) => item.skill === 'Speaking')

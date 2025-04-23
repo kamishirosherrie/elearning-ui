@@ -4,6 +4,8 @@ import Sidebar from '../Sidebar/Sidebar'
 import Dashboard from '../Dashboard/Dashboard'
 import HeaderOnly from '../HeaderOnly/HeaderOnly'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import Footer from '../Footer/Footer'
+import ScrollToTopButton from '../../components/ScrollToTopButton/ScrollToTopButton'
 
 const cx = classNames.bind(styles)
 
@@ -21,6 +23,8 @@ function MainAccount({ title, children }) {
                 </Dashboard>
             </div>
             <ScrollToTop />
+            <ScrollToTopButton />
+            <Footer />
         </div>
     )
 }

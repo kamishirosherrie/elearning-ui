@@ -36,7 +36,7 @@ export const registerUser = async (user) => {
         const response = await axiosInstance.post(apiUrl.authUrl.register, user)
         return response.data
     } catch (error) {
-        console.log('Register failed: ', error.message)
+        console.log('Register failed: ', error)
         throw error
     }
 }

@@ -2,41 +2,42 @@ import classNames from 'classnames/bind'
 import styles from './Register.module.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../Button/Button'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { registerUser } from '../../api/authApi'
 import { routes } from '../../routes/route'
 import AuthContext from '../../context/AuthContext'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { registerSchema } from '../../validations/registerSchema'
+import { toast } from 'react-toastify'
+import { useLoading } from '../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
 function Register({ handleClickLogin, redirect = true }) {
     const { login } = useContext(AuthContext)
-
-    const [user, setUser] = useState({})
     const navigate = useNavigate()
 
-    const handleChangeGender = (e) => {
-        setUser({ ...user, gender: e.target.value })
-    }
+    const { setIsLoading } = useLoading()
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setUser({ ...user, [name]: value })
-    }
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({ resolver: yupResolver(registerSchema) })
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const onSubmit = async (data) => {
+        setIsLoading(true)
         try {
-            const response = await registerUser(user)
+            const response = await registerUser(data)
             console.log(response)
             login({ ...response.data })
-
-            if (response) {
-                alert('Đăng ký thành công')
-                if (redirect) navigate(routes.myAccount)
-            }
+            toast.success('Đăng ký thành công')
+            if (redirect) navigate(routes.myAccount)
         } catch (error) {
-            console.log('Register failed: ', error)
+            toast.error(error.response?.data?.message || 'Đăng ký thất bại')
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -44,65 +45,46 @@ function Register({ handleClickLogin, redirect = true }) {
         <div className={cx('wrapper')}>
             <div className={cx('register-form')}>
                 <h2>Đăng Ký</h2>
-                <div className={cx('register-content')}>
-                    <label htmlFor="fullName">Họ tên</label>
-                    <input
-                        type="fullName"
-                        id="fullName"
-                        name="fullName"
-                        placeholder="VD: Nguyễn Văn A"
-                        required
-                        onChange={handleChange}
-                    />
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                    <div className={cx('register-content')}>
+                        <label htmlFor="fullName">Họ tên</label>
+                        <input {...register('fullName')} placeholder="Họ và tên" />
+                        <p className={cx('error')}>{errors.fullName?.message}</p>
 
-                    <label htmlFor="gender">Giới tính</label>
-                    <select name="gender" onChange={handleChangeGender} required>
-                        <option value="">-- None --</option>
-                        <option value="Nữ">Nữ</option>
-                        <option value="Nam">Nam</option>
-                    </select>
+                        <label htmlFor="gender">Giới tính</label>
+                        <select {...register('gender')}>
+                            <option value="">-- None --</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Nam">Nam</option>
+                        </select>
+                        <p className={cx('error')}>{errors.gender?.message}</p>
 
-                    <label htmlFor="userName">Tên người dùng</label>
-                    <input
-                        type="text"
-                        id="userName"
-                        name="userName"
-                        placeholder="VD: abc123"
-                        required
-                        onChange={handleChange}
-                    />
+                        <label htmlFor="userName">Tên người dùng</label>
+                        <input {...register('userName')} placeholder="VD: abc123" />
+                        <p className={cx('error')}>{errors.userName?.message}</p>
 
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" placeholder="VD: abc@xyz.com" required onChange={handleChange} />
+                        <label htmlFor="email">Email</label>
+                        <input {...register('email')} placeholder="VD: abc123@gmail.com" />
+                        <p className={cx('error')}>{errors.email?.message}</p>
 
-                    <label htmlFor="passWord">Mật khẩu</label>
-                    <input
-                        type="password"
-                        id="passWord"
-                        name="passWord"
-                        placeholder="Mật khẩu"
-                        required
-                        onChange={handleChange}
-                    />
+                        <label htmlFor="passWord">Mật khẩu</label>
+                        <input {...register('passWord')} type="password" placeholder="Mật khẩu" />
+                        <p className={cx('error')}>{errors.passWord?.message}</p>
 
-                    <label htmlFor="confirmPassWord">Xác nhận mật khẩu</label>
-                    <input
-                        type="password"
-                        id="confirmPassWord"
-                        name="confirmPassWord"
-                        placeholder="Xác nhận mật khẩu"
-                        required
-                        onChange={handleChange}
-                    />
+                        <label htmlFor="confirmPassWord">Xác nhận mật khẩu</label>
+                        <input {...register('confirmPassWord')} type="password" placeholder="Xác nhận mật khẩu" />
+                        <p className={cx('error')}>{errors.confirmPassWord?.message}</p>
 
-                    <label htmlFor="birthday">Ngày sinh</label>
-                    <input type="date" id="birthday" name="birthday" required onChange={handleChange} />
-                </div>
-                <div className={cx('btn-wrapper')} onClick={handleSubmit}>
-                    <Button fullWidth shadow blue type="submit">
-                        Đăng ký
-                    </Button>
-                </div>
+                        <label htmlFor="birthday">Ngày sinh</label>
+                        <input {...register('birthday')} type="date" />
+                        <p className={cx('error')}>{errors.birthday?.message}</p>
+                    </div>
+                    <div className={cx('btn-wrapper')}>
+                        <Button fullWidth shadow blue type="submit">
+                            Đăng ký
+                        </Button>
+                    </div>
+                </form>
                 <div className={cx('register-bottom')}>
                     <div className={cx('login')}>
                         <span>Bạn đã có tài khoản? </span>

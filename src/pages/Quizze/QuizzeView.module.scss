@@ -1,5 +1,10 @@
 @import '../../Variables.scss';
 
+.wrapper {
+    max-width: 1000px;
+    margin: 0px auto 50px;
+}
+
 .summary {
     background-color: #f0f4ff;
     border-radius: 16px;

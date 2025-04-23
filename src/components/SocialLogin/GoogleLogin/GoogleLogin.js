@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { routes } from '../../../routes/route'
 import { getGoogleUserInfo } from '../../../api/socialAuthApi'
 import { env } from '../../../config/environment'
+import { toast } from 'react-toastify'
 
 function GoogleLogin({ redirect = true }) {
     const { login } = useContext(AuthContext)
@@ -15,16 +16,12 @@ function GoogleLogin({ redirect = true }) {
     const handleResolve = async (data) => {
         try {
             const userInfo = await getGoogleUserInfo(data.access_token)
-            console.log(userInfo)
             const response = await socialLogin({ email: userInfo.email, fullName: userInfo.name })
-            if (response) {
-                login({ ...response.user })
-                if (redirect) navigate(routes.myAccount)
-            } else {
-                alert('Đăng nhập không thành công')
-            }
+            login({ ...response.user })
+            toast.success('Đăng nhập thành công')
+            if (redirect) navigate(routes.myAccount)
         } catch (error) {
-            console.log(error)
+            toast.error(error.response?.data?.message || 'Đăng nhập không thành công')
         }
     }
 

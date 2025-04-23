@@ -140,13 +140,6 @@ function Header() {
                 </li>
                 <li className={cx('menu-item')} onClick={handleClickPractice}>
                     <span>Luyện đề</span>
-                    {/* <div className={cx('dropdown')}>
-                        {courses?.map((course) => (
-                            <a className={cx('course')} href={`${routes.course}/${course.slug}`} key={course._id}>
-                                <p>Luyện đề {course.title}</p>
-                            </a>
-                        ))}
-                    </div> */}
                 </li>
                 <li className={cx('menu-item')}>
                     <Link to={routes.ranking}>Xếp hạng</Link>

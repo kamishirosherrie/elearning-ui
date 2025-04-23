@@ -9,11 +9,14 @@ import Button from '../Button/Button'
 import GoogleLogin from '../SocialLogin/GoogleLogin/GoogleLogin'
 import FacebookLogin from '../SocialLogin/FacebookLogin/FacebookLogin'
 import { routes } from '../../routes/route'
+import { toast } from 'react-toastify'
+import { useLoading } from '../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
 const Login = ({ handleClickRegister, redirect = true }) => {
     const { login } = useContext(AuthContext)
+    const { setIsLoading } = useLoading()
     const navigate = useNavigate()
     const [user, setUser] = useState({})
     const [isActive, setIsActive] = useState({
@@ -35,17 +38,22 @@ const Login = ({ handleClickRegister, redirect = true }) => {
     }
 
     const handleSubmit = async (e) => {
+        setIsLoading(true)
         try {
             e.preventDefault()
             if (user.identifier && user.passWord) {
                 const response = await loginUser(user)
                 login({ ...response.user })
+                toast.success(response.message)
                 if (redirect) navigate(routes.myAccount)
             } else {
-                alert('Please enter username and password')
+                toast.error('Vui lòng nhập đầy đủ thông tin')
             }
         } catch (error) {
             console.log('Login failed: ', error.message)
+            toast.error(error.response?.data?.message || 'Đăng nhập thất bại')
+        } finally {
+            setIsLoading(false)
         }
     }
 

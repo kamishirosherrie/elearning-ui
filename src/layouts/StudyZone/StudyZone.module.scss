@@ -1,11 +1,14 @@
 @import '../../Variables.scss';
 
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .children {
     position: relative;
-    top: 85px;
-    max-width: 80%;
-    margin: 0 auto;
-
+    margin-top: 85px;
     &::before {
         content: '';
         width: 100%;

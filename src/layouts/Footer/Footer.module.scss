@@ -2,7 +2,7 @@
 
 .wrapper {
     position: relative;
-    margin-top: 100px;
+    margin-top: auto;
     padding: 0 50px;
     background: $primary-background;
     color: $footer-color;
@@ -92,7 +92,7 @@
 
 @media (max-width: $breakpoint-m) {
     .wrapper {
-        margin-top: 130px;
+        margin-top: 20px;
         padding: 0 25px;
     }
 }

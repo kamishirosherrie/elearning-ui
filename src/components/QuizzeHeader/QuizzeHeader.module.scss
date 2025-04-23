@@ -20,6 +20,45 @@
     margin-bottom: 20px;
 }
 
+.modal {
+    max-width: 450px;
+    text-align: center;
+    margin: auto;
+}
+
+.modal h2 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.modal p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.modal .actions {
+    display: flex;
+    justify-self: center;
+    gap: 30px;
+}
+
+.modal .actions button:first-child {
+    background-color: #afafaf;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.modal .actions button:first-child:hover {
+    background-color: #808080;
+}
+
+.modal .action button {
+    flex: 1;
+}
+
 @media (max-width: $breakpoint-xxs) {
     .action {
         flex-direction: column;

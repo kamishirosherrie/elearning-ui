@@ -3,10 +3,10 @@ import ReactMarkDown from 'react-markdown'
 import classNames from 'classnames/bind'
 import styles from './SpeakingPractice.module.scss'
 import Button from '../../../components/Button/Button'
-import StudyZone from '../../../layouts/StudyZone/StudyZone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
 import { getSpeakingReply } from '../../../api/quizzeApi'
+import StudyZone from '../../../layouts/StudyZone/StudyZone'
 
 const cx = classNames.bind(styles)
 

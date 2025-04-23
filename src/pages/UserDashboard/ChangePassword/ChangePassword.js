@@ -5,6 +5,7 @@ import Button from '../../../components/Button/Button'
 import { useContext, useState } from 'react'
 import AuthContext from '../../../context/AuthContext'
 import { changePassWord } from '../../../api/authApi'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
@@ -25,25 +26,24 @@ function ChangePassword() {
     const handleSubmit = async () => {
         try {
             if (userInfo.newPassWord !== userInfo.confirmPassWord) {
-                alert('Mật khẩu mới không khớp!')
+                toast.error('Mật khẩu mới không khớp!')
                 return
             }
-            const response = await changePassWord(userInfo)
+            await changePassWord(userInfo)
+            toast.success('Đổi mật khẩu thành công!')
 
-            if (response) {
-                alert('Đổi mật khẩu thành công!')
-                setUserInfo({
-                    currentPassWord: '',
-                    newPassWord: '',
-                    confirmPassWord: '',
-                    userId: user._id,
-                })
-            }
+            setUserInfo({
+                currentPassWord: '',
+                newPassWord: '',
+                confirmPassWord: '',
+                userId: user._id,
+            })
         } catch (error) {
             if (error && error.status === 400) {
-                alert('Mật khẩu cũ không đúng!')
+                toast.error('Mật khẩu cũ không đúng!')
             } else {
                 console.log(error.status)
+                toast.error(error.response?.data?.message || 'Đổi mật khẩu thất bại!')
             }
         }
     }

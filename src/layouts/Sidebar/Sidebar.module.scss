@@ -1,17 +1,5 @@
 @import '../../Variables.scss';
 
-.wrapper {
-    &::after {
-        content: '';
-        width: 1px;
-        height: 100vh;
-        border-right: 1px solid #000;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-}
-
 .navbar {
     display: flex;
     flex-direction: column;
@@ -82,8 +70,9 @@
 @media (min-width: $breakpoint-sm) {
     .wrapper {
         width: 20%;
-        position: fixed;
+        position: relative;
         background-color: #fff;
+        border-right: 1px solid;
     }
 }
 

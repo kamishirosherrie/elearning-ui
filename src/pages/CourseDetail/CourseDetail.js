@@ -2,8 +2,6 @@ import classNames from 'classnames/bind'
 import styles from './CourseDetail.module.scss'
 import { useParams } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { getCourseBySlug, getCourseEnrollment } from '../../api/courseApi'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
@@ -16,6 +14,7 @@ import Register from '../../components/Register/Register'
 import Checkout from '../../components/Checkout/Checkout'
 import { routes } from '../../routes/route'
 import { getLessonByCourseSlug, getTotalLessonNumber } from '../../api/lessonApi'
+import CollapsibleSection from '../../components/CollapsibleSection/CollapsibleSection'
 
 const cx = classNames.bind(styles)
 
@@ -30,14 +29,9 @@ function CourseDetail() {
 
     const [isEnrolled, setIsEnrolled] = useState(false)
 
-    const [active, setActive] = useState({})
     const [activeBtn, setActiveBtn] = useState({})
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
-
-    const handleClickChapter = (index) => {
-        setActive((prev) => ({ ...prev, [index]: !prev[index] }))
-    }
 
     const handleClick = () => {
         setIsOpen(true)
@@ -121,33 +115,15 @@ function CourseDetail() {
                     </div>
                     <div className={cx('chapter')}>
                         {chapters?.map((chapter, index) => (
-                            <div
-                                key={index}
-                                className={cx('chapter-title', { active: active[index] })}
-                                onClick={() => handleClickChapter(index)}
-                            >
-                                <div className={cx('heading')}>
-                                    <span>
-                                        Chương {chapter?.order} - {chapter?.title}
-                                    </span>
-                                    <span>
-                                        {active[index] ? (
-                                            <FontAwesomeIcon icon={faMinus} className={cx('minus')} />
-                                        ) : (
-                                            <FontAwesomeIcon icon={faPlus} className={cx('plus')} />
-                                        )}
-                                    </span>
-                                </div>
-                                <div className={cx('collapsible')}>
-                                    {chapter?.lessons?.map((lesson, index) => (
-                                        <div key={index} className={cx('lesson')}>
-                                            <p>
-                                                Bài {lesson.order} - {lesson.title}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            <CollapsibleSection key={index} title={`Chương ${chapter?.order} - ${chapter?.title}`}>
+                                {chapter?.lessons?.map((lesson, i) => (
+                                    <div key={i} className={cx('lesson')}>
+                                        <p>
+                                            Bài {lesson.order} - {lesson.title}
+                                        </p>
+                                    </div>
+                                ))}
+                            </CollapsibleSection>
                         ))}
                     </div>
                 </div>

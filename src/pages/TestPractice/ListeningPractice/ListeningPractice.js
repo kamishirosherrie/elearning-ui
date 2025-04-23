@@ -1,17 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './ListeningPractice.module.scss'
-import StudyZone from '../../../layouts/StudyZone/StudyZone'
-import ModalPopup from '../../../components/ModalPopup/ModalPopup'
 import Writing from '../../../components/QuestionType/Writing/Writing'
 import { getQuizzeBySlug } from '../../../api/quizzeApi'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import AuthContext from '../../../context/AuthContext'
 import { getQuestionByQuizzeSlug } from '../../../api/questionApi'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { routes } from '../../../routes/route'
 import QuizzeHeader from '../../../components/QuizzeHeader/QuizzeHeader'
+import StudyZone from '../../../layouts/StudyZone/StudyZone'
 
 const cx = classNames.bind(styles)
 
@@ -22,11 +18,8 @@ function ListeningPractice() {
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
     const [answer, setAnswer] = useState({})
-    const [isOpen, setIsOpen] = useState(false)
-    const [isPaused, setIsPaused] = useState(false)
 
     const [startTime, setStartTime] = useState(null)
-    const [timerKey, setTimerKey] = useState(0)
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -48,8 +41,6 @@ function ListeningPractice() {
         })
 
         console.log('Submitted Writing:', enrichedAnswers)
-        setIsOpen(true)
-        setIsPaused(true)
 
         const endTime = new Date()
         const timeSpent = Math.floor((endTime - startTime) / 1000)
@@ -62,13 +53,6 @@ function ListeningPractice() {
         }
 
         console.log('Submission Data:', submissionData)
-    }
-
-    const closeModal = () => {
-        setIsOpen(false)
-        setStartTime(new Date())
-        setTimerKey((prevKey) => prevKey + 1)
-        setIsPaused(false)
     }
 
     useEffect(() => {
@@ -98,8 +82,6 @@ function ListeningPractice() {
                     title={quizze.title}
                     description={quizze.description}
                     time={quizze.time}
-                    timerKey={timerKey}
-                    isPaused={isPaused}
                     handleSubmit={handleSubmit}
                 />
                 <div className={cx('content')}>
@@ -120,14 +102,6 @@ function ListeningPractice() {
                         </div>
                     ))}
                 </div>
-                <ModalPopup isOpen={isOpen} closeModal={closeModal} className={cx('modal-point', 'overlay')}>
-                    <div className={cx('modal-content')}>
-                        <h2>Submited successfully!</h2>
-                        <Link to={routes.mySubmission} className={cx('link')} onClick={closeModal}>
-                            Xem kết quả <FontAwesomeIcon icon={faArrowRight} />
-                        </Link>
-                    </div>
-                </ModalPopup>
             </div>
         </StudyZone>
     )

@@ -1,0 +1,112 @@
+.celestial-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.228);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.aurora-core {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #38bdf8, #6366f1, #48e6ec);
+    box-shadow: 0 0 30px rgba(14, 165, 233, 0.9), 0 0 60px rgba(99, 102, 241, 0.7), 0 0 90px #48ecbb;
+    animation: pink-core-pulse 4s ease-in-out infinite;
+    z-index: 2;
+    opacity: 0.95;
+    will-change: transform, opacity;
+}
+
+.aurora-core::before,
+.aurora-core::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #38bdf8, #6366f1, #48ecbb, transparent 70%);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4), 0 0 30px #48ecbb;
+    animation: wave-ring 4.5s ease-in-out infinite;
+    z-index: -1;
+    will-change: transform, opacity;
+}
+
+.aurora-core::after {
+    animation-delay: 2.25s;
+}
+
+@keyframes pink-core-pulse {
+    0% {
+        transform: scale(1);
+        background: radial-gradient(circle at center, #38bdf8, #6366f1, #48ecc6);
+    }
+    20% {
+        transform: scale(1.1);
+        background: radial-gradient(circle at center, #3acdfb, #6366f1, #5fe8d6);
+    }
+    40% {
+        transform: scale(1.15);
+        background: radial-gradient(circle at center, #42d3fc, #6366f1, #6af1e2);
+    }
+    60% {
+        transform: scale(1.2);
+        background: radial-gradient(circle at center, #38bdf8, #6366f1, #71d2fb);
+    }
+    80% {
+        transform: scale(1.1);
+        background: radial-gradient(circle at center, #3acdfb, #6366f1, #5fe8d6);
+    }
+    100% {
+        transform: scale(1);
+        background: radial-gradient(circle at center, #38bdf8, #6366f1, #48ecc6);
+    }
+}
+
+@keyframes wave-ring {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2.3);
+        opacity: 0;
+    }
+}
+
+.particle-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    top: 100%;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: fly 6s linear infinite;
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-120vh);
+        opacity: 0;
+    }
+}

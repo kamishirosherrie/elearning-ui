@@ -1,4 +1,11 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .children {
     position: relative;
-    top: 85px;
+    margin-top: 85px;
+    flex: 1;
 }

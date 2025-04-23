@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './QuizzeView.module.scss'
 
-import StudyZone from '../../layouts/StudyZone/StudyZone'
 import { getQuizzeBySlug } from '../../api/quizzeApi'
 import { getQuestionByQuizzeSlug } from '../../api/questionApi'
 import { getSubmissionById } from '../../api/submissionApi'
 import AuthContext from '../../context/AuthContext'
 import SubmissionContext from '../../context/SubmissionContext'
+import MainLayout from '../../layouts/MainLayout/MainLayout'
 
 const cx = classNames.bind(styles)
 
@@ -51,7 +51,7 @@ function QuizzeView() {
     }, [user._id, quizzeSlug, info.submissionId])
 
     return (
-        <StudyZone>
+        <MainLayout>
             <div className={cx('wrapper')}>
                 <div className={cx('header')}>
                     <h1 className={cx('title')}>{quizze.title}</h1>
@@ -114,7 +114,7 @@ function QuizzeView() {
                     )
                 })}
             </div>
-        </StudyZone>
+        </MainLayout>
     )
 }
 

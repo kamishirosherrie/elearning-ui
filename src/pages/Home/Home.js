@@ -51,7 +51,6 @@ function Home() {
     }
 
     useEffect(() => {
-        // document.title = 'Trang chủ'
         const getAllCourse = async () => {
             const response = await getCourse()
             setCourse(response.courses)

@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 const cx = classNames.bind(styles)
 ReactModal.setAppElement('#root')
 
-function ModalPopup({ isOpen, closeModal, children }) {
+function ModalPopup({ isOpen, closeModal, children, hiddenCloseButton }) {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden'
@@ -30,9 +30,11 @@ function ModalPopup({ isOpen, closeModal, children }) {
             overlayClassName={cx('overlay')}
         >
             <div className={cx('wrapper')}>
-                <span className={cx('close')} onClick={closeModal}>
-                    <FontAwesomeIcon icon={faXmark} />
-                </span>
+                {!hiddenCloseButton && (
+                    <span className={cx('close')} onClick={closeModal}>
+                        <FontAwesomeIcon icon={faXmark} />
+                    </span>
+                )}
                 {children}
             </div>
         </ReactModal>

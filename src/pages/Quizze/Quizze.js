@@ -12,9 +12,8 @@ import ShortAnswer from '../../components/QuestionType/ShortAnswer/ShortAnswer'
 import OneChoice from '../../components/QuestionType/OneChoice/OneChoice'
 import { addNewSubmit } from '../../api/submissionApi'
 import AuthContext from '../../context/AuthContext'
-import StudyZone from '../../layouts/StudyZone/StudyZone'
-import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import QuizzeHeader from '../../components/QuizzeHeader/QuizzeHeader'
+import StudyZone from '../../layouts/StudyZone/StudyZone'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
@@ -25,23 +24,12 @@ function Quizze() {
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
     const [questionTypes, setQuestionTypes] = useState([])
-    const [isOpen, setIsOpen] = useState(false)
-    const [isPaused, setIsPaused] = useState(false)
 
     const [oneChoice, setOneChoice] = useState({})
     const [shortAnswer, setShortAnswer] = useState({})
     const [fillAnswer, setFillAnswer] = useState({})
 
-    const [totalScore, setTotalScore] = useState(0)
     const [startTime, setStartTime] = useState(null)
-    const [timerKey, setTimerKey] = useState(0)
-
-    const closeModal = () => {
-        setIsOpen(false)
-        setIsPaused(false)
-        setStartTime(new Date())
-        setTimerKey((prevKey) => prevKey + 1)
-    }
 
     const handleChangeOneChoice = (event, questionId) => {
         const { value } = event.target
@@ -62,8 +50,6 @@ function Quizze() {
     }
 
     const handleSubmit = async () => {
-        setIsOpen(true)
-        setIsPaused(true)
         let score = 0
         const answers = []
 
@@ -94,8 +80,6 @@ function Quizze() {
             }
         })
 
-        setTotalScore(score)
-
         const endTime = new Date()
         const timeSpent = Math.floor((endTime - startTime) / 1000)
 
@@ -111,8 +95,10 @@ function Quizze() {
         try {
             const response = await addNewSubmit(submissionData)
             console.log(response)
+            return response
         } catch (error) {
             console.log('Submission failed:', error)
+            throw error
         }
     }
 
@@ -141,57 +127,51 @@ function Quizze() {
 
     return (
         <StudyZone>
-            <QuizzeHeader
-                title={quizze.title}
-                description={quizze.description}
-                time={quizze.time}
-                timerKey={timerKey}
-                isPaused={isPaused}
-                handleSubmit={handleSubmit}
-            />
-            <div className={cx('content')}>
-                {questions.map((question, indexQuestion) => (
-                    <div className={cx('question-wrapper')} key={question._id}>
-                        <div className={cx('question')}>
-                            <h3>Question {indexQuestion + 1}.</h3>
-                            <span>{question.question}</span>
+            <div className={cx('wrapper')}>
+                <QuizzeHeader
+                    title={quizze.title}
+                    description={quizze.description}
+                    time={quizze.time}
+                    handleSubmit={handleSubmit}
+                />
+                <div className={cx('content')}>
+                    {questions.map((question, indexQuestion) => (
+                        <div className={cx('question-wrapper')} key={question._id}>
+                            <div className={cx('question')}>
+                                <h3>Question {indexQuestion + 1}.</h3>
+                                <span>{question.question}</span>
+                            </div>
+                            <div className={cx('answer')}>
+                                {question.questionTypeId._id === questionTypes[0]._id ? (
+                                    question.answer.map((answer, indexAnswer) => (
+                                        <div key={indexAnswer}>
+                                            <OneChoice
+                                                id={answer._id}
+                                                name={question._id}
+                                                value={answer.text}
+                                                checked={oneChoice[question._id] === answer.text}
+                                                onChange={(e) => handleChangeOneChoice(e, question._id)}
+                                            />
+                                        </div>
+                                    ))
+                                ) : question.questionTypeId._id === questionTypes[2]._id ? (
+                                    <ShortAnswer
+                                        id={question._id}
+                                        name={question._id}
+                                        onChange={(e) => handleChangeShortAnswer(question._id)}
+                                    />
+                                ) : question.questionTypeId._id === questionTypes[3]._id ? (
+                                    <FillTheBlank
+                                        id={question._id}
+                                        name={question._id}
+                                        onChange={(e) => handleChangeFillAnswer(e, question._id)}
+                                    />
+                                ) : null}
+                            </div>
                         </div>
-                        <div className={cx('answer')}>
-                            {question.questionTypeId._id === questionTypes[0]._id ? (
-                                question.answer.map((answer, indexAnswer) => (
-                                    <div key={indexAnswer}>
-                                        <OneChoice
-                                            id={answer._id}
-                                            name={question._id}
-                                            value={answer.text}
-                                            checked={oneChoice[question._id] === answer.text}
-                                            onChange={(e) => handleChangeOneChoice(e, question._id)}
-                                        />
-                                    </div>
-                                ))
-                            ) : question.questionTypeId._id === questionTypes[2]._id ? (
-                                <ShortAnswer
-                                    id={question._id}
-                                    name={question._id}
-                                    onChange={(e) => handleChangeShortAnswer(question._id)}
-                                />
-                            ) : question.questionTypeId._id === questionTypes[3]._id ? (
-                                <FillTheBlank
-                                    id={question._id}
-                                    name={question._id}
-                                    onChange={(e) => handleChangeFillAnswer(e, question._id)}
-                                />
-                            ) : null}
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <ModalPopup isOpen={isOpen} closeModal={closeModal} className={cx('modal-point', 'overlay')}>
-                <div className={cx('modal-content')}>
-                    <h2>Submited successfully!</h2>
-                    <span>Your total score: {totalScore}</span>
+                    ))}
                 </div>
-            </ModalPopup>
+            </div>
         </StudyZone>
     )
 }
