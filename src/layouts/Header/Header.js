@@ -45,7 +45,6 @@ function Header() {
 
     const handleClickMenu = () => {
         setActive((prev) => !prev)
-        document.querySelector('body').classList.toggle('no-scroll')
     }
 
     const handleClickUser = () => {
@@ -72,6 +71,18 @@ function Header() {
 
         getCourses()
     }, [])
+
+    useEffect(() => {
+        if (active) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    }, [active])
 
     return (
         <div className={cx('wrapper')}>

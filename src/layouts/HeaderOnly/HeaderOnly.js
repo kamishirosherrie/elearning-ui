@@ -12,6 +12,8 @@ import { image } from '../../assets/images/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { routes } from '../../routes/route'
+import LearningProgressBar from '../../components/LearningProgressBar/LearningProgressBar'
+import Popper from '../../components/Popper/Popper'
 
 const cx = classNames.bind(styles)
 
@@ -45,12 +47,14 @@ function HeaderOnly() {
 
             <div className={cx('button')}>
                 {user ? (
-                    <div className={cx('user')}>
-                        <Link to={routes.myAccount} className={cx('user-icon')}>
-                            <FontAwesomeIcon icon={faUser} className={cx('icon')} />
-                            <span>{user.fullName}</span>
-                        </Link>
-                    </div>
+                    <Popper content={<LearningProgressBar progress={50} label="Tiến độ học tập" />}>
+                        <div className={cx('user')}>
+                            <Link to={routes.myAccount} className={cx('user-icon')}>
+                                <FontAwesomeIcon icon={faUser} className={cx('icon')} />
+                                <span>{user.fullName}</span>
+                            </Link>
+                        </div>
+                    </Popper>
                 ) : (
                     <Button black onClick={handleLogin}>
                         Đăng nhập

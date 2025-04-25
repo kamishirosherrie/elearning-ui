@@ -69,7 +69,7 @@
     font-weight: 500;
     color: #1e40af;
     text-decoration: none;
-    display: inline-block;
+    display: flex;
     margin-bottom: 6px;
 }
 
@@ -88,6 +88,33 @@
 
     &:hover {
         color: #1d4ed8;
+    }
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: $primary-color;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+
+        &:disabled {
+            background-color: lighten($primary-color, 30%);
+            cursor: not-allowed;
+        }
     }
 }
 
@@ -116,6 +143,7 @@
 
         &.activeMobileMenu {
             right: 0;
+            overflow-y: auto;
         }
     }
 
@@ -150,7 +178,7 @@
     }
 }
 
-@media (min-width: $breakpoint-sm) {
+@media (min-width: ($breakpoint-sm + 1px)) {
     .column:nth-child(odd) {
         padding: 20px 50px 0 100px;
     }

@@ -1,18 +1,22 @@
 import classNames from 'classnames/bind'
 import styles from './Study.module.scss'
 import { useEffect, useState } from 'react'
-import { getLessonByCourseSlug, getLessonBySlug } from '../../api/lessonApi'
-import { useParams } from 'react-router-dom'
+import { getLessonBySlug, getLessonWithProgress } from '../../api/lessonApi'
+import { useParams, useNavigate } from 'react-router-dom'
 import { routes } from '../../routes/route'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faClose } from '@fortawesome/free-solid-svg-icons'
 import CollapsibleSection from '../../components/CollapsibleSection/CollapsibleSection'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
+import { markLessonAsCompleted } from '../../api/lessonProgressApi'
+import { useLoading } from '../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
 function Study() {
     const { courseName, lessonName } = useParams()
+    const navigate = useNavigate()
+    const { setIsLoading } = useLoading()
     const [lesson, setLesson] = useState({})
 
     const [chapters, setChapters] = useState([])
@@ -24,7 +28,67 @@ function Study() {
     }
 
     const handleCloseMenu = () => {
-        setActiveMobileMenu(false)
+        setActiveMobileMenu((prev) => !prev)
+    }
+
+    const handleNavigation = async (direction) => {
+        let currentLessonIndex = -1
+        let currentChapterIndex = -1
+
+        chapters.forEach((chapter, chapterIndex) => {
+            const lessonIndex = chapter.lessons.findIndex((lesson) => lesson.slug === lessonName)
+            if (lessonIndex !== -1) {
+                currentLessonIndex = lessonIndex
+                currentChapterIndex = chapterIndex
+            }
+        })
+
+        if (currentLessonIndex !== -1) {
+            try {
+                setIsLoading(true)
+
+                if (direction === 'next') {
+                    await markLessonAsCompleted(lesson?._id)
+
+                    setChapters((prevChapters) =>
+                        prevChapters.map((chapter, chapterIndex) =>
+                            chapterIndex === currentChapterIndex
+                                ? {
+                                      ...chapter,
+                                      lessons: chapter.lessons.map((lesson, lessonIndex) =>
+                                          lessonIndex === currentLessonIndex
+                                              ? { ...lesson, isCompleted: true }
+                                              : lesson,
+                                      ),
+                                  }
+                                : chapter,
+                        ),
+                    )
+
+                    if (currentLessonIndex < chapters[currentChapterIndex].lessons.length - 1) {
+                        const nextLesson = chapters[currentChapterIndex].lessons[currentLessonIndex + 1]
+                        navigate(`${routes.study}/${courseName}/${nextLesson.slug}`)
+                    } else if (currentChapterIndex < chapters.length - 1) {
+                        const nextChapter = chapters[currentChapterIndex + 1]
+                        const nextLesson = nextChapter.lessons[0]
+                        navigate(`${routes.study}/${courseName}/${nextLesson.slug}`)
+                    }
+                } else if (direction === 'previous') {
+                    if (currentLessonIndex > 0) {
+                        const previousLesson = chapters[currentChapterIndex].lessons[currentLessonIndex - 1]
+                        navigate(`${routes.study}/${courseName}/${previousLesson.slug}`)
+                    } else if (currentChapterIndex > 0) {
+                        const previousChapter = chapters[currentChapterIndex - 1]
+                        const previousLesson = previousChapter.lessons[previousChapter.lessons.length - 1]
+                        navigate(`${routes.study}/${courseName}/${previousLesson.slug}`)
+                    }
+                }
+            } catch (error) {
+                console.error('Error navigating lessons:', error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
     }
 
     useEffect(() => {
@@ -40,7 +104,7 @@ function Study() {
 
         const getListLessons = async () => {
             try {
-                const response = await getLessonByCourseSlug(courseName)
+                const response = await getLessonWithProgress(courseName)
                 console.log('Response:', response.chapters)
 
                 setChapters(response.chapters)
@@ -53,6 +117,18 @@ function Study() {
         getListLessons()
     }, [lessonName, courseName])
 
+    useEffect(() => {
+        if (activeMobileMenu) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    }, [activeMobileMenu])
+
     return (
         <MainLayout>
             <div className={cx('wrapper')}>
@@ -60,6 +136,14 @@ function Study() {
                     <div className={cx('lesson')}>
                         <h3 className={cx('lesson-title')}>{lesson?.title}</h3>
                         <div dangerouslySetInnerHTML={{ __html: lesson?.content }}></div>
+                    </div>
+                    <div className={cx('navigation-buttons')}>
+                        <button onClick={() => handleNavigation('previous')} disabled={!lessonName}>
+                            Previous Lesson
+                        </button>
+                        <button onClick={() => handleNavigation('next')} disabled={!lessonName}>
+                            Next Lesson
+                        </button>
                     </div>
                 </div>
                 <div className={cx('column', { activeMobileMenu })}>
@@ -79,6 +163,7 @@ function Study() {
                                             className={cx('lesson-link')}
                                         >
                                             {lesson?.order} - {lesson?.title}
+                                            {lesson?.isCompleted ? <FontAwesomeIcon icon={faCircleCheck} /> : null}
                                         </a>
                                         <div className={cx('quizze-item')}>
                                             {lesson?.quizzes?.map((quizze, indexQuizze) => (

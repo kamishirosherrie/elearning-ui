@@ -39,8 +39,13 @@ const apiUrl = {
         getAllLesson: '/lesson/',
         getLessonBySlug: (slug) => `/lesson/slug/${slug}`,
         getLessonByCourseSlug: (slug) => `/lesson/${slug}`,
+        getLessonWithUserProgress: (courseName) => `/lesson/getLessonWithUserProgress/${courseName}`,
         getTotalLessonNumber: (courseId) => `/lesson/totalLesson/${courseId}`,
         updateLesson: '/lesson/updateLesson',
+    },
+    lessonProgressUrl: {
+        getLessonProgress: '/lessonProgress',
+        markLessonAsCompleted: (lessonId) => `/progress/markLessonCompleted/${lessonId}`,
     },
     testSetUrl: {
         getAllTestSet: '/testset',

@@ -41,6 +41,16 @@ export const getLessonByCourseSlug = async (slug) => {
     }
 }
 
+export const getLessonWithProgress = async (courseName) => {
+    try {
+        const response = await axiosInstance.get(apiUrl.lessonUrl.getLessonWithUserProgress(courseName))
+        return response.data
+    } catch (error) {
+        console.log('Get lesson with user progress failed')
+        throw error
+    }
+}
+
 export const getTotalLessonNumber = async (courseId) => {
     try {
         const response = await axiosInstance.get(apiUrl.lessonUrl.getTotalLessonNumber(courseId))
