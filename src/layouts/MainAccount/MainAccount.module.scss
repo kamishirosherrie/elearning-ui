@@ -1,6 +1,14 @@
 @import '../../Variables.scss';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .container {
     display: flex;
+    flex: 1;
     gap: 5%;
     position: relative;
     margin-top: 85px;

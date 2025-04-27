@@ -69,7 +69,8 @@ const apiUrl = {
         addNewSubmission: '/submission/submit',
         submitWriting: '/submit/writing',
         getSubmissionById: (id) => `/submission/getSubmission/${id}`,
-        getSubmissionsByUserId: (userId) => `/submission/getSubmissions/${userId}`,
+        getSubmissionsByUserId: (userId, page, limit) =>
+            `/submission/getSubmissions/${userId}?page=${page}&limit=${limit}`,
         getGlobalRanking: '/submission/ranking',
     },
     dictionaryUrl: {

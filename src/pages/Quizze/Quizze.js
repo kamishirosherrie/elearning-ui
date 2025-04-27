@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Modal from 'react-modal'
 import classNames from 'classnames/bind'
 import styles from './Quizze.module.scss'
@@ -14,6 +14,10 @@ import { addNewSubmit } from '../../api/submissionApi'
 import AuthContext from '../../context/AuthContext'
 import QuizzeHeader from '../../components/QuizzeHeader/QuizzeHeader'
 import StudyZone from '../../layouts/StudyZone/StudyZone'
+import Button from '../../components/Button/Button'
+import { useLoading } from '../../context/LoadingContext'
+import { toast } from 'react-toastify'
+import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
 Modal.setAppElement('#root')
@@ -21,6 +25,9 @@ Modal.setAppElement('#root')
 function Quizze() {
     const { user } = useContext(AuthContext)
     const quizzeSlug = useParams().quizzeSlug
+    const { setIsLoading } = useLoading()
+    const navigate = useNavigate()
+
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
     const [questionTypes, setQuestionTypes] = useState([])
@@ -50,29 +57,17 @@ function Quizze() {
     }
 
     const handleSubmit = async () => {
-        let score = 0
         const answers = []
 
         questions.forEach((question) => {
             switch (question.questionTypeId._id) {
                 case questionTypes[0]._id:
-                    const correctAnswer = question.answer.find((answer) => answer.isCorrect === true)
-                    if (oneChoice[question._id] === correctAnswer.text) {
-                        score += 1
-                    }
                     answers.push({ questionId: question._id, text: oneChoice[question._id] || '' })
                     break
                 case questionTypes[2]._id:
-                    if (question.answer[0].text.includes(shortAnswer[question._id])) {
-                        score += 1
-                    }
                     answers.push({ questionId: question._id, text: shortAnswer[question._id] || '' })
                     break
                 case questionTypes[3]._id:
-                    const correctAnswers = question.answer.map((answer) => answer.text)
-                    if (correctAnswers.includes(fillAnswer[question._id])) {
-                        score += 1
-                    }
                     answers.push({ questionId: question._id, text: fillAnswer[question._id] || '' })
                     break
                 default:
@@ -93,12 +88,15 @@ function Quizze() {
         console.log('Submission Data:', submissionData)
 
         try {
+            setIsLoading(true)
             const response = await addNewSubmit(submissionData)
             console.log(response)
             return response
         } catch (error) {
             console.log('Submission failed:', error)
             throw error
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -170,6 +168,11 @@ function Quizze() {
                             </div>
                         </div>
                     ))}
+                </div>
+                <div className={cx('submit')}>
+                    <Button blue border5 type="submit" onClick={handleSubmit}>
+                        Submit
+                    </Button>
                 </div>
             </div>
         </StudyZone>

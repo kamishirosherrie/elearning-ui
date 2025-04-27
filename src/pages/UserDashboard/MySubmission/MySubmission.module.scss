@@ -29,6 +29,19 @@
     }
 }
 
+.highlight {
+    animation: highlightFade 2s ease;
+}
+
+@keyframes highlightFade {
+    0% {
+        background-color: #ffeaa7;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
 @media (max-width: $breakpoint-sm) {
     .table {
         box-shadow: none;

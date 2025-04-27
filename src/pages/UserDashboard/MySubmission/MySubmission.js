@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind'
 import styles from './MySubmission.module.scss'
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import AuthContext from '../../../context/AuthContext'
 import { getAllSubmissionsByUserId } from '../../../api/submissionApi'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { routes } from '../../../routes/route'
 import SubmissionContext from '../../../context/SubmissionContext'
+import Button from '../../../components/Button/Button'
 
 const cx = classNames.bind(styles)
 
@@ -14,7 +15,10 @@ function MySubmission() {
     const { user } = useContext(AuthContext)
     const { setInfo } = useContext(SubmissionContext)
     const navigate = useNavigate()
+    const location = useLocation()
     const [submissions, setSubmissions] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
 
     const handleClick = (quizzeSlug, submissionId) => {
         navigate(`${routes.quizzeView}/${quizzeSlug}`)
@@ -24,16 +28,27 @@ function MySubmission() {
     useEffect(() => {
         const getSubmissions = async () => {
             try {
-                const response = await getAllSubmissionsByUserId(user._id)
+                const response = await getAllSubmissionsByUserId(user._id, currentPage, 10)
                 console.log(response)
-                setSubmissions(response)
+                setSubmissions(response.submissions)
+                setTotalPages(response.totalPages)
             } catch (error) {
                 console.log(error)
             }
         }
 
         getSubmissions()
-    }, [user._id])
+    }, [user._id, currentPage])
+
+    useEffect(() => {
+        if (location.state?.newSubmissionId && submissions.length > 0) {
+            const newSubmissionElement = document.getElementById(location.state.newSubmissionId)
+            if (newSubmissionElement) {
+                newSubmissionElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                newSubmissionElement.classList.add('highlight')
+            }
+        }
+    }, [submissions, location.state])
 
     return (
         <MainAccount title="Lịch sử làm bài">
@@ -52,8 +67,12 @@ function MySubmission() {
                     </thead>
                     <tbody>
                         {submissions.map((submission, index) => (
-                            <tr key={index} onClick={() => handleClick(submission.quizzeId?.slug, submission._id)}>
-                                <td>{index + 1}</td>
+                            <tr
+                                key={submission._id}
+                                id={submission._id}
+                                onClick={() => handleClick(submission.quizzeId?.slug, submission._id)}
+                            >
+                                <td>{(currentPage - 1) * 10 + index + 1}</td>
                                 <td>{submission.quizzeId?.title}</td>
                                 <td>{submission.quizzeId?.lessonId?.title}</td>
                                 <td>{submission.quizzeId?.lessonId?.chapterId?.title}</td>
@@ -64,6 +83,19 @@ function MySubmission() {
                         ))}
                     </tbody>
                 </table>
+            </div>
+            <div className="pagination">
+                <Button blue disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
+                    Previous
+                </Button>
+
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
+
+                <Button blue disabled={currentPage === totalPages} onClick={() => setCurrentPage((prev) => prev + 1)}>
+                    Next
+                </Button>
             </div>
         </MainAccount>
     )

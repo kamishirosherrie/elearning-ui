@@ -26,11 +26,21 @@ const QuizzeHeader = ({ title, description, time, isPaused, handleSubmit }) => {
         setIsOpen(false)
     }
 
-    const handleClickSubmit = () => {
-        setIsOpen(false)
-        handleSubmit()
-        toast.success('Submit successfully!')
-        navigate(routes.mySubmission)
+    const handleClickSubmit = async () => {
+        try {
+            setIsOpen(false)
+            const newSubmission = await handleSubmit()
+            toast.success('Submit successfully!')
+            navigate(routes.mySubmission, {
+                state: {
+                    refresh: true,
+                    newSubmissionId: newSubmission.quizzeId,
+                },
+            })
+        } catch (error) {
+            console.error(error)
+            toast.error('Submit failed!')
+        }
     }
 
     return (

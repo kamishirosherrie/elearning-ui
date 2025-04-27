@@ -21,10 +21,10 @@ export const submitWritingTest = async (data) => {
     }
 }
 
-export const getAllSubmissionsByUserId = async (userId) => {
+export const getAllSubmissionsByUserId = async (userId, page = 1, limit = 10) => {
     try {
-        const response = await axiosInstance.get(apiUrl.submissionUrl.getSubmissionsByUserId(userId))
-        return response.data.submissions
+        const response = await axiosInstance.get(apiUrl.submissionUrl.getSubmissionsByUserId(userId, page, limit))
+        return response.data
     } catch (error) {
         console.log('Get submission by user id failed: ', error)
         throw error
