@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
-import styles from './WritingPractice.module.scss'
+import styles from '../TestPractice.module.scss'
 import Writing from '../../../components/QuestionType/Writing/Writing'
 import { getQuizzeBySlug } from '../../../api/quizzeApi'
 import { useParams } from 'react-router-dom'
@@ -8,6 +8,7 @@ import AuthContext from '../../../context/AuthContext'
 import { getQuestionByQuizzeSlug } from '../../../api/questionApi'
 import QuizzeHeader from '../../../components/QuizzeHeader/QuizzeHeader'
 import StudyZone from '../../../layouts/StudyZone/StudyZone'
+import { submitWritingTest } from '../../../api/submissionApi'
 
 const cx = classNames.bind(styles)
 
@@ -17,8 +18,7 @@ function WritingPractice() {
 
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
-    const [answer, setAnswer] = useState({})
-    const [isPaused, setIsPaused] = useState(false)
+    const [answer, setAnswer] = useState([])
 
     const [startTime, setStartTime] = useState(null)
 
@@ -31,18 +31,19 @@ function WritingPractice() {
     }
 
     const handleSubmit = () => {
+        const questionMap = new Map(questions.map((question) => [question._id, question]))
+
         const enrichedAnswers = Object.entries(answer).map(([questionId, text]) => {
-            const question = questions.find((question) => question.questionId === questionId)
+            const question = questionMap.get(questionId)
             return {
                 questionId,
-                question: question?.content || '',
-                imageUrl: question?.imageUrl || '',
+                question: question?.question || '',
+                imageUrl: question?.context || '',
                 text,
             }
         })
 
         console.log('Submitted Writing:', enrichedAnswers)
-        setIsPaused(true)
 
         const endTime = new Date()
         const timeSpent = Math.floor((endTime - startTime) / 1000)
@@ -55,6 +56,14 @@ function WritingPractice() {
         }
 
         console.log('Submission Data:', submissionData)
+
+        try {
+            const response = submitWritingTest(submissionData)
+            return response
+        } catch (error) {
+            console.log('Submission failed:', error)
+            throw error
+        }
     }
 
     useEffect(() => {
@@ -63,12 +72,12 @@ function WritingPractice() {
         const getQuizzeInfo = async () => {
             try {
                 const quizze = await getQuizzeBySlug(quizzeSlug)
-                const questions = await getQuestionByQuizzeSlug(quizzeSlug)
+                const questions = await getQuestionByQuizzeSlug(quizzeSlug, 'Part 1')
                 console.log('Quizze: ', quizze)
-                console.log('Questions: ', questions)
+                console.log('Questions: ', questions.questions)
 
                 setQuizze(quizze)
-                setQuestions(questions)
+                setQuestions(questions.questions)
             } catch (error) {
                 console.log('Get quizze failed: ', error)
             }
@@ -84,7 +93,6 @@ function WritingPractice() {
                     title={quizze.title}
                     description={quizze.description}
                     time={quizze.time}
-                    isPaused={isPaused}
                     handleSubmit={handleSubmit}
                 />
                 <div className={cx('content')}>
@@ -96,11 +104,7 @@ function WritingPractice() {
                                 {question.context && <img src={question.context} alt="" className={cx('image')} />}
                             </div>
                             <div className={cx('answer')}>
-                                <Writing
-                                    name={question.questionId}
-                                    onChange={handleChange}
-                                    className={cx('textarea')}
-                                />
+                                <Writing name={question._id} onChange={handleChange} className={cx('textarea')} />
                             </div>
                         </div>
                     ))}

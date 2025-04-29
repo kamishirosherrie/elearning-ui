@@ -13,6 +13,8 @@ import Register from '../../components/Register/Register'
 import { image } from '../../assets/images/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faClose, faUser } from '@fortawesome/free-solid-svg-icons'
+import Popper from '../../components/Popper/Popper'
+import CourseProgress from '../../components/CourseProgress/CourseProgress'
 
 const cx = classNames.bind(styles)
 
@@ -126,6 +128,16 @@ function Header() {
                             <span>Xếp hạng</span>
                         </Link>
                     </li>
+                    <li className={cx('menu-item')}>
+                        <Link to={routes.blog}>
+                            <span>Blog</span>
+                        </Link>
+                    </li>
+                    <li className={cx('menu-item')}>
+                        <Link to={routes.news}>
+                            <span>Tin tức</span>
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <ul className={cx('menu-list')}>
@@ -155,15 +167,23 @@ function Header() {
                 <li className={cx('menu-item')}>
                     <Link to={routes.ranking}>Xếp hạng</Link>
                 </li>
+                <li className={cx('menu-item')}>
+                    <Link to={routes.blog}>Blog</Link>
+                </li>
+                <li className={cx('menu-item')}>
+                    <Link to={routes.news}>Tin tức</Link>
+                </li>
             </ul>
             <div className={cx('button')}>
                 {user ? (
-                    <div className={cx('user')}>
-                        <Link to={routes.myAccount} className={cx('user-icon')}>
-                            <FontAwesomeIcon icon={faUser} className={cx('icon')} />
-                            <span>{user.fullName}</span>
-                        </Link>
-                    </div>
+                    <Popper content={<CourseProgress progress={50} label="Tiến độ học tập" />}>
+                        <div className={cx('user')}>
+                            <Link to={routes.myAccount} className={cx('user-icon')}>
+                                <FontAwesomeIcon icon={faUser} className={cx('icon')} />
+                                <span>{user.fullName}</span>
+                            </Link>
+                        </div>
+                    </Popper>
                 ) : (
                     <Button black onClick={handleLogin}>
                         Đăng nhập

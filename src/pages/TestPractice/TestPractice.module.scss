@@ -1,0 +1,54 @@
+@import '../../Variables.scss';
+
+.wrapper {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.question-wrapper {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.question {
+    margin-bottom: 15px;
+
+    .task-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: $primary-color;
+        margin-bottom: 10px;
+    }
+
+    .task-content {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .image {
+        margin-top: 10px;
+        max-width: 100%;
+        border-radius: 4px;
+    }
+}
+
+.answer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+        font-size: 14px;
+        color: #333;
+    }
+}

@@ -44,7 +44,7 @@ const apiUrl = {
         updateLesson: '/lesson/updateLesson',
     },
     lessonProgressUrl: {
-        getLessonProgress: '/lessonProgress',
+        getLessonProgress: '/progress/',
         markLessonAsCompleted: (lessonId) => `/progress/markLessonCompleted/${lessonId}`,
     },
     testSetUrl: {
@@ -59,7 +59,8 @@ const apiUrl = {
         speakingReply: '/quizze/speaking/conversation',
     },
     questionUrl: {
-        getQuestionByQuizzeSlug: (quizzeSlug) => `/question/slug/${quizzeSlug}`,
+        getQuestionByQuizzeSlug: (quizzeSlug, part) =>
+            part ? `/question/slug/${quizzeSlug}?part=${part}` : `/question/slug/${quizzeSlug}`,
         addNewQuestion: '/question/addNewQuestion',
     },
     questionTypeUrl: {
@@ -67,7 +68,7 @@ const apiUrl = {
     },
     submissionUrl: {
         addNewSubmission: '/submission/submit',
-        submitWriting: '/submit/writing',
+        submitWriting: '/submission/submit/writing',
         getSubmissionById: (id) => `/submission/getSubmission/${id}`,
         getSubmissionsByUserId: (userId, page, limit) =>
             `/submission/getSubmissions/${userId}?page=${page}&limit=${limit}`,

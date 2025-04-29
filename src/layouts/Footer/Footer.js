@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind'
 import styles from './Footer.module.scss'
 import { image } from '../../assets/images/image'
+import { Link } from 'react-router-dom'
+import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
 
@@ -20,25 +22,28 @@ function Footer() {
                 <div className={cx('content')}>
                     <div className={cx('title')}>Về chúng tôi</div>
                     <div className={cx('description')}>
-                        <span>Điều kiện & điều khoản</span>
+                        <Link to={routes.aboutUs}>Giới thiệu</Link>
                     </div>
                     <div className={cx('description')}>
-                        <span>Chính sách bảo mật</span>
+                        <Link to={routes.termAndCondition}>Điều kiện & điều khoản</Link>
                     </div>
                     <div className={cx('description')}>
-                        <span>Chính sách thanh toán</span>
+                        <Link to={routes.privacyPolicy}>Chính sách bảo mật</Link>
+                    </div>
+                    <div className={cx('description')}>
+                        <Link to={routes.paymentPolicy}>Chính sách thanh toán</Link>
                     </div>
                 </div>
                 <div className={cx('content')}>
                     <div className={cx('title')}>Chương trình học</div>
                     <div className={cx('description')}>
-                        <span>TOEIC Listening & Reading</span>
+                        <Link to={`${routes.course}/toeic-listening-and-reading`}>TOEIC Listening & Reading</Link>
                     </div>
                     <div className={cx('description')}>
-                        <span>TOEIC Speaking & Writing</span>
+                        <Link to={`${routes.course}/toeic-speaking-and-writing`}>TOEIC Speaking & Writing</Link>
                     </div>
                     <div className={cx('description')}>
-                        <span>TOEIC 4 Kĩ Năng</span>
+                        <Link to={`${routes.course}/toeic-full-skills`}>TOEIC 4 Kĩ Năng</Link>
                     </div>
                 </div>
                 <div className={cx('content')}>
@@ -56,16 +61,16 @@ function Footer() {
                 <div className={cx('content')}>
                     <div className={cx('title')}>Kết nối với chúng tôi</div>
                     <div className={cx('description')}>
-                        <span>Số điện thoại</span>
+                        <a href="tel:+84346715041">Số điện thoại: +84 346 715 041</a>
                     </div>
                     <div className={cx('description')}>
-                        <span>Facebook</span>
+                        <a href="https://facebook.com/duonghang591">Facebook</a>
                     </div>
                     <div className={cx('description')}>
-                        <span>Instagram</span>
+                        <a href="https://instagram.com">Instagram</a>
                     </div>
                     <div className={cx('description')}>
-                        <span>Email</span>
+                        <a href="mailto:support@emaster.com">Email: support@emaster.com</a>
                     </div>
                 </div>
             </div>

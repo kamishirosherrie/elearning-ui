@@ -7,11 +7,13 @@ import CountdownTimer from '../CountdownTimer/CountdownTimer'
 import ModalPopup from '../ModalPopup/ModalPopup'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../routes/route'
+import { useLoading } from '../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
-const QuizzeHeader = ({ title, description, time, isPaused, handleSubmit }) => {
+const QuizzeHeader = ({ title, description, time, handleSubmit }) => {
     const navigate = useNavigate()
+    const { setIsLoading } = useLoading()
     const [isOpen, setIsOpen] = useState(false)
 
     const handleOnExpire = () => {
@@ -29,6 +31,7 @@ const QuizzeHeader = ({ title, description, time, isPaused, handleSubmit }) => {
     const handleClickSubmit = async () => {
         try {
             setIsOpen(false)
+            setIsLoading(true)
             const newSubmission = await handleSubmit()
             toast.success('Submit successfully!')
             navigate(routes.mySubmission, {
@@ -39,7 +42,9 @@ const QuizzeHeader = ({ title, description, time, isPaused, handleSubmit }) => {
             })
         } catch (error) {
             console.error(error)
-            toast.error('Submit failed!')
+            toast.error(error.response?.data?.message || 'Submit failed!')
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -54,7 +59,7 @@ const QuizzeHeader = ({ title, description, time, isPaused, handleSubmit }) => {
                 {Number(time) > 0 && (
                     <div className={cx('count')}>
                         Time left:
-                        <CountdownTimer initialTime={Number(time) * 60} onExpire={handleOnExpire} isPaused={isPaused} />
+                        <CountdownTimer initialTime={Number(time) * 60} onExpire={handleOnExpire} />
                     </div>
                 )}
                 <Button blue border5 type="submit" onClick={handleClick}>

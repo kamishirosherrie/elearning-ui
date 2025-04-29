@@ -10,3 +10,13 @@ export const markLessonAsCompleted = async (lessonId) => {
         throw error
     }
 }
+
+export const getLessonProgress = async () => {
+    try {
+        const response = await axiosInstance.get(apiUrl.lessonProgressUrl.getLessonProgress)
+        return response.data
+    } catch (error) {
+        console.log('Get lesson progress failed: ', error)
+        throw error
+    }
+}

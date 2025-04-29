@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './ListeningPractice.module.scss'
-import Writing from '../../../components/QuestionType/Writing/Writing'
 import { getQuizzeBySlug } from '../../../api/quizzeApi'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import AuthContext from '../../../context/AuthContext'
 import { getQuestionByQuizzeSlug } from '../../../api/questionApi'
 import QuizzeHeader from '../../../components/QuizzeHeader/QuizzeHeader'
@@ -11,15 +10,13 @@ import StudyZone from '../../../layouts/StudyZone/StudyZone'
 import OneChoice from '../../../components/QuestionType/OneChoice/OneChoice'
 import { useLoading } from '../../../context/LoadingContext'
 import { addNewSubmit } from '../../../api/submissionApi'
-import { toast } from 'react-toastify'
-import { routes } from '../../../routes/route'
+import Pagination from '../../../components/Pagination/Pagination'
 
 const cx = classNames.bind(styles)
 
 function ListeningPractice() {
     const { user } = useContext(AuthContext)
     const { quizzeSlug } = useParams()
-    const navigate = useNavigate()
     const { setIsLoading } = useLoading()
 
     const [quizze, setQuizze] = useState({})
@@ -27,6 +24,9 @@ function ListeningPractice() {
     const [oneChoice, setOneChoice] = useState({})
 
     const [startTime, setStartTime] = useState(null)
+
+    const [currentPart, setCurrentPart] = useState(1)
+    const [totalParts, setTotalParts] = useState(1)
 
     const handleChange = (event, questionId) => {
         const { value } = event.target
@@ -37,11 +37,12 @@ function ListeningPractice() {
     }
 
     const handleSubmit = async () => {
-        const answers = []
-
-        questions.forEach((question) => {
-            answers.push({ questionId: question._id, text: oneChoice[question._id] || '' })
-        })
+        const answers = questions
+            .filter((question) => oneChoice[question._id])
+            .map((question) => ({
+                questionId: question._id,
+                text: oneChoice[question._id],
+            }))
 
         const endTime = new Date()
         const timeSpent = Math.floor((endTime - startTime) / 1000)
@@ -74,19 +75,20 @@ function ListeningPractice() {
         const getQuizzeInfo = async () => {
             try {
                 const quizze = await getQuizzeBySlug(quizzeSlug)
-                const questions = await getQuestionByQuizzeSlug(quizzeSlug)
+                const questions = await getQuestionByQuizzeSlug(quizzeSlug, currentPart)
                 console.log('Quizze: ', quizze)
                 console.log('Questions: ', questions)
 
                 setQuizze(quizze)
-                setQuestions(questions)
+                setQuestions(questions.questions)
+                setTotalParts(questions.totalPart || 1)
             } catch (error) {
                 console.log('Get quizze failed: ', error)
             }
         }
 
         getQuizzeInfo()
-    }, [quizzeSlug])
+    }, [quizzeSlug, currentPart])
 
     return (
         <StudyZone>
@@ -97,29 +99,51 @@ function ListeningPractice() {
                     time={quizze.time}
                     handleSubmit={handleSubmit}
                 />
-                <div className={cx('content')}>
-                    {questions.map((question, index) => (
-                        <div key={index} className={cx('question-wrapper')}>
-                            <div className={cx('question')}>
-                                <h3 className={cx('task-title')}>{question.part}</h3>
-                                <p className={cx('task-content')}>{question.question}</p>
-                                {question.context && <img src={question.context} alt="" className={cx('image')} />}
-                            </div>
-                            <div className={cx('answer')}>
-                                {question.answer.map((answer, indexAnswer) => (
-                                    <div key={indexAnswer}>
-                                        <OneChoice
-                                            id={answer._id}
-                                            name={question._id}
-                                            value={answer.text}
-                                            checked={oneChoice[question._id] === answer.text}
-                                            onChange={(e) => handleChange(e, question._id)}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
+                <div className={cx('content-wrapper')}>
+                    <div className={cx('content')}>
+                        <div className={cx('audio-section')}>
+                            <h3 className={cx('audio-title')}>Listening Audio</h3>
+                            {quizze.audioUrl ? (
+                                <audio controls className={cx('audio-player')}>
+                                    <source src={quizze.audioUrl} type="audio/mpeg" />
+                                    Your browser does not support the audio element.
+                                </audio>
+                            ) : (
+                                <p>No audio available</p>
+                            )}
                         </div>
-                    ))}
+                        <div className={cx('questions-section')}>
+                            {questions.map((question, index) => (
+                                <div key={index} className={cx('question-wrapper')}>
+                                    <div className={cx('question')}>
+                                        <h3 className={cx('task-title')}>Part {question.part}</h3>
+                                        <p className={cx('task-content')}>{question.question}</p>
+                                        {question.context && (
+                                            <img src={question.context} alt="" className={cx('image')} />
+                                        )}
+                                    </div>
+                                    <div className={cx('answer')}>
+                                        {question.answer.map((answer, indexAnswer) => (
+                                            <div key={indexAnswer}>
+                                                <OneChoice
+                                                    id={answer._id}
+                                                    name={question._id}
+                                                    value={answer.text}
+                                                    checked={oneChoice[question._id] === answer.text}
+                                                    onChange={(e) => handleChange(e, question._id)}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <Pagination
+                        currentPage={currentPart}
+                        totalPages={totalParts}
+                        onPageChange={(page) => setCurrentPart(page)}
+                    />
                 </div>
             </div>
         </StudyZone>

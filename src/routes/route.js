@@ -18,6 +18,12 @@ const routes = {
     ranking: '/ranking',
     forgotPassword: '/forgot-password',
     resetPassword: '/reset-password',
+    blog: '/blog',
+    news: '/news',
+    aboutUs: '/about-us',
+    privacyPolicy: '/privacy-policy',
+    termAndCondition: '/term-and-condition',
+    paymentPolicy: '/payment-policy',
 }
 
 export { routes }

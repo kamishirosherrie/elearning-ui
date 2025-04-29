@@ -11,10 +11,10 @@ function getMood(progress) {
     return '😴 Mới bắt đầu hen~'
 }
 
-function LessonProgressBar({ progress = 0, label = '' }) {
+function LessonProgressBar({ progress = 0, title = '' }) {
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('title')}>{label}</div>
+            <div className={cx('title')}>{title}</div>
             <div className={cx('bar')}>
                 <div className={cx('fill')} style={{ width: `${progress}%` }} />
             </div>

@@ -1,0 +1,77 @@
+@import '../../Variables.scss';
+
+.blog-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.blog-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.blog-content {
+    padding: 15px;
+
+    h2 {
+        font-size: 20px;
+        font-weight: bold;
+        color: $primary-color;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+}
+.blog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #888;
+}
+.like-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary-color;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: darken($primary-color, 10%);
+    }
+
+    &.liked {
+        color: #e63946;
+    }
+
+    svg {
+        stroke-width: 2px;
+    }
+}

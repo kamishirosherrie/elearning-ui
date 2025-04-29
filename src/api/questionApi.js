@@ -1,10 +1,10 @@
 import axiosInstance from './axiosInstance'
 import { apiUrl } from './apiConfig'
 
-export const getQuestionByQuizzeSlug = async (slug) => {
+export const getQuestionByQuizzeSlug = async (slug, part) => {
     try {
-        const response = await axiosInstance.get(apiUrl.questionUrl.getQuestionByQuizzeSlug(slug))
-        return response.data.questions
+        const response = await axiosInstance.get(apiUrl.questionUrl.getQuestionByQuizzeSlug(slug, part))
+        return response.data
     } catch (error) {
         console.log('Get question by quizze slug failed')
         throw error

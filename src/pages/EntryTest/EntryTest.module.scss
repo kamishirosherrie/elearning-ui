@@ -2,13 +2,12 @@
 
 .wrapper {
     max-width: 800px;
-    height: 700px;
+    height: auto;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .title {

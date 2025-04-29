@@ -21,6 +21,7 @@ function Button({
     fullWidth,
     leftIcon,
     rightIcon,
+    pagination,
     className,
     children,
     disabled,
@@ -59,6 +60,7 @@ function Button({
         fullWidth,
         leftIcon,
         rightIcon,
+        pagination,
         disabled,
         [className]: className,
     })

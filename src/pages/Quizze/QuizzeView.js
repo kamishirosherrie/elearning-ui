@@ -21,7 +21,7 @@ function QuizzeView() {
     const [questions, setQuestions] = useState([])
     const [userAnswer, setUserAnswer] = useState({})
 
-    const totalQuestions = questions.length
+    const totalQuestions = questions?.length
     const answered = userAnswer?.answers || []
 
     const totalScore = userAnswer.score
@@ -36,7 +36,9 @@ function QuizzeView() {
                 const quizzeData = await getQuizzeBySlug(quizzeSlug)
                 const questionData = await getQuestionByQuizzeSlug(quizzeSlug)
                 setQuizze(quizzeData)
-                setQuestions(questionData)
+                console.log('questionData: ', questionData)
+
+                setQuestions(questionData.questions)
 
                 const userAnswersData = await getSubmissionById(info.submissionId)
                 console.log('userAnswersData: ', userAnswersData)
@@ -69,7 +71,7 @@ function QuizzeView() {
                     <p>🎯 Accuracy: {accuracy}%</p>
                 </div>
 
-                {questions.map((question, indexQuestion) => {
+                {questions?.map((question, indexQuestion) => {
                     const currentUserAnswer = userAnswer?.answers?.find((ans) => ans.questionId === question._id)
 
                     return (

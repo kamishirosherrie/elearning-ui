@@ -25,6 +25,13 @@ import ListeningPractice from './pages/TestPractice/ListeningPractice/ListeningP
 import ReadingPractice from './pages/TestPractice/ReadingPractice/ReadingPractice'
 import SpeakingPractice from './pages/TestPractice/SpeakingPractice/SpeakingPractice'
 import { LoadingProvider } from './context/LoadingContext'
+import Blog from './pages/Blog/Blog'
+import News from './pages/News/News'
+import NewsDetail from './pages/News/NewsDetail'
+import AboutUs from './pages/AboutUs/AboutUs'
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
+import TermAndCondition from './pages/TermAndCondition/TermAndCondition'
+import PaymentPolicy from './pages/PaymentPolicy/PaymentPolicy'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -80,6 +87,13 @@ function App() {
                             <Route path={`${routes.course}/:courseName`} element={<CourseDetail />} />
                             <Route path={routes.entryTest} element={<EntryTest />} />
                             <Route path={routes.ranking} element={<Ranking />} />
+                            <Route path={routes.blog} element={<Blog />} />
+                            <Route path={routes.news} element={<News />} />
+                            <Route path={`${routes.news}/:newsId`} element={<NewsDetail />} />
+                            <Route path={routes.aboutUs} element={<AboutUs />} />
+                            <Route path={routes.privacyPolicy} element={<PrivacyPolicy />} />
+                            <Route path={routes.termAndCondition} element={<TermAndCondition />} />
+                            <Route path={routes.paymentPolicy} element={<PaymentPolicy />} />
 
                             <Route path="*" element={<Navigate to="/" />} />
                         </Routes>

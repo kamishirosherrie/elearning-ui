@@ -1,13 +1,14 @@
 import classNames from 'classnames/bind'
 import styles from './MySubmission.module.scss'
 import MainAccount from '../../../layouts/MainAccount/MainAccount'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../../context/AuthContext'
 import { getAllSubmissionsByUserId } from '../../../api/submissionApi'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { routes } from '../../../routes/route'
 import SubmissionContext from '../../../context/SubmissionContext'
 import Button from '../../../components/Button/Button'
+import { useLoading } from '../../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
@@ -16,6 +17,8 @@ function MySubmission() {
     const { setInfo } = useContext(SubmissionContext)
     const navigate = useNavigate()
     const location = useLocation()
+    const { setIsLoading } = useLoading()
+
     const [submissions, setSubmissions] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
@@ -28,17 +31,20 @@ function MySubmission() {
     useEffect(() => {
         const getSubmissions = async () => {
             try {
+                setIsLoading(true)
                 const response = await getAllSubmissionsByUserId(user._id, currentPage, 10)
                 console.log(response)
                 setSubmissions(response.submissions)
                 setTotalPages(response.totalPages)
             } catch (error) {
                 console.log(error)
+            } finally {
+                setIsLoading(false)
             }
         }
 
         getSubmissions()
-    }, [user._id, currentPage])
+    }, [user._id, currentPage, setIsLoading])
 
     useEffect(() => {
         if (location.state?.newSubmissionId && submissions.length > 0) {
@@ -84,16 +90,27 @@ function MySubmission() {
                     </tbody>
                 </table>
             </div>
-            <div className="pagination">
-                <Button blue disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
+            <div className={cx('pagination')}>
+                <Button pagination disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
                     Previous
                 </Button>
 
-                <span>
-                    Page {currentPage} of {totalPages}
-                </span>
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+                    <Button
+                        key={page}
+                        pagination
+                        className={page === currentPage ? 'active' : ''}
+                        onClick={() => setCurrentPage(page)}
+                    >
+                        {page}
+                    </Button>
+                ))}
 
-                <Button blue disabled={currentPage === totalPages} onClick={() => setCurrentPage((prev) => prev + 1)}>
+                <Button
+                    pagination
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                >
                     Next
                 </Button>
             </div>

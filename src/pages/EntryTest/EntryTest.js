@@ -9,12 +9,16 @@ import AuthContext from '../../context/AuthContext'
 import ModalPopup from '../../components/ModalPopup/ModalPopup'
 import Login from '../../components/Login/Login'
 import Register from '../../components/Register/Register'
+import { useBreadcrumbs } from '../../hooks/useBreadcrumbs'
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 
 const cx = classNames.bind(styles)
 
 function EntryTest() {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
+    const breadcrumbs = useBreadcrumbs()
+
     const [test, setTest] = useState('')
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
@@ -50,6 +54,7 @@ function EntryTest() {
 
     return (
         <MainLayout>
+            <Breadcrumbs items={breadcrumbs} />
             <div className={cx('wrapper')}>
                 <h2 className={cx('title')}>Entry test</h2>
                 <div className={cx('content')}>

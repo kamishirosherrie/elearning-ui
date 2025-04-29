@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import Modal from 'react-modal'
+import { useParams } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Quizze.module.scss'
 
@@ -16,17 +15,13 @@ import QuizzeHeader from '../../components/QuizzeHeader/QuizzeHeader'
 import StudyZone from '../../layouts/StudyZone/StudyZone'
 import Button from '../../components/Button/Button'
 import { useLoading } from '../../context/LoadingContext'
-import { toast } from 'react-toastify'
-import { routes } from '../../routes/route'
 
 const cx = classNames.bind(styles)
-Modal.setAppElement('#root')
 
 function Quizze() {
     const { user } = useContext(AuthContext)
     const quizzeSlug = useParams().quizzeSlug
     const { setIsLoading } = useLoading()
-    const navigate = useNavigate()
 
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
@@ -106,7 +101,7 @@ function Quizze() {
                 const response = await getQuestionByQuizzeSlug(quizzeSlug)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
                 setQuizze(quizze)
-                setQuestions(response)
+                setQuestions(response.questions)
                 setStartTime(new Date())
             } catch (error) {
                 console.log('Get question by quizze slug error:', error)

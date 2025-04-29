@@ -4,11 +4,15 @@ import MainLayout from '../../layouts/MainLayout/MainLayout'
 import { useContext, useEffect, useState } from 'react'
 import { getRanking } from '../../api/submissionApi'
 import AuthContext from '../../context/AuthContext'
+import { useBreadcrumbs } from '../../hooks/useBreadcrumbs'
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 
 const cx = classNames.bind(styles)
 
 function Ranking() {
     const { user } = useContext(AuthContext)
+    const breadcrumbs = useBreadcrumbs()
+
     const [ranking, setRanking] = useState([])
     const [userRankIndex, setUserRankIndex] = useState(0)
     const [userRankInfo, setUserRankInfo] = useState({})
@@ -63,6 +67,7 @@ function Ranking() {
 
     return (
         <MainLayout>
+            <Breadcrumbs items={breadcrumbs} />
             <div className={cx('wrapper')}>
                 <div className={cx('header')}>
                     <h1 className={cx('title')}>Bảng Xếp Hạng Toàn Trường</h1>

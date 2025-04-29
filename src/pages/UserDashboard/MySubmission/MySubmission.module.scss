@@ -42,6 +42,14 @@
     }
 }
 
+.pagination {
+    display: flex;
+    gap: 5px;
+    width: 90%;
+    justify-content: center;
+    margin-top: 25px;
+}
+
 @media (max-width: $breakpoint-sm) {
     .table {
         box-shadow: none;

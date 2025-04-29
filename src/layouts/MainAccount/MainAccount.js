@@ -2,17 +2,17 @@ import classNames from 'classnames/bind'
 import styles from './MainAccount.module.scss'
 import Sidebar from '../Sidebar/Sidebar'
 import Dashboard from '../Dashboard/Dashboard'
-import HeaderOnly from '../HeaderOnly/HeaderOnly'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import Footer from '../Footer/Footer'
 import ScrollToTopButton from '../../components/ScrollToTopButton/ScrollToTopButton'
+import Header from '../Header/Header'
 
 const cx = classNames.bind(styles)
 
 function MainAccount({ title, children }) {
     return (
         <div className={cx('wrapper')}>
-            <HeaderOnly />
+            <Header />
             <div className={cx('container')}>
                 <Sidebar />
                 <Dashboard>
