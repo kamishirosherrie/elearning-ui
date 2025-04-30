@@ -18,6 +18,7 @@ function GoogleLogin({ redirect = true }) {
             const userInfo = await getGoogleUserInfo(data.access_token)
             const response = await socialLogin({ email: userInfo.email, fullName: userInfo.name })
             login({ ...response.user })
+            localStorage.setItem('accessToken', response.accessToken)
             toast.success('Đăng nhập thành công')
             if (redirect) navigate(routes.myAccount)
         } catch (error) {

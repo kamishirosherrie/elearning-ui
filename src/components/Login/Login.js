@@ -44,6 +44,7 @@ const Login = ({ handleClickRegister, redirect = true }) => {
             if (user.identifier && user.passWord) {
                 const response = await loginUser(user)
                 login({ ...response.user })
+                localStorage.setItem('accessToken', response.accessToken)
                 toast.success(response.message)
                 if (redirect) navigate(routes.myAccount)
             } else {

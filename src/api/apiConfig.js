@@ -8,6 +8,7 @@ const apiUrl = {
         forgotPassWord: '/auth/forgotPassWord',
         resetPassWord: '/auth/resetPassWord',
         verifyOtp: '/auth/verifyOtp',
+        refreshToken: '/auth/refreshToken',
     },
     roleUrl: {
         getRole: '/role',

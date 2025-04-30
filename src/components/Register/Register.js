@@ -32,6 +32,7 @@ function Register({ handleClickLogin, redirect = true }) {
             const response = await registerUser(data)
             console.log(response)
             login({ ...response.data })
+            localStorage.setItem('accessToken', response.accessToken)
             toast.success('Đăng ký thành công')
             if (redirect) navigate(routes.myAccount)
         } catch (error) {

@@ -17,6 +17,7 @@ function FacebookLogin({ redirect = true }) {
             const userInfo = await getFacebookUserInfo(data.accessToken)
             const response = await socialLogin({ email: userInfo.email, fullName: userInfo.name })
             login({ ...response.user })
+            localStorage.setItem('accessToken', response.accessToken)
             toast.success('Đăng nhập thành công')
             if (redirect) navigate(routes.myAccount)
         } catch (error) {
