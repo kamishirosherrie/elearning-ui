@@ -74,6 +74,7 @@ function ReadingPractice() {
 
         const getQuizzeInfo = async () => {
             try {
+                setIsLoading(true)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
                 const questions = await getQuestionByQuizzeSlug(quizzeSlug, currentPart)
                 console.log('Quizze: ', quizze)
@@ -84,11 +85,13 @@ function ReadingPractice() {
                 setTotalParts(questions.totalPart || 1)
             } catch (error) {
                 console.log('Get quizze failed: ', error)
+            } finally {
+                setIsLoading(false)
             }
         }
 
         getQuizzeInfo()
-    }, [quizzeSlug, currentPart])
+    }, [quizzeSlug, currentPart, setIsLoading])
 
     return (
         <StudyZone>

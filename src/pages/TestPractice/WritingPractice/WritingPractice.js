@@ -9,12 +9,14 @@ import { getQuestionByQuizzeSlug } from '../../../api/questionApi'
 import QuizzeHeader from '../../../components/QuizzeHeader/QuizzeHeader'
 import StudyZone from '../../../layouts/StudyZone/StudyZone'
 import { submitWritingTest } from '../../../api/submissionApi'
+import { useLoading } from '../../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
 function WritingPractice() {
     const { user } = useContext(AuthContext)
     const { quizzeSlug } = useParams()
+    const { setIsLoading } = useLoading()
 
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
@@ -71,6 +73,7 @@ function WritingPractice() {
 
         const getQuizzeInfo = async () => {
             try {
+                setIsLoading(true)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
                 const questions = await getQuestionByQuizzeSlug(quizzeSlug, 'Part 1')
                 console.log('Quizze: ', quizze)
@@ -80,11 +83,13 @@ function WritingPractice() {
                 setQuestions(questions.questions)
             } catch (error) {
                 console.log('Get quizze failed: ', error)
+            } finally {
+                setIsLoading(false)
             }
         }
 
         getQuizzeInfo()
-    }, [quizzeSlug])
+    }, [quizzeSlug, setIsLoading])
 
     return (
         <StudyZone>

@@ -7,23 +7,28 @@ import { useEffect, useState } from 'react'
 import { getCourse } from '../../api/courseApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { useLoading } from '../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
 function Course() {
+    const { setIsLoading } = useLoading()
     const [courses, setCourses] = useState([])
 
     useEffect(() => {
         const getCourses = async () => {
             try {
+                setIsLoading(true)
                 const response = await getCourse()
                 setCourses(response.courses)
             } catch (error) {
                 console.log('Error:', error)
+            } finally {
+                setIsLoading(false)
             }
         }
         getCourses()
-    }, [])
+    }, [setIsLoading])
     return (
         <MainLayout>
             <div className={cx('wrapper')}>

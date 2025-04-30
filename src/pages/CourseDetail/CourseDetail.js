@@ -15,11 +15,13 @@ import Checkout from '../../components/Checkout/Checkout'
 import { routes } from '../../routes/route'
 import { getLessonByCourseSlug, getTotalLessonNumber } from '../../api/lessonApi'
 import CollapsibleSection from '../../components/CollapsibleSection/CollapsibleSection'
+import { useLoading } from '../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
 function CourseDetail() {
     const { user } = useContext(AuthContext)
+    const { setIsLoading } = useLoading()
     const slug = useParams().courseName
 
     const [course, setCourse] = useState({})
@@ -52,35 +54,42 @@ function CourseDetail() {
 
     useEffect(() => {
         const getCourseInfo = async () => {
-            const response = await getCourseBySlug(slug)
-            setCourse(response)
+            try {
+                setIsLoading(true)
+                const response = await getCourseBySlug(slug)
+                setCourse(response)
 
-            if (response._id) {
-                try {
-                    const lessons = await getLessonByCourseSlug(slug)
-                    const total = await getTotalLessonNumber(response._id)
-                    setTotalLesson(total)
-
-                    setChapters(lessons.chapters)
-                    setFirstLesson(lessons.chapters[0].lessons[0])
-                } catch (error) {
-                    console.log('Get lessons failed: ', error)
-                }
-
-                if (user) {
+                if (response._id) {
                     try {
-                        const enrollment = await getCourseEnrollment({ courseId: response._id, userId: user._id })
-                        if (enrollment.courseEnrollment) {
-                            setIsEnrolled(true)
-                        }
+                        const lessons = await getLessonByCourseSlug(slug)
+                        const total = await getTotalLessonNumber(response._id)
+                        setTotalLesson(total)
+
+                        setChapters(lessons.chapters)
+                        setFirstLesson(lessons.chapters[0].lessons[0])
                     } catch (error) {
-                        console.log('Get course enrollment failed: ', error)
+                        console.log('Get lessons failed: ', error)
+                    }
+
+                    if (user) {
+                        try {
+                            const enrollment = await getCourseEnrollment({ courseId: response._id, userId: user._id })
+                            if (enrollment.courseEnrollment) {
+                                setIsEnrolled(true)
+                            }
+                        } catch (error) {
+                            console.log('Get course enrollment failed: ', error)
+                        }
                     }
                 }
+            } catch (error) {
+                console.log('Get course by slug failed: ', error)
+            } finally {
+                setIsLoading(false)
             }
         }
         getCourseInfo()
-    }, [slug, user])
+    }, [slug, user, setIsLoading])
 
     useEffect(() => {
         const handleScroll = () => {

@@ -94,28 +94,34 @@ function Study() {
     useEffect(() => {
         const getLesson = async () => {
             try {
+                setIsLoading(true)
                 const response = await getLessonBySlug(lessonName)
 
                 setLesson({ ...response.lesson })
             } catch (error) {
                 console.log('Error:', error)
+            } finally {
+                setIsLoading(false)
             }
         }
 
         const getListLessons = async () => {
             try {
+                setIsLoading(true)
                 const response = await getLessonWithProgress(courseName)
                 console.log('Response:', response.chapters)
 
                 setChapters(response.chapters)
             } catch (error) {
                 console.log('Error:', error)
+            } finally {
+                setIsLoading(false)
             }
         }
 
         getLesson()
         getListLessons()
-    }, [lessonName, courseName])
+    }, [lessonName, courseName, setIsLoading])
 
     useEffect(() => {
         if (activeMobileMenu) {

@@ -5,11 +5,14 @@ import { useEffect, useState } from 'react'
 import { getAllTestSets } from '../../../api/testSetApi'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../../routes/route'
+import { useLoading } from '../../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
 function TestPractice() {
     const navigate = useNavigate()
+    const { setIsLoading } = useLoading()
+
     const [testSets, setTestSets] = useState([])
     const [listeningSets, setListeningSets] = useState([])
     const [readingSets, setReadingSets] = useState([])
@@ -39,20 +42,27 @@ function TestPractice() {
 
     useEffect(() => {
         const getTestSets = async () => {
-            const testSets = await getAllTestSets()
-            const listening = testSets.filter((item) => item.skill === 'Listening')
-            const reading = testSets.filter((item) => item.skill === 'Reading')
-            const speaking = testSets.filter((item) => item.skill === 'Speaking')
-            const writing = testSets.filter((item) => item.skill === 'Writing')
-            setTestSets(testSets)
-            setListeningSets(listening)
-            setReadingSets(reading)
-            setSpeakingSets(speaking)
-            setWritingSets(writing)
+            try {
+                setIsLoading(true)
+                const testSets = await getAllTestSets()
+                const listening = testSets.filter((item) => item.skill === 'Listening')
+                const reading = testSets.filter((item) => item.skill === 'Reading')
+                const speaking = testSets.filter((item) => item.skill === 'Speaking')
+                const writing = testSets.filter((item) => item.skill === 'Writing')
+                setTestSets(testSets)
+                setListeningSets(listening)
+                setReadingSets(reading)
+                setSpeakingSets(speaking)
+                setWritingSets(writing)
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setIsLoading(false)
+            }
         }
 
         getTestSets()
-    }, [])
+    }, [setIsLoading])
 
     return (
         <MainAccount>

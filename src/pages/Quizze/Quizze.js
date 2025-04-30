@@ -98,6 +98,7 @@ function Quizze() {
     useEffect(() => {
         const getQuestion = async () => {
             try {
+                setIsLoading(true)
                 const response = await getQuestionByQuizzeSlug(quizzeSlug)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
                 setQuizze(quizze)
@@ -105,6 +106,8 @@ function Quizze() {
                 setStartTime(new Date())
             } catch (error) {
                 console.log('Get question by quizze slug error:', error)
+            } finally {
+                setIsLoading(false)
             }
         }
 
@@ -116,7 +119,7 @@ function Quizze() {
 
         getQuestion()
         getTypeOfQuestion()
-    }, [quizzeSlug])
+    }, [quizzeSlug, setIsLoading])
 
     return (
         <StudyZone>
