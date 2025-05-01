@@ -11,7 +11,7 @@ const cx = classNames.bind(styles)
 
 function Ranking() {
     const { user } = useContext(AuthContext)
-    const breadcrumbs = useBreadcrumbs()
+    const breadcrumbs = useBreadcrumbs([{ label: 'Xếp hạng', to: null }])
 
     const [ranking, setRanking] = useState([])
     const [userRankIndex, setUserRankIndex] = useState(0)
@@ -90,7 +90,7 @@ function Ranking() {
                                     key={item._id}
                                     className={cx(
                                         'row',
-                                        { me: item._id === user._id },
+                                        { me: item._id === user?._id },
                                         { first: index === 0, second: index === 1, third: index === 2 },
                                     )}
                                 >

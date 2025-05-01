@@ -6,7 +6,7 @@ export const getAllTestSets = async () => {
         const response = await axiosInstance.get(apiUrl.testSetUrl.getAllTestSet)
         return response.data.result
     } catch (error) {
-        console.log('Get all test sets failed')
+        console.log('Get all test sets failed: ', error)
         throw error
     }
 }

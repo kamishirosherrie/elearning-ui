@@ -113,8 +113,8 @@ function TestPractice() {
                 </div>
                 {activeTab === 'all' &&
                     testSets.map((testSet) => (
-                        <div className={cx('practice')}>
-                            <div className={cx('practice-header')} key={testSet._id}>
+                        <div className={cx('practice')} key={testSet._id}>
+                            <div className={cx('practice-header')}>
                                 <h3>{testSet.title}</h3>
                                 <span>
                                     {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
@@ -122,7 +122,11 @@ function TestPractice() {
                             </div>
                             <div className={cx('practice-tests')}>
                                 {testSet.quizzes?.map((quizze) => (
-                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                    <div
+                                        className={cx('test')}
+                                        key={quizze._id}
+                                        onClick={() => handleClick(testSet.skill, quizze.slug)}
+                                    >
                                         <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
@@ -131,8 +135,8 @@ function TestPractice() {
                     ))}
                 {activeTab === 'listening' &&
                     listeningSets.map((testSet) => (
-                        <div className={cx('practice')}>
-                            <div className={cx('practice-header')} key={testSet._id}>
+                        <div className={cx('practice')} key={testSet._id}>
+                            <div className={cx('practice-header')}>
                                 <h3>{testSet.title}</h3>
                                 <span>
                                     {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
@@ -140,7 +144,11 @@ function TestPractice() {
                             </div>
                             <div className={cx('practice-tests')}>
                                 {testSet.quizzes?.map((quizze) => (
-                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                    <div
+                                        className={cx('test')}
+                                        key={quizze._id}
+                                        onClick={() => handleClick(testSet.skill, quizze.slug)}
+                                    >
                                         <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
@@ -149,8 +157,8 @@ function TestPractice() {
                     ))}
                 {activeTab === 'reading' &&
                     readingSets.map((testSet) => (
-                        <div className={cx('practice')}>
-                            <div className={cx('practice-header')} key={testSet._id}>
+                        <div className={cx('practice')} key={testSet._id}>
+                            <div className={cx('practice-header')}>
                                 <h3>{testSet.title}</h3>
                                 <span>
                                     {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
@@ -158,7 +166,11 @@ function TestPractice() {
                             </div>
                             <div className={cx('practice-tests')}>
                                 {testSet.quizzes?.map((quizze) => (
-                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                    <div
+                                        className={cx('test')}
+                                        key={quizze._id}
+                                        onClick={() => handleClick(testSet.skill, quizze.slug)}
+                                    >
                                         <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
@@ -167,8 +179,8 @@ function TestPractice() {
                     ))}
                 {activeTab === 'speaking' &&
                     speakingSets.map((testSet) => (
-                        <div className={cx('practice')}>
-                            <div className={cx('practice-header')} key={testSet._id}>
+                        <div className={cx('practice')} key={testSet._id}>
+                            <div className={cx('practice-header')}>
                                 <h3>{testSet.title}</h3>
                                 <span>
                                     {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
@@ -176,7 +188,11 @@ function TestPractice() {
                             </div>
                             <div className={cx('practice-tests')}>
                                 {testSet.quizzes?.map((quizze) => (
-                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                    <div
+                                        className={cx('test')}
+                                        key={quizze._id}
+                                        onClick={() => handleClick(testSet.skill, quizze.slug)}
+                                    >
                                         <h4>{quizze.title}</h4>
                                     </div>
                                 ))}
@@ -185,8 +201,8 @@ function TestPractice() {
                     ))}
                 {activeTab === 'writing' &&
                     writingSets.map((testSet) => (
-                        <div className={cx('practice')}>
-                            <div className={cx('practice-header')} key={testSet._id}>
+                        <div className={cx('practice')} key={testSet._id}>
+                            <div className={cx('practice-header')}>
                                 <h3>{testSet.title}</h3>
                                 <span>
                                     {testSet.quizzeDone}/{testSet.totalQuizzes} Đề
@@ -194,7 +210,11 @@ function TestPractice() {
                             </div>
                             <div className={cx('practice-tests')}>
                                 {testSet.quizzes?.map((quizze) => (
-                                    <div className={cx('test')} onClick={() => handleClick(testSet.skill, quizze.slug)}>
+                                    <div
+                                        className={cx('test')}
+                                        key={quizze._id}
+                                        onClick={() => handleClick(testSet.skill, quizze.slug)}
+                                    >
                                         <h4>{quizze.title}</h4>
                                     </div>
                                 ))}

@@ -46,7 +46,7 @@ export const getLessonWithProgress = async (courseName) => {
         const response = await axiosInstance.get(apiUrl.lessonUrl.getLessonWithUserProgress(courseName))
         return response.data
     } catch (error) {
-        console.log('Get lesson with user progress failed')
+        console.log('Get lesson with user progress failed: ', error)
         throw error
     }
 }
@@ -56,7 +56,7 @@ export const getTotalLessonNumber = async (courseId) => {
         const response = await axiosInstance.get(apiUrl.lessonUrl.getTotalLessonNumber(courseId))
         return response.data.totalLesson
     } catch (error) {
-        console.log('Get total lesson number failed')
+        console.log('Get total lesson number failed: ', error)
         throw error
     }
 }
@@ -66,7 +66,7 @@ export const updateLesson = async (lesson) => {
         const response = await axiosInstance.put(apiUrl.lessonUrl.updateLesson, lesson)
         return response.data
     } catch (error) {
-        console.log('Update lesson failed')
+        console.log('Update lesson failed: ', error)
         throw error
     }
 }

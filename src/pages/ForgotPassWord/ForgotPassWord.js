@@ -52,6 +52,7 @@ function ForgotPassWord() {
                 if (response) {
                     navigate(routes.resetPassword)
                     toast.success('Xác thực OTP thành công')
+                    sessionStorage.setItem('canResetPassWord', true)
                 }
             } catch (error) {
                 toast.error('Xác thực OTP thất bại')

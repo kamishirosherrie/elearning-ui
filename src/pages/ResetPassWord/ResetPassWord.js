@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './ResetPassWord.module.scss'
 import { image } from '../../assets/images/image'
 import Button from '../../components/Button/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { resetPassWord } from '../../api/authApi'
 import { Link, useNavigate } from 'react-router-dom'
 import { routes } from '../../routes/route'
@@ -39,6 +39,14 @@ function ResetPassWord() {
             setIsLoading(false)
         }
     }
+
+    useEffect(() => {
+        const canResetPassWord = sessionStorage.getItem('canResetPassWord')
+        if (!canResetPassWord) {
+            navigate(routes.forgotPassword)
+        }
+    })
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>

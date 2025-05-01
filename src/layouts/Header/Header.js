@@ -25,10 +25,11 @@ function Header() {
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
     const [courses, setCourses] = useState([])
-
     const [active, setActive] = useState(false)
+    const [redirectPath, setRedirectPath] = useState(routes.myAccount)
 
     const handleLogin = () => {
+        setRedirectPath(routes.myAccount)
         setIsOpen(true)
     }
 
@@ -53,7 +54,7 @@ function Header() {
         if (user) {
             navigate(routes.myAccount)
         } else {
-            setIsOpen(true)
+            handleLogin()
         }
     }
 
@@ -61,6 +62,7 @@ function Header() {
         if (user) {
             navigate(routes.testPractice)
         } else {
+            setRedirectPath(routes.testPractice)
             setIsOpen(true)
         }
     }
@@ -192,9 +194,9 @@ function Header() {
             </div>
             <ModalPopup isOpen={isOpen} closeModal={closeModal}>
                 {isLoginOpen ? (
-                    <Login handleClickRegister={handleClickRegister} />
+                    <Login handleClickRegister={handleClickRegister} redirect={redirectPath} />
                 ) : (
-                    <Register handleClickLogin={handleClickLogin} />
+                    <Register handleClickLogin={handleClickLogin} redirect={redirectPath} />
                 )}
             </ModalPopup>
         </div>

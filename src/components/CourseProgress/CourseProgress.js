@@ -18,9 +18,13 @@ function CourseProgress() {
 
     useEffect(() => {
         const getProgress = async () => {
-            const response = await getLessonProgress()
-            setProgress(response.courseProgress)
-            console.log(response.courseProgress)
+            try {
+                const response = await getLessonProgress()
+                setProgress(response.courseProgress)
+                console.log(response.courseProgress)
+            } catch (error) {
+                console.log(error)
+            }
         }
 
         getProgress()
