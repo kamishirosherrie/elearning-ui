@@ -10,6 +10,10 @@ const apiUrl = {
         verifyOtp: '/auth/verifyOtp',
         refreshToken: '/auth/refreshToken',
     },
+    aiUrl: {
+        speakingReply: '/ai/speaking/conversation',
+        talkWithAI: '/ai/talk',
+    },
     roleUrl: {
         getRole: '/role',
     },
@@ -57,7 +61,6 @@ const apiUrl = {
         getQuizzeBySlug: (quizzeSlug) => `/quizze/getQuizzeBySlug/${quizzeSlug}`,
         getQuizzeByLessonSlug: (lessonSlug) => `/quizze/getQuizzeByLessonSlug/${lessonSlug}`,
         getQuizzeByType: (quizzeType) => `/quizze/getQuizzeByType/${quizzeType}`,
-        speakingReply: '/quizze/speaking/conversation',
     },
     questionUrl: {
         getQuestionByQuizzeSlug: (quizzeSlug, part) =>

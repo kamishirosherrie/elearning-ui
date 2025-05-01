@@ -5,7 +5,7 @@ import styles from './SpeakingPractice.module.scss'
 import Button from '../../../components/Button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
-import { getSpeakingReply } from '../../../api/quizzeApi'
+import { getSpeakingReply } from '../../../api/aiApi'
 import StudyZone from '../../../layouts/StudyZone/StudyZone'
 
 const cx = classNames.bind(styles)

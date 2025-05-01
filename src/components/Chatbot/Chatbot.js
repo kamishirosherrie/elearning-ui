@@ -3,25 +3,28 @@ import classNames from 'classnames/bind'
 import styles from './Chatbot.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faRobot, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { talkWithAI } from '../../api/aiApi'
 
 const cx = classNames.bind(styles)
 
 function Chatbot() {
     const [isOpen, setIsOpen] = useState(false)
     const [messages, setMessages] = useState([])
-    const [input, setInput] = useState('')
+    const [userInput, setUserInput] = useState('')
 
     const toggleChatbot = () => {
         setIsOpen((prev) => !prev)
     }
 
-    const handleSendMessage = () => {
-        if (input.trim()) {
-            const userMessage = { sender: 'user', text: input }
-            const botMessage = { sender: 'bot', text: 'This is a response from the AI chatbot.' }
+    const handleSendMessage = async () => {
+        if (userInput.trim()) {
+            try {
+                const replyMessage = await talkWithAI({})
+            } catch (error) {
+                console.log('Failed to get response: ', error)
+            }
 
-            setMessages((prev) => [...prev, userMessage, botMessage])
-            setInput('')
+            setUserInput('')
         }
     }
 
@@ -59,8 +62,8 @@ function Chatbot() {
                         <input
                             type="text"
                             placeholder="Type your message..."
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
+                            value={userInput}
+                            onChange={(e) => setUserInput(e.target.value)}
                             onKeyPress={handleKeyPress}
                         />
                         <button onClick={handleSendMessage}>
