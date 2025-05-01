@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
     async (err) => {
         const originalRequest = err.config
 
-        if (err.response?.status === 401 && !originalRequest._retry) {
+        if (err.response?.status === 403 && err.response?.data?.message === 'jwt expired' && !originalRequest._retry) {
             originalRequest._retry = true
             try {
                 const res = await axiosInstance.post(apiUrl.authUrl.refreshToken)
@@ -34,8 +34,9 @@ axiosInstance.interceptors.response.use(
                 originalRequest.headers['Authorization'] = `Bearer ${newToken}`
                 return axiosInstance(originalRequest)
             } catch (refreshErr) {
-                localStorage.removeItem('accessToken')
+                localStorage.clear()
                 window.location.href = routes.home
+                return Promise.resolve()
             }
         }
         return Promise.reject(err)

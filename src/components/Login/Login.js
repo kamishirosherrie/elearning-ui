@@ -46,7 +46,7 @@ const Login = ({ handleClickRegister, redirect = true }) => {
                 login({ ...response.user })
                 localStorage.setItem('accessToken', response.accessToken)
                 toast.success(response.message)
-                if (redirect) navigate(routes.myAccount)
+                if (redirect) navigate(redirect)
             } else {
                 toast.error('Vui lòng nhập đầy đủ thông tin')
             }
