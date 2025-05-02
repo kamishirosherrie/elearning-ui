@@ -6,10 +6,13 @@ import Footer from '../Footer/Footer'
 import ScrollToTopButton from '../../components/ScrollToTopButton/ScrollToTopButton'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import Chatbot from '../../components/Chatbot/Chatbot'
+import { useContext } from 'react'
+import AuthContext from '../../context/AuthContext'
 
 const cx = classNames.bind(styles)
 
 function MainLayout({ children }) {
+    const { user } = useContext(AuthContext)
     return (
         <div className={cx('wrapper')}>
             <Header />
@@ -17,7 +20,7 @@ function MainLayout({ children }) {
             <Footer />
             <ScrollToTop />
             <ScrollToTopButton />
-            <Chatbot />
+            {user && <Chatbot />}
         </div>
     )
 }

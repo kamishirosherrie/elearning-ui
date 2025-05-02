@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Chatbot.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faRobot, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { talkWithAI } from '../../api/aiApi'
+import { getChatHistory, talkWithAI } from '../../api/aiApi'
+import Markdown from 'react-markdown'
+import AuthContext from '../../context/AuthContext'
 
 const cx = classNames.bind(styles)
 
 function Chatbot() {
+    const { user } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
     const [messages, setMessages] = useState([])
     const [userInput, setUserInput] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const messagesEndRef = useRef()
 
     const toggleChatbot = () => {
         setIsOpen((prev) => !prev)
@@ -18,13 +23,24 @@ function Chatbot() {
 
     const handleSendMessage = async () => {
         if (userInput.trim()) {
+            const newMessage = { from: 'user', text: userInput }
+            const updatedMessages = [...messages, newMessage]
+
+            setMessages(updatedMessages)
+            setUserInput('')
+
             try {
-                const replyMessage = await talkWithAI({})
+                setIsLoading(true)
+                const replyMessage = await talkWithAI({
+                    userMessage: userInput,
+                    conversationHistory: updatedMessages,
+                })
+                setMessages((prev) => [...prev, { from: 'ai', text: replyMessage.reply }])
             } catch (error) {
                 console.log('Failed to get response: ', error)
+            } finally {
+                setIsLoading(false)
             }
-
-            setUserInput('')
         }
     }
 
@@ -34,6 +50,27 @@ function Chatbot() {
         }
     }
 
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [messages])
+
+    useEffect(() => {
+        const loadChatHistory = async () => {
+            try {
+                const history = await getChatHistory()
+                console.log(history)
+
+                if (history && history.chatHistory.message) {
+                    setMessages(history.chatHistory.message)
+                }
+            } catch (error) {
+                console.error('Lỗi khi tải lịch sử trò chuyện:', error)
+            }
+        }
+
+        loadChatHistory()
+    }, [user._id])
+
     return (
         <div className={cx('chatbot')}>
             <div className={cx('toggle-button', { hide: isOpen })} onClick={toggleChatbot}>
@@ -42,7 +79,7 @@ function Chatbot() {
             {isOpen && (
                 <div className={cx('chat-window')}>
                     <div className={cx('header')}>
-                        <h3>AI Chatbot</h3>
+                        <h4>Trợ lí EMaster</h4>
                         <FontAwesomeIcon icon={faTimes} className={cx('close-icon')} onClick={toggleChatbot} />
                     </div>
                     <div className={cx('messages')}>
@@ -50,13 +87,23 @@ function Chatbot() {
                             <div
                                 key={index}
                                 className={cx('message', {
-                                    user: message.sender === 'user',
-                                    bot: message.sender === 'bot',
+                                    user: message.from === 'user',
+                                    ai: message.from === 'ai',
                                 })}
                             >
-                                {message.text}
+                                <Markdown>{message.text}</Markdown>
                             </div>
                         ))}
+                        {isLoading && (
+                            <div className={cx('chat-bubble', 'ai')}>
+                                <span className={cx('typing')}>
+                                    <span className={cx('dot')}></span>
+                                    <span className={cx('dot')}></span>
+                                    <span className={cx('dot')}></span>
+                                </span>
+                            </div>
+                        )}
+                        <div ref={messagesEndRef} />
                     </div>
                     <div className={cx('input-area')}>
                         <input

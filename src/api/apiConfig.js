@@ -11,6 +11,7 @@ const apiUrl = {
         refreshToken: '/auth/refreshToken',
     },
     aiUrl: {
+        loadChatHistory: '/ai/',
         speakingReply: '/ai/speaking/conversation',
         talkWithAI: '/ai/talk',
     },
