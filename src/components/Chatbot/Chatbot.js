@@ -16,6 +16,7 @@ function Chatbot() {
     const [userInput, setUserInput] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const messagesEndRef = useRef()
+    const chatbotRef = useRef()
 
     const toggleChatbot = () => {
         setIsOpen((prev) => !prev)
@@ -25,6 +26,7 @@ function Chatbot() {
         if (userInput.trim()) {
             const newMessage = { from: 'user', text: userInput }
             const updatedMessages = [...messages, newMessage]
+            console.log(updatedMessages)
 
             setMessages(updatedMessages)
             setUserInput('')
@@ -55,6 +57,24 @@ function Chatbot() {
     }, [messages])
 
     useEffect(() => {
+        const hanleClickOutSide = (event) => {
+            if (chatbotRef.current && !chatbotRef.current.contains(event.target)) {
+                setIsOpen(false)
+            }
+        }
+
+        if (isOpen) {
+            document.addEventListener('mousedown', hanleClickOutSide)
+        } else {
+            document.removeEventListener('mousedown', hanleClickOutSide)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', hanleClickOutSide)
+        }
+    }, [isOpen])
+
+    useEffect(() => {
         const loadChatHistory = async () => {
             try {
                 const history = await getChatHistory()
@@ -77,7 +97,7 @@ function Chatbot() {
                 {isOpen ? null : <FontAwesomeIcon icon={faRobot} />}
             </div>
             {isOpen && (
-                <div className={cx('chat-window')}>
+                <div ref={chatbotRef} className={cx('chat-window')}>
                     <div className={cx('header')}>
                         <h4>Trợ lí EMaster</h4>
                         <FontAwesomeIcon icon={faTimes} className={cx('close-icon')} onClick={toggleChatbot} />

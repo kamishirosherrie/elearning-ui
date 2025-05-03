@@ -6,6 +6,7 @@ import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import Footer from '../Footer/Footer'
 import ScrollToTopButton from '../../components/ScrollToTopButton/ScrollToTopButton'
 import Header from '../Header/Header'
+import Chatbot from '../../components/Chatbot/Chatbot'
 
 const cx = classNames.bind(styles)
 
@@ -24,6 +25,7 @@ function MainAccount({ title, children }) {
             </div>
             <ScrollToTop />
             <ScrollToTopButton />
+            <Chatbot />
             <Footer />
         </div>
     )
