@@ -43,6 +43,34 @@
         margin-bottom: 15px;
         line-height: 1.6;
     }
+
+    strong {
+        font-weight: bold;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    ul {
+        margin-left: 20px;
+        list-style-type: disc;
+    }
+
+    code {
+        background-color: #eee;
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-family: monospace;
+    }
+
+    pre {
+        background-color: #1e1e1e;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+    }
 }
 .blog-footer {
     display: flex;

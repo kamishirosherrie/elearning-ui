@@ -3,7 +3,7 @@ import { apiUrl } from './apiConfig'
 
 export const getAllUsers = async () => {
     try {
-        const response = await axiosInstance.get(apiUrl.userUrl.getUser)
+        const response = await axiosInstance.get(apiUrl.userUrl.get)
         return response.data
     } catch (error) {
         console.log('Get all users failed: ', error)
@@ -13,7 +13,7 @@ export const getAllUsers = async () => {
 
 export const getUserById = async (userId) => {
     try {
-        const response = await axiosInstance.get(apiUrl.userUrl.getUserById(userId))
+        const response = await axiosInstance.get(apiUrl.userUrl.getById(userId))
         return response.data.user
     } catch (error) {
         console.log('Get user by id failed: ', error)
@@ -23,7 +23,7 @@ export const getUserById = async (userId) => {
 
 export const getUserByUserName = async (userName) => {
     try {
-        const response = await axiosInstance.get(apiUrl.userUrl.getUserInfo(userName))
+        const response = await axiosInstance.get(apiUrl.userUrl.getInfo(userName))
         return response.data
     } catch (error) {
         console.log('Get user info failed: ', error)
@@ -33,7 +33,7 @@ export const getUserByUserName = async (userName) => {
 
 export const getUserCourses = async (userId) => {
     try {
-        const response = await axiosInstance.get(apiUrl.userUrl.getUserCourses(userId))
+        const response = await axiosInstance.get(apiUrl.userUrl.getCourses(userId))
         return response.data.user
     } catch (error) {
         console.log('Get user courses failed: ', error)
@@ -43,7 +43,7 @@ export const getUserCourses = async (userId) => {
 
 export const addNewUser = async (user) => {
     try {
-        const response = await axiosInstance.post(apiUrl.userUrl.addUser, user)
+        const response = await axiosInstance.post(apiUrl.userUrl.add, user)
         return response.data
     } catch (error) {
         console.log('Add new user failed')
@@ -53,7 +53,7 @@ export const addNewUser = async (user) => {
 
 export const updateUserProfile = async (user) => {
     try {
-        const response = await axiosInstance.put(apiUrl.userUrl.updateUserProfile, user)
+        const response = await axiosInstance.put(apiUrl.userUrl.update, user)
         return response.data
     } catch (error) {
         console.log('Update user failed: ', error)
@@ -63,7 +63,7 @@ export const updateUserProfile = async (user) => {
 
 export const deleteUser = async (userName) => {
     try {
-        const response = await axiosInstance.put(apiUrl.userUrl.deleteUser(userName))
+        const response = await axiosInstance.put(apiUrl.userUrl.delete(userName))
         return response.data
     } catch (error) {
         console.log('Delete user failed: ', error)

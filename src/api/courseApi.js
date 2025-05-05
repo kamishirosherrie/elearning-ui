@@ -3,7 +3,7 @@ import { apiUrl } from './apiConfig'
 
 export const getCourse = async () => {
     try {
-        const response = await axiosInstance.get(apiUrl.courseUrl.getCourse)
+        const response = await axiosInstance.get(apiUrl.courseUrl.get)
         return response.data
     } catch (error) {
         console.log('Get course failed: ', error)
@@ -13,7 +13,7 @@ export const getCourse = async () => {
 
 export const getCourseBySlug = async (slug) => {
     try {
-        const response = await axiosInstance.get(apiUrl.courseUrl.getCourseBySlug(slug))
+        const response = await axiosInstance.get(apiUrl.courseUrl.getBySlug(slug))
         return response.data.course
     } catch (error) {
         console.log('Get course by slug failed: ', error)
@@ -23,7 +23,7 @@ export const getCourseBySlug = async (slug) => {
 
 export const getCourseEnrollment = async (data) => {
     try {
-        const response = await axiosInstance.get(apiUrl.courseUrl.getCourseEnrollment, {
+        const response = await axiosInstance.get(apiUrl.courseUrl.getEnrollment, {
             params: {
                 courseId: data.courseId,
                 userId: data.userId,
@@ -38,7 +38,7 @@ export const getCourseEnrollment = async (data) => {
 
 export const addNewCourse = async (course) => {
     try {
-        const response = await axiosInstance.post(apiUrl.courseUrl.addNewCourse, course)
+        const response = await axiosInstance.post(apiUrl.courseUrl.add, course)
         return response.data
     } catch (error) {
         console.log('Add new course failed: ', error)
@@ -48,7 +48,7 @@ export const addNewCourse = async (course) => {
 
 export const addCourseEnrollment = async (courseData) => {
     try {
-        const response = await axiosInstance.post(apiUrl.courseUrl.addCourseEnrollment, courseData)
+        const response = await axiosInstance.post(apiUrl.courseUrl.addEnrollment, courseData)
         return response.data
     } catch (error) {
         console.log('Subscribe failed: ', error)
@@ -58,7 +58,7 @@ export const addCourseEnrollment = async (courseData) => {
 
 export const updateCourse = async (course) => {
     try {
-        const response = await axiosInstance.put(apiUrl.courseUrl.updateCourse, course)
+        const response = await axiosInstance.put(apiUrl.courseUrl.update, course)
         return response.data
     } catch (error) {
         console.log('Update course failed: ', error)
@@ -68,7 +68,7 @@ export const updateCourse = async (course) => {
 
 export const deleteCourse = async (id) => {
     try {
-        const response = await axiosInstance.delete(apiUrl.courseUrl.deleteCourse(id))
+        const response = await axiosInstance.delete(apiUrl.courseUrl.delete(id))
         return response.data
     } catch (error) {
         console.log('Delete course failed: ', error)

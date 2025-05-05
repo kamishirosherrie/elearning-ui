@@ -6,7 +6,7 @@
     width: 100%;
     height: 85px;
     display: flex;
-    padding: 10px 50px;
+    padding: 10px 20px;
     justify-content: space-between;
     letter-spacing: 0.5px;
     background-color: #fff;
@@ -129,6 +129,7 @@
             list-style: none;
             padding: 10px 0;
             position: relative;
+            cursor: pointer;
 
             span {
                 font-weight: bold;
@@ -205,6 +206,6 @@
     }
 
     .button {
-        width: 135px;
+        width: 200px;
     }
 }

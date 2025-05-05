@@ -3,23 +3,59 @@ import styles from './BlogItem.module.scss'
 import CommentSection from './CommentSection'
 import { Heart } from 'lucide-react'
 import Button from '../Button/Button'
+import { useContext, useEffect, useState } from 'react'
+import AuthContext from '../../context/AuthContext'
+import { getTotalLikeByPostId, likePost } from '../../api/postApi'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/vi'
 
+dayjs.extend(relativeTime)
+dayjs.locale('vi')
 const cx = classNames.bind(styles)
 
-function BlogItem({ blog, onLike, onComment }) {
+function BlogItem({ blog }) {
+    const { user } = useContext(AuthContext)
+    const [isLike, setIsLike] = useState(false)
+    const [totalLike, setTotalLike] = useState(0)
+
+    const handleLike = async () => {
+        try {
+            const response = await likePost(blog._id)
+            console.log(response)
+            setTotalLike((prev) => prev + (isLike ? -1 : 1))
+            setIsLike((prev) => !prev)
+        } catch (error) {
+            console.log('Like post failed: ', error)
+        }
+    }
+
+    useEffect(() => {
+        const fetchTotalLike = async () => {
+            try {
+                const response = await getTotalLikeByPostId(blog._id)
+                console.log('Total like: ', response)
+
+                setTotalLike(response.totalLike)
+            } catch (error) {
+                console.log('Get total like failed: ', error)
+            }
+        }
+        fetchTotalLike()
+    }, [blog._id])
+
     return (
         <div className={cx('blog-item')}>
-            <img src={blog.image} alt={blog.title} className={cx('blog-image')} />
             <div className={cx('blog-content')}>
-                <h2>{blog.title}</h2>
-                <p>{blog.description}</p>
+                <h2>{blog?.title}</h2>
+                <div dangerouslySetInnerHTML={{ __html: blog?.content }}></div>
                 <div className={cx('blog-footer')}>
-                    <span>{blog.date}</span>
-                    <Button className={cx('like-btn')} onClick={onLike} leftIcon={<Heart size={16} />}>
-                        {blog.likes}
+                    <span>{dayjs(blog?.createdAt).fromNow()}</span>
+                    <Button className={cx('like-btn')} onClick={handleLike} leftIcon={<Heart size={16} />}>
+                        {totalLike}
                     </Button>
                 </div>
-                <CommentSection comments={blog.comments} onComment={onComment} />
+                <CommentSection postId={blog?._id} />
             </div>
         </div>
     )

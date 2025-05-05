@@ -13,7 +13,7 @@ export const getQuizzesWithQuestions = async () => {
 
 export const getQuizzeBySlug = async (slug) => {
     try {
-        const response = await axiosInstance.get(apiUrl.quizzeUrl.getQuizzeBySlug(slug))
+        const response = await axiosInstance.get(apiUrl.quizzeUrl.getBySlug(slug))
         return response.data.quizze
     } catch (error) {
         console.log('Get quizze by slug failed')
@@ -23,7 +23,7 @@ export const getQuizzeBySlug = async (slug) => {
 
 export const getQuizzeByLessonSlug = async (lessonSlug) => {
     try {
-        const response = await axiosInstance.get(apiUrl.quizzeUrl.getQuizzeByLessonSlug(lessonSlug))
+        const response = await axiosInstance.get(apiUrl.quizzeUrl.getByLessonSlug(lessonSlug))
         return response.data.quizze
     } catch (error) {
         console.log('Get quizze by lesson slug failed')
@@ -33,7 +33,7 @@ export const getQuizzeByLessonSlug = async (lessonSlug) => {
 
 export const getQuizzeByType = async (quizzeType) => {
     try {
-        const response = await axiosInstance.get(apiUrl.quizzeUrl.getQuizzeByType(quizzeType))
+        const response = await axiosInstance.get(apiUrl.quizzeUrl.getByType(quizzeType))
         return response.data.quizzes
     } catch (error) {
         console.log('Get quizze by type failed')
@@ -43,7 +43,7 @@ export const getQuizzeByType = async (quizzeType) => {
 
 export const addNewQuizze = async (quizze) => {
     try {
-        const response = await axiosInstance.post(apiUrl.quizzeUrl.addNewQuizze, quizze)
+        const response = await axiosInstance.post(apiUrl.quizzeUrl.add, quizze)
         return response.data
     } catch (error) {
         console.log('Add new quizze failed')

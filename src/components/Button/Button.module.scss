@@ -94,19 +94,4 @@
 
 .disabled {
     background-color: #c0c0c0;
-    border: 2px solid #c0c0c0;
-    cursor: not-allowed;
-}
-
-.pagination {
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    background: white;
-    border-radius: 4px;
-    transition: 0.2s;
-}
-.pagination.active {
-    background-color: #4f46e5;
-    color: white;
-    font-weight: bold;
 }

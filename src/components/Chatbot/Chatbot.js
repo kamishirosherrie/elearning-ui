@@ -103,7 +103,7 @@ function Chatbot() {
                         <FontAwesomeIcon icon={faTimes} className={cx('close-icon')} onClick={toggleChatbot} />
                     </div>
                     <div className={cx('messages')}>
-                        {messages.map((message, index) => (
+                        {messages?.map((message, index) => (
                             <div
                                 key={index}
                                 className={cx('message', {

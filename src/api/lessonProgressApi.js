@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance'
 
 export const markLessonAsCompleted = async (lessonId) => {
     try {
-        const response = await axiosInstance.put(apiUrl.lessonProgressUrl.markLessonAsCompleted(lessonId))
+        const response = await axiosInstance.put(apiUrl.lessonProgressUrl.markCompleted(lessonId))
         return response.data
     } catch (error) {
         console.log('Mark lesson as completed failed: ', error)
@@ -13,7 +13,7 @@ export const markLessonAsCompleted = async (lessonId) => {
 
 export const getLessonProgress = async () => {
     try {
-        const response = await axiosInstance.get(apiUrl.lessonProgressUrl.getLessonProgress)
+        const response = await axiosInstance.get(apiUrl.lessonProgressUrl.get)
         return response.data
     } catch (error) {
         console.log('Get lesson progress failed: ', error)
