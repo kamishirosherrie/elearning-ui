@@ -9,6 +9,7 @@ import { getTotalLikeByPostId, likePost } from '../../api/postApi'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/vi'
+import { toast } from 'react-toastify'
 
 dayjs.extend(relativeTime)
 dayjs.locale('vi')
@@ -20,13 +21,17 @@ function BlogItem({ blog }) {
     const [totalLike, setTotalLike] = useState(0)
 
     const handleLike = async () => {
-        try {
-            const response = await likePost(blog._id)
-            console.log(response)
-            setTotalLike((prev) => prev + (isLike ? -1 : 1))
-            setIsLike((prev) => !prev)
-        } catch (error) {
-            console.log('Like post failed: ', error)
+        if (user) {
+            try {
+                const response = await likePost(blog._id)
+                console.log(response)
+                setTotalLike((prev) => prev + (isLike ? -1 : 1))
+                setIsLike((prev) => !prev)
+            } catch (error) {
+                console.log('Like post failed: ', error)
+            }
+        } else {
+            toast.error('Vui lòng đăng nhập để tiếp tục!')
         }
     }
 

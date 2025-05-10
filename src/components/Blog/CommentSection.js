@@ -21,26 +21,30 @@ function CommentSection({ postId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!text.trim()) return
+        if (user) {
+            if (!text.trim()) return
 
-        const newComment = {
-            content: text,
-            postId,
-            userId: {
-                _id: user._id,
-                fullName: user.fullName,
-            },
-            createdAt: new Date().toISOString(),
-        }
-        console.log(newComment)
-        setText('')
-        setComments((prev) => [newComment, ...prev])
-        try {
-            const response = await createComment(newComment)
-            console.log('commented: ', response)
-        } catch (error) {
-            console.log('Create comment failed: ', error)
-            toast.error(error.response?.data?.message || 'Vui lòng thử lại sau!')
+            const newComment = {
+                content: text,
+                postId,
+                userId: {
+                    _id: user._id,
+                    fullName: user.fullName,
+                },
+                createdAt: new Date().toISOString(),
+            }
+            console.log(newComment)
+            setText('')
+            setComments((prev) => [newComment, ...prev])
+            try {
+                const response = await createComment(newComment)
+                console.log('commented: ', response)
+            } catch (error) {
+                console.log('Create comment failed: ', error)
+                toast.error(error.response?.data?.message || 'Vui lòng thử lại sau!')
+            }
+        } else {
+            toast.error('Bạn cần đăng nhập để tiếp tục!')
         }
     }
 
