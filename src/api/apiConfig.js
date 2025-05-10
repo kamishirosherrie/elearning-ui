@@ -93,6 +93,10 @@ const apiUrl = {
         update: (id) => `/comment/update/${id}`,
         delete: (id) => `/comment/delete/${id}`,
     },
+    paymentUrl: {
+        create: '/payment/create',
+        return: '/payment/return',
+    },
     dictionaryUrl: {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
     },
