@@ -32,6 +32,7 @@ import AboutUs from './pages/AboutUs/AboutUs'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
 import TermAndCondition from './pages/TermAndCondition/TermAndCondition'
 import PaymentPolicy from './pages/PaymentPolicy/PaymentPolicy'
+import PaymentStatus from './pages/PaymentStatus/PaymentStatus'
 
 function App() {
     const { user } = useContext(AuthContext)
@@ -94,6 +95,8 @@ function App() {
                             <Route path={routes.privacyPolicy} element={<PrivacyPolicy />} />
                             <Route path={routes.termAndCondition} element={<TermAndCondition />} />
                             <Route path={routes.paymentPolicy} element={<PaymentPolicy />} />
+
+                            <Route path={routes.paymentStatus} element={<PaymentStatus />} />
 
                             <Route path="*" element={<Navigate to="/" />} />
                         </Routes>

@@ -24,6 +24,7 @@ const routes = {
     privacyPolicy: '/privacy-policy',
     termAndCondition: '/term-and-condition',
     paymentPolicy: '/payment-policy',
+    paymentStatus: '/payment/result',
 }
 
 export { routes }
