@@ -26,6 +26,7 @@ function Checkout({ course, setClose, setIsEnrolled }) {
         setIsLoading(true)
         try {
             const response = await creatPayment({ amount: orderForm.amount, orderInfo: orderForm.orderInfo })
+
             if (response.url) {
                 window.location.href = response.url
             } else toast.error('Thanh toán thất bại')
