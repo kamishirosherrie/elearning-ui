@@ -95,7 +95,7 @@ const apiUrl = {
     },
     paymentUrl: {
         create: '/payment/create',
-        return: '/payment/return',
+        return: '/payment/result',
     },
     dictionaryUrl: {
         getWord: (word) => `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,

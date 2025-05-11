@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './PaymentStatus.module.scss'
+import { getPaymentResult } from '../../api/paymentApi'
 
 const cx = classNames.bind(styles)
 
 const PaymentStatus = () => {
     const location = useLocation()
-    const queryParams = new URLSearchParams(location.search)
+    const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search])
 
     const responseCode = queryParams.get('vnp_ResponseCode')
     const orderId = queryParams.get('vnp_TxnRef')
@@ -19,6 +20,14 @@ const PaymentStatus = () => {
     const transactionStatus = queryParams.get('vnp_TransactionStatus')
 
     const isSuccess = responseCode === '00' && transactionStatus === '00'
+
+    useEffect(() => {
+        const processePayment = async () => {
+            await getPaymentResult(queryParams)
+        }
+
+        processePayment()
+    }, [queryParams])
 
     return (
         <div className={cx('payment-status')}>
