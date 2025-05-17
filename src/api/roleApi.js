@@ -7,6 +7,5 @@ export const getRoles = async () => {
         return response.data
     } catch (error) {
         console.log('Get all roles failed: ', error)
-        throw error
     }
 }

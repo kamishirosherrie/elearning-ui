@@ -7,6 +7,5 @@ export const getQuestionType = async () => {
         return response.data
     } catch (error) {
         console.log('Get question type failed')
-        throw error
     }
 }

@@ -7,7 +7,6 @@ export const getCourse = async () => {
         return response.data
     } catch (error) {
         console.log('Get course failed: ', error)
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const getCourseBySlug = async (slug) => {
         return response.data.course
     } catch (error) {
         console.log('Get course by slug failed: ', error)
-        throw error
     }
 }
 
@@ -32,7 +30,6 @@ export const getCourseEnrollment = async (data) => {
         return response.data
     } catch (error) {
         console.log('Get course enrollment failed: ', error)
-        throw error
     }
 }
 
@@ -42,7 +39,6 @@ export const addNewCourse = async (course) => {
         return response.data
     } catch (error) {
         console.log('Add new course failed: ', error)
-        throw error
     }
 }
 
@@ -52,7 +48,6 @@ export const addCourseEnrollment = async (courseData) => {
         return response.data
     } catch (error) {
         console.log('Subscribe failed: ', error)
-        throw error
     }
 }
 
@@ -62,7 +57,6 @@ export const updateCourse = async (course) => {
         return response.data
     } catch (error) {
         console.log('Update course failed: ', error)
-        throw error
     }
 }
 
@@ -72,6 +66,5 @@ export const deleteCourse = async (id) => {
         return response.data
     } catch (error) {
         console.log('Delete course failed: ', error)
-        throw error
     }
 }

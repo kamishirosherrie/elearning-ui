@@ -7,6 +7,5 @@ export const getWord = async (word) => {
         return response
     } catch (error) {
         console.log('Get word failed')
-        throw error
     }
 }

@@ -7,7 +7,6 @@ export const markLessonAsCompleted = async (lessonId) => {
         return response.data
     } catch (error) {
         console.log('Mark lesson as completed failed: ', error)
-        throw error
     }
 }
 
@@ -17,6 +16,5 @@ export const getLessonProgress = async () => {
         return response.data
     } catch (error) {
         console.log('Get lesson progress failed: ', error)
-        throw error
     }
 }

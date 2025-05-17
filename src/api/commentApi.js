@@ -7,7 +7,6 @@ export const getCommentsByPostId = async (postId) => {
         return response.data
     } catch (error) {
         console.log('Get comments by post ID failed: ', error)
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const createComment = async (data) => {
         return response.data
     } catch (error) {
         console.log('Create comment failed: ', error)
-        throw error
     }
 }
 
@@ -27,7 +25,6 @@ export const updateComment = async (commentId, commentData) => {
         return response.data
     } catch (error) {
         console.log('Update comment failed: ', error)
-        throw error
     }
 }
 
@@ -37,6 +34,5 @@ export const deleteComment = async (commentId) => {
         return response.data
     } catch (error) {
         console.log('Delete comment failed: ', error)
-        throw error
     }
 }

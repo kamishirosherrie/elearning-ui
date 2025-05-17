@@ -8,26 +8,32 @@ const cx = classNames.bind(styles)
 
 const PaymentStatus = () => {
     const location = useLocation()
-    const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search])
+    console.log(location)
 
-    const responseCode = queryParams.get('vnp_ResponseCode')
-    const orderId = queryParams.get('vnp_TxnRef')
-    const amount = queryParams.get('vnp_Amount')
-    const transactionNo = queryParams.get('vnp_TransactionNo')
-    const orderInfo = queryParams.get('vnp_OrderInfo')
-    const bankCode = queryParams.get('vnp_BankCode')
-    const payDate = queryParams.get('vnp_PayDate')
-    const transactionStatus = queryParams.get('vnp_TransactionStatus')
+    const queryParams = useMemo(() => {
+        const params = new URLSearchParams(location.search)
+        return Object.fromEntries(params.entries())
+    }, [location.search])
+    console.log(queryParams)
+
+    const responseCode = queryParams['vnp_ResponseCode']
+    const orderId = queryParams['vnp_TxnRef']
+    const amount = queryParams['vnp_Amount']
+    const transactionNo = queryParams['vnp_TransactionNo']
+    const orderInfo = queryParams['vnp_OrderInfo']
+    const bankCode = queryParams['vnp_BankCode']
+    const payDate = queryParams['vnp_PayDate']
+    const transactionStatus = queryParams['vnp_TransactionStatus']
 
     const isSuccess = responseCode === '00' && transactionStatus === '00'
 
     useEffect(() => {
         const processePayment = async () => {
-            await getPaymentResult(queryParams)
+            await getPaymentResult(location.search)
         }
 
         processePayment()
-    }, [queryParams])
+    }, [location.search])
 
     return (
         <div className={cx('payment-status')}>

@@ -11,7 +11,6 @@ export const getGoogleUserInfo = async (accessToken) => {
         return response.data
     } catch (error) {
         console.error('Error fetching user info from Google: ', error.message)
-        throw error
     }
 }
 
@@ -21,6 +20,5 @@ export const getFacebookUserInfo = async (accessToken) => {
         return response.data
     } catch (error) {
         console.error('Error fetching user info from Facebook: ', error.message)
-        throw error
     }
 }

@@ -64,7 +64,6 @@ function WritingPractice() {
             return response
         } catch (error) {
             console.log('Submission failed:', error)
-            throw error
         }
     }
 

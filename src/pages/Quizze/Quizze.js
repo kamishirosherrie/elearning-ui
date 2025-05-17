@@ -89,7 +89,6 @@ function Quizze() {
             return response
         } catch (error) {
             console.log('Submission failed:', error)
-            throw error
         } finally {
             setIsLoading(false)
         }

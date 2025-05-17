@@ -7,7 +7,6 @@ export const getChatHistory = async () => {
         return response.data
     } catch (error) {
         console.log('Load chat history failed: ', error)
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const getSpeakingReply = async (dataMessage) => {
         return response.data
     } catch (error) {
         console.log('Get speaking reply failed: ', error)
-        throw error
     }
 }
 
@@ -27,6 +25,5 @@ export const talkWithAI = async (dataMessage) => {
         return response.data
     } catch (error) {
         console.log('Get AI reply failed: ', error)
-        throw error
     }
 }

@@ -7,7 +7,6 @@ export const addNewLesson = async (lesson) => {
         return response.data
     } catch (error) {
         console.log('Add new lesson failed')
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const getAllLesson = async () => {
         return response.data
     } catch (error) {
         console.log('Get all lesson failed')
-        throw error
     }
 }
 
@@ -27,7 +25,6 @@ export const getLessonBySlug = async (slug) => {
         return response.data
     } catch (error) {
         console.log('Get lesson by slug failed')
-        throw error
     }
 }
 
@@ -37,7 +34,6 @@ export const getLessonByCourseSlug = async (slug) => {
         return response.data
     } catch (error) {
         console.log('Get lesson by course slug failed')
-        throw error
     }
 }
 
@@ -47,7 +43,6 @@ export const getLessonWithProgress = async (courseName) => {
         return response.data
     } catch (error) {
         console.log('Get lesson with user progress failed: ', error)
-        throw error
     }
 }
 
@@ -57,7 +52,6 @@ export const getTotalLessonNumber = async (courseId) => {
         return response.data.totalLesson
     } catch (error) {
         console.log('Get total lesson number failed: ', error)
-        throw error
     }
 }
 
@@ -67,6 +61,5 @@ export const updateLesson = async (lesson) => {
         return response.data
     } catch (error) {
         console.log('Update lesson failed: ', error)
-        throw error
     }
 }

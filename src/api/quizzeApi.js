@@ -7,7 +7,6 @@ export const getQuizzesWithQuestions = async () => {
         return response.data
     } catch (error) {
         console.log('Get all quizze failed')
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const getQuizzeBySlug = async (slug) => {
         return response.data.quizze
     } catch (error) {
         console.log('Get quizze by slug failed')
-        throw error
     }
 }
 
@@ -27,7 +25,6 @@ export const getQuizzeByLessonSlug = async (lessonSlug) => {
         return response.data.quizze
     } catch (error) {
         console.log('Get quizze by lesson slug failed')
-        throw error
     }
 }
 
@@ -37,7 +34,6 @@ export const getQuizzeByType = async (quizzeType) => {
         return response.data.quizzes
     } catch (error) {
         console.log('Get quizze by type failed')
-        throw error
     }
 }
 
@@ -47,6 +43,5 @@ export const addNewQuizze = async (quizze) => {
         return response.data
     } catch (error) {
         console.log('Add new quizze failed')
-        throw error
     }
 }

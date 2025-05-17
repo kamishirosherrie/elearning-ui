@@ -7,6 +7,5 @@ export const getAllTestSets = async () => {
         return response.data.result
     } catch (error) {
         console.log('Get all test sets failed: ', error)
-        throw error
     }
 }

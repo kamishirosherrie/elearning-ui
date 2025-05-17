@@ -7,7 +7,6 @@ export const loginUser = async (user) => {
         return response.data
     } catch (error) {
         console.log('Login failed: ', error)
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const socialLogin = async (user) => {
         return response.data
     } catch (error) {
         console.log('Login failed: ', error)
-        throw error
     }
 }
 
@@ -27,7 +25,6 @@ export const logoutUser = async () => {
         return response.data
     } catch (error) {
         console.log('Logout failed: ', error)
-        throw error
     }
 }
 
@@ -37,7 +34,6 @@ export const registerUser = async (user) => {
         return response.data
     } catch (error) {
         console.log('Register failed: ', error)
-        throw error
     }
 }
 
@@ -47,7 +43,6 @@ export const changePassWord = async (user) => {
         return response.data
     } catch (error) {
         console.log('Change password failed: ', error)
-        throw error
     }
 }
 
@@ -57,7 +52,6 @@ export const forgotPassWord = async (email) => {
         return response.data
     } catch (error) {
         console.log('Forgot password failed: ', error)
-        throw error
     }
 }
 
@@ -67,7 +61,6 @@ export const verifyOtp = async (user) => {
         return response.data
     } catch (error) {
         console.log('Verify otp failed: ', error)
-        throw error
     }
 }
 
@@ -77,6 +70,5 @@ export const resetPassWord = async (user) => {
         return response.data
     } catch (error) {
         console.log('Reset password failed: ', error)
-        throw error
     }
 }

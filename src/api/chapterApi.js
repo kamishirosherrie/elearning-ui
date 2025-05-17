@@ -7,6 +7,5 @@ export const getChapterByCourseId = async (courseId) => {
         return response.data.chapters
     } catch (error) {
         console.error('Error fetching chapters:', error)
-        throw error
     }
 }

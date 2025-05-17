@@ -7,7 +7,6 @@ export const getAllUsers = async () => {
         return response.data
     } catch (error) {
         console.log('Get all users failed: ', error)
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const getUserById = async (userId) => {
         return response.data.user
     } catch (error) {
         console.log('Get user by id failed: ', error)
-        throw error
     }
 }
 
@@ -27,7 +25,6 @@ export const getUserByUserName = async (userName) => {
         return response.data
     } catch (error) {
         console.log('Get user info failed: ', error)
-        throw error
     }
 }
 
@@ -37,7 +34,6 @@ export const getUserCourses = async (userId) => {
         return response.data.user
     } catch (error) {
         console.log('Get user courses failed: ', error)
-        throw error
     }
 }
 
@@ -47,7 +43,6 @@ export const addNewUser = async (user) => {
         return response.data
     } catch (error) {
         console.log('Add new user failed')
-        throw error
     }
 }
 
@@ -57,7 +52,6 @@ export const updateUserProfile = async (user) => {
         return response.data
     } catch (error) {
         console.log('Update user failed: ', error)
-        throw error
     }
 }
 
@@ -67,6 +61,5 @@ export const deleteUser = async (userName) => {
         return response.data
     } catch (error) {
         console.log('Delete user failed: ', error)
-        throw error
     }
 }

@@ -7,7 +7,6 @@ export const getTotalLikeByPostId = async (postId) => {
         return response.data
     } catch (error) {
         console.log('Get total like by post ID failed: ', error)
-        throw error
     }
 }
 
@@ -17,7 +16,6 @@ export const getAllPosts = async () => {
         return response.data
     } catch (error) {
         console.log('Get all posts failed: ', error)
-        throw error
     }
 }
 
@@ -27,7 +25,6 @@ export const getPostById = async (postId) => {
         return response.data
     } catch (error) {
         console.log('Get post by ID failed: ', error)
-        throw error
     }
 }
 
@@ -37,7 +34,6 @@ export const createPost = async (postData) => {
         return response.data
     } catch (error) {
         console.log('Create post failed: ', error)
-        throw error
     }
 }
 
@@ -47,7 +43,6 @@ export const likePost = async (postId) => {
         return response.data
     } catch (error) {
         console.log('Like post failed: ', error)
-        throw error
     }
 }
 
@@ -57,7 +52,6 @@ export const updatePost = async (postId, postData) => {
         return response.data
     } catch (error) {
         console.log('Update post failed: ', error)
-        throw error
     }
 }
 
@@ -67,6 +61,5 @@ export const deletePost = async (postId) => {
         return response.data
     } catch (error) {
         console.log('Delete post failed: ', error)
-        throw error
     }
 }
