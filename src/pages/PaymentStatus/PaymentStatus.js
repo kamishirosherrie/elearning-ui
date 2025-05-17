@@ -1,21 +1,24 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './PaymentStatus.module.scss'
 import { getPaymentResult } from '../../api/paymentApi'
+import { addCourseEnrollment } from '../../api/courseApi'
+import AuthContext from '../../context/AuthContext'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
-const PaymentStatus = () => {
+const PaymentStatus = ({ courseId }) => {
+    const { user } = useContext(AuthContext)
     const location = useLocation()
-    console.log(location)
-
+    const urlParams = new URLSearchParams(location.search).toString()
     const queryParams = useMemo(() => {
         const params = new URLSearchParams(location.search)
         return Object.fromEntries(params.entries())
     }, [location.search])
-    console.log(queryParams)
-
+    console.log('queryParams: ', queryParams)
+    console.log('urlParams: ', urlParams)
     const responseCode = queryParams['vnp_ResponseCode']
     const orderId = queryParams['vnp_TxnRef']
     const amount = queryParams['vnp_Amount']
@@ -28,12 +31,17 @@ const PaymentStatus = () => {
     const isSuccess = responseCode === '00' && transactionStatus === '00'
 
     useEffect(() => {
-        const processePayment = async () => {
-            await getPaymentResult(location.search)
+        const fetchPaymentResult = async () => {
+            try {
+                const result = await getPaymentResult(urlParams)
+                console.log('Payment result:', result)
+            } catch (error) {
+                console.error('Error fetching payment result:', error)
+            }
         }
 
-        processePayment()
-    }, [location.search])
+        fetchPaymentResult()
+    }, [urlParams])
 
     return (
         <div className={cx('payment-status')}>
