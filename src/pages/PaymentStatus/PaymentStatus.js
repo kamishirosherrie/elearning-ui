@@ -17,8 +17,8 @@ const PaymentStatus = ({ courseId }) => {
         const params = new URLSearchParams(location.search)
         return Object.fromEntries(params.entries())
     }, [location.search])
-    console.log(queryParams)
-
+    console.log('queryParams: ', queryParams)
+    console.log('urlParams: ', urlParams)
     const responseCode = queryParams['vnp_ResponseCode']
     const orderId = queryParams['vnp_TxnRef']
     const amount = queryParams['vnp_Amount']
