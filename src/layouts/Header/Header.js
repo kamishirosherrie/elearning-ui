@@ -67,6 +67,15 @@ function Header() {
         }
     }
 
+    const handleClickEntryTest = () => {
+        if (user) {
+            navigate(routes.entryTest)
+        } else {
+            setRedirectPath(routes.entryTest)
+            setIsOpen(true)
+        }
+    }
+
     useEffect(() => {
         const getCourses = async () => {
             const response = await getCourse()
@@ -160,8 +169,8 @@ function Header() {
                         ))}
                     </div>
                 </li>
-                <li className={cx('menu-item')}>
-                    <Link to={routes.entryTest}>Kiểm tra đầu vào</Link>
+                <li className={cx('menu-item')} onClick={handleClickEntryTest}>
+                    <span>Kiểm tra đầu vào</span>
                 </li>
                 <li className={cx('menu-item')} onClick={handleClickPractice}>
                     <span>Luyện đề</span>
@@ -178,7 +187,7 @@ function Header() {
             </ul>
             <div className={cx('button')}>
                 {user ? (
-                    <Popper content={<CourseProgress progress={50} label="Tiến độ học tập" />}>
+                    <Popper content={<CourseProgress />}>
                         <div className={cx('user')}>
                             <Link to={routes.myAccount} className={cx('user-icon')}>
                                 <FontAwesomeIcon icon={faUser} className={cx('icon')} />
@@ -193,11 +202,7 @@ function Header() {
                 )}
             </div>
             <ModalPopup isOpen={isOpen} closeModal={closeModal}>
-                {isLoginOpen ? (
-                    <Login handleClickRegister={handleClickRegister} redirect={redirectPath} />
-                ) : (
-                    <Register handleClickLogin={handleClickLogin} redirect={redirectPath} />
-                )}
+                {isLoginOpen ? <Login handleClickRegister={handleClickRegister} redirect={redirectPath} /> : <Register handleClickLogin={handleClickLogin} redirect={redirectPath} />}
             </ModalPopup>
         </div>
     )

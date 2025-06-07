@@ -52,3 +52,35 @@
         color: #333;
     }
 }
+
+.fixed-parts {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background: #fff;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.07);
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+    padding: 16px 0;
+
+    .part-btn {
+        padding: 8px 18px;
+        border: none;
+        border-radius: 20px;
+        background: #f1f1f1;
+        color: #333;
+        font-weight: 500;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+
+        &.active,
+        &:hover {
+            background: $primary-color;
+            color: #fff;
+        }
+    }
+}

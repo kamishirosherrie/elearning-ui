@@ -66,6 +66,7 @@ const apiUrl = {
     questionUrl: {
         getByQuizzeSlug: (quizzeSlug, part) =>
             part ? `/question/slug/${quizzeSlug}?part=${part}` : `/question/slug/${quizzeSlug}`,
+        getPart: (quizzeSlug) => `/question/part/${quizzeSlug}`,
         add: '/question/addNewQuestion',
     },
     questionTypeUrl: {

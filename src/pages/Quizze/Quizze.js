@@ -123,12 +123,7 @@ function Quizze() {
     return (
         <StudyZone>
             <div className={cx('wrapper')}>
-                <QuizzeHeader
-                    title={quizze.title}
-                    description={quizze.description}
-                    time={quizze.time}
-                    handleSubmit={handleSubmit}
-                />
+                <QuizzeHeader title={quizze.title} description={quizze.description} time={quizze.time} handleSubmit={handleSubmit} />
                 <div className={cx('content')}>
                     {questions.map((question, indexQuestion) => (
                         <div className={cx('question-wrapper')} key={question._id}>
@@ -140,37 +135,23 @@ function Quizze() {
                                 {question.questionTypeId._id === questionTypes[0]._id ? (
                                     question.answer.map((answer, indexAnswer) => (
                                         <div key={indexAnswer}>
-                                            <OneChoice
-                                                id={answer._id}
-                                                name={question._id}
-                                                value={answer.text}
-                                                checked={oneChoice[question._id] === answer.text}
-                                                onChange={(e) => handleChangeOneChoice(e, question._id)}
-                                            />
+                                            <OneChoice id={answer._id} name={question._id} value={answer.text} checked={oneChoice[question._id] === answer.text} onChange={(e) => handleChangeOneChoice(e, question._id)} />
                                         </div>
                                     ))
                                 ) : question.questionTypeId._id === questionTypes[2]._id ? (
-                                    <ShortAnswer
-                                        id={question._id}
-                                        name={question._id}
-                                        onChange={(e) => handleChangeShortAnswer(question._id)}
-                                    />
+                                    <ShortAnswer id={question._id} name={question._id} onChange={(e) => handleChangeShortAnswer(question._id)} />
                                 ) : question.questionTypeId._id === questionTypes[3]._id ? (
-                                    <FillTheBlank
-                                        id={question._id}
-                                        name={question._id}
-                                        onChange={(e) => handleChangeFillAnswer(e, question._id)}
-                                    />
+                                    <FillTheBlank id={question._id} name={question._id} onChange={(e) => handleChangeFillAnswer(e, question._id)} />
                                 ) : null}
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className={cx('submit')}>
+                {/* <div className={cx('submit')}>
                     <Button blue border5 type="submit" onClick={handleSubmit}>
                         Submit
                     </Button>
-                </div>
+                </div> */}
             </div>
         </StudyZone>
     )

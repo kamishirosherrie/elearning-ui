@@ -47,7 +47,7 @@ function HeaderOnly() {
 
             <div className={cx('button')}>
                 {user ? (
-                    <Popper content={<CourseProgress progress={50} label="Tiến độ học tập" />}>
+                    <Popper content={<CourseProgress />}>
                         <div className={cx('user')}>
                             <Link to={routes.myAccount} className={cx('user-icon')}>
                                 <FontAwesomeIcon icon={faUser} className={cx('icon')} />

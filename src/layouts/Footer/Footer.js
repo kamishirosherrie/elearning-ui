@@ -75,7 +75,7 @@ function Footer() {
                 </div>
             </div>
             <div className={cx('copy-right')}>
-                <p>© 2025 Công ty TNHH EMaster</p>
+                <p>© 2025 EMaster</p>
             </div>
         </div>
     )

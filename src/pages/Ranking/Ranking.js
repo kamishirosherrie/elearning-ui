@@ -106,7 +106,7 @@ function Ranking() {
                         </tbody>
                     </table>
                     <div className={cx('user-info')}>
-                        <img src={user?.avatar} alt="Avatar" className={cx('avatar')} />
+                        {/* <img src={user?.avatar} alt="Avatar" className={cx('avatar')} /> */}
                         <h2>{user?.fullName}</h2>
                         <p>
                             Hạng: <strong>{userRankInfo?.rankTitle || 'Chưa xếp hạng'}</strong>

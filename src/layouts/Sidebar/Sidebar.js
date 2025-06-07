@@ -79,7 +79,7 @@ function Sidebar() {
                         <StudyProgressIcon className={cx('icon')} width={24} height={24} />
                     )}
                     <Link to={routes.mySubmission} className={cx('navbar-link')}>
-                        Tiến độ học tập
+                        Lịch sử làm bài
                     </Link>
                 </div>
                 <div className={cx('navbar-item', { active: isActive(routes.testPractice) })}>
@@ -144,7 +144,7 @@ function Sidebar() {
                             ) : (
                                 <StudyProgressIcon className={cx('icon')} width={24} height={24} />
                             )}
-                            Tiến độ học tập
+                            Lịch sử làm bài
                         </Link>
                         <Link to={routes.testPractice} className={cx('navbar-item')}>
                             {isActive(routes.testPractice) ? (

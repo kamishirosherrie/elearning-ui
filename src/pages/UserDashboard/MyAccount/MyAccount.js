@@ -7,6 +7,7 @@ import MainAccount from '../../../layouts/MainAccount/MainAccount'
 import Button from '../../../components/Button/Button'
 import { updateUserProfile } from '../../../api/userApi'
 import { toast } from 'react-toastify'
+import { useLoading } from '../../../context/LoadingContext'
 
 const cx = classNames.bind(styles)
 
@@ -21,6 +22,9 @@ const formatDate = (isoDate) => {
 
 function MyAccount() {
     const { user, login } = useContext(AuthContext)
+    const { setIsLoading } = useLoading()
+
+    const userRank = user.rank || 'unrank'
 
     const [userInfo, setUserInfo] = useState({
         _id: user._id,
@@ -29,20 +33,28 @@ function MyAccount() {
         email: user.email,
         phoneNumber: user.phoneNumber,
         birthday: formatDate(user.birthday),
+        isSubcribedEmail: user.isSubcribedEmail ?? false,
+        rank: userRank,
     })
 
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setUserInfo((prev) => ({ ...prev, [name]: value }))
+        const { name, value, type, checked } = e.target
+        setUserInfo((prev) => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value,
+        }))
     }
 
     const handleSubmit = async () => {
         try {
+            setIsLoading(true)
             await updateUserProfile(userInfo)
             toast.success('Cập nhật thông tin thành công!')
             login(userInfo)
         } catch (error) {
             toast.error(error.response?.data?.message || 'Cập nhật thông tin thất bại!')
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -87,6 +99,23 @@ function MyAccount() {
                                 value={userInfo?.birthday || ''}
                                 onChange={handleChange}
                             />
+                        </div>
+                        <div className={cx('info-item')}>
+                            <span>
+                                Tôi đồng ý nhận thông tin từ EMaster qua Email, bao gồm thông báo về các khóa học, tin
+                                tức và sự kiện mới nhất.
+                            </span>
+                            <input
+                                id="isSubcribedEmail"
+                                type="checkbox"
+                                name="isSubcribedEmail"
+                                checked={userInfo.isSubcribedEmail}
+                                onChange={handleChange}
+                                style={{ width: 0, height: 0, position: 'absolute', left: '-9999px' }}
+                            />
+                            <label className={cx('label', 'newsletter')} htmlFor="isSubcribedEmail">
+                                <span>Nhận thông báo qua email</span>
+                            </label>
                         </div>
                         <div className={cx('btn-save')}>
                             <Button blue fullWidth onClick={handleSubmit}>

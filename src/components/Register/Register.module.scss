@@ -19,7 +19,7 @@
 .register-content {
     display: flex;
     flex-direction: column;
-    height: 60vh;
+    max-height: 50vh;
     overflow-y: auto;
     justify-content: space-between;
 

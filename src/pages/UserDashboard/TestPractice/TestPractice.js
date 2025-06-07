@@ -74,11 +74,11 @@ function TestPractice() {
                             Thuần thục kỹ năng làm bài thi thật TOEIC thông qua việc luyện đề hằng ngày.
                         </li>
                         <li className={cx('description')}>
-                            Duy nhất tại Prep, bạn dễ dàng làm chủ kỹ năng Speaking, Writing với bộ đôi Phòng Speaking &
-                            Writing ảo chuẩn format kỳ thi TOEIC.
+                            Duy nhất tại EMaster, bạn dễ dàng làm chủ các kỹ năng thông qua các bộ đề chuẩn format trong
+                            kỳ thi TOEIC.
                         </li>
                         <li className={cx('description')}>
-                            Luyện không giới hạn bộ đề, full 4 kỹ năng TOEIC quan trọng chỉ với một tài khoản PRO.
+                            Luyện không giới hạn bộ đề, full 4 kỹ năng TOEIC quan trọng.
                         </li>
                     </ul>
                 </div>

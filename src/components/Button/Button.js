@@ -25,6 +25,7 @@ function Button({
     children,
     disabled,
     onClick,
+    pagination,
     ...passProp
 }) {
     let Component = 'button'
@@ -64,7 +65,7 @@ function Button({
     })
 
     return (
-        <Component className={classNames} {...props}>
+        <Component className={classNames} disabled={disabled} {...props}>
             {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
             <span className={cx('text')}>{children}</span>
             {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}

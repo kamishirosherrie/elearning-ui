@@ -10,6 +10,15 @@ export const getQuestionByQuizzeSlug = async (slug, part) => {
     }
 }
 
+export const getAvailableParts = async (slug) => {
+    try {
+        const response = await axiosInstance.get(apiUrl.questionUrl.getPart(slug))
+        return response.data
+    } catch (error) {
+        console.log('Get available parts failed: ', error)
+    }
+}
+
 export const addNewQuestion = async (question) => {
     try {
         const response = await axiosInstance.post(apiUrl.questionUrl.add, question)

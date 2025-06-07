@@ -3,9 +3,6 @@ import styles from './Checkout.module.scss'
 import { useContext, useState } from 'react'
 import AuthContext from '../../context/AuthContext'
 import Button from '../Button/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { addCourseEnrollment } from '../../api/courseApi'
 import { ChevronRight } from '../Icons/Icon'
 import { useLoading } from '../../context/LoadingContext'
 import { toast } from 'react-toastify'
@@ -13,7 +10,7 @@ import { creatPayment } from '../../api/paymentApi'
 
 const cx = classNames.bind(styles)
 
-function Checkout({ course, setClose, setIsEnrolled }) {
+function Checkout({ course, setClose }) {
     const { user } = useContext(AuthContext)
     const { setIsLoading } = useLoading()
 
@@ -25,7 +22,11 @@ function Checkout({ course, setClose, setIsEnrolled }) {
     const handleSubmit = async () => {
         setIsLoading(true)
         try {
-            const response = await creatPayment({ amount: orderForm.amount, orderInfo: orderForm.orderInfo })
+            const response = await creatPayment({
+                amount: orderForm.amount,
+                orderInfo: orderForm.orderInfo,
+                courseId: course._id,
+            })
 
             if (response.url) {
                 window.location.href = response.url

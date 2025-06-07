@@ -12,6 +12,27 @@ import MainLayout from '../../layouts/MainLayout/MainLayout'
 
 const cx = classNames.bind(styles)
 
+const calculateStats = (userAnswer, questions) => {
+    if (!userAnswer || !questions?.length) return null
+
+    const totalQuestions = questions.length
+    const answered = userAnswer.answers.filter((ans) => ans.text && ans.text.trim() !== '')
+    const answeredCount = answered.length
+    const correctCount = answered.filter((ans) => ans.isCorrect).length
+    const incorrectCount = answeredCount - correctCount
+    const accuracy = ((correctCount / totalQuestions) * 100).toFixed(1)
+    const totalScore = userAnswer.score ?? correctCount
+
+    return {
+        totalQuestions,
+        answeredCount,
+        correctCount,
+        incorrectCount,
+        accuracy,
+        totalScore,
+    }
+}
+
 function QuizzeView() {
     const { user } = useContext(AuthContext)
     const { info } = useContext(SubmissionContext)
@@ -20,30 +41,21 @@ function QuizzeView() {
     const [quizze, setQuizze] = useState({})
     const [questions, setQuestions] = useState([])
     const [userAnswer, setUserAnswer] = useState({})
-
-    const totalQuestions = questions?.length
-    const answered = userAnswer?.answers || []
-
-    const totalScore = userAnswer.score
-    const correctCount = answered.filter((ans) => ans.isCorrect).length
-    const answeredCount = answered.length
-    const incorrectCount = answeredCount - correctCount
-    const accuracy = ((correctCount / totalQuestions) * 100).toFixed(1)
+    const [stats, setStats] = useState(null)
 
     useEffect(() => {
         const getData = async () => {
             try {
                 const quizzeData = await getQuizzeBySlug(quizzeSlug)
                 const questionData = await getQuestionByQuizzeSlug(quizzeSlug)
-                setQuizze(quizzeData)
-                console.log('questionData: ', questionData)
-
-                setQuestions(questionData.questions)
-
                 const userAnswersData = await getSubmissionById(info.submissionId)
-                console.log('userAnswersData: ', userAnswersData)
-
+                console.log('User answers data: ', userAnswersData)
+                setQuizze(quizzeData)
+                setQuestions(questionData.questions)
                 setUserAnswer(userAnswersData)
+
+                const computedStats = calculateStats(userAnswersData, questionData.questions)
+                setStats(computedStats)
             } catch (error) {
                 console.log('Get submission failed: ', error)
             }
@@ -59,16 +71,23 @@ function QuizzeView() {
                     <h1 className={cx('title')}>{quizze.title}</h1>
                     <p className={cx('description')}>{quizze.description}</p>
                 </div>
+
                 <div className={cx('summary')}>
                     <h2 className={cx('title')}>📊 Your Result Summary</h2>
-                    <p>Total questions: {totalQuestions}</p>
-                    <p>Total score: {totalScore}</p>
-                    <p>
-                        Answered: {answeredCount} / {totalQuestions}
-                    </p>
-                    <p>✅ Correct: {correctCount}</p>
-                    <p>❌ Incorrect: {incorrectCount}</p>
-                    <p>🎯 Accuracy: {accuracy}%</p>
+                    {!stats ? (
+                        <p>Loading result...</p>
+                    ) : (
+                        <>
+                            <p>Total questions: {stats.totalQuestions}</p>
+                            <p>Total score: {stats.totalScore}</p>
+                            <p>
+                                Answered: {stats.answeredCount} / {stats.totalQuestions}
+                            </p>
+                            <p>✅ Correct: {stats.correctCount}</p>
+                            <p>❌ Incorrect: {stats.incorrectCount}</p>
+                            <p>🎯 Accuracy: {stats.accuracy}%</p>
+                        </>
+                    )}
                 </div>
 
                 {questions?.map((question, indexQuestion) => {

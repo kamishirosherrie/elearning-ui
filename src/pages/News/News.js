@@ -20,8 +20,8 @@ function News() {
                 const response = [
                     {
                         id: '0990430fpemek4',
-                        title: 'Upcoming Events',
-                        description: 'Please wait for our upcoming events and moments',
+                        title: 'Sự kiện sắp tới',
+                        description: 'Vui lòng chờ đón những khoảnh khắc và sự kiện sắp tới của chúng tôi.',
                         image: '/images/news1.jpg',
                         date: '2025-03-05',
                     },

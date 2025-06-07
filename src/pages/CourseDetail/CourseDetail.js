@@ -128,7 +128,7 @@ function CourseDetail() {
                                 {chapter?.lessons?.map((lesson, i) => (
                                     <div key={i} className={cx('lesson')}>
                                         <p>
-                                            Bài {lesson.order} - {lesson.title}
+                                            Bài {i + 1} - {lesson.title}
                                         </p>
                                     </div>
                                 ))}
@@ -139,7 +139,7 @@ function CourseDetail() {
                 <div className={cx('column')}>
                     <span className={cx('img')}></span>
                     <span className={cx('price')}>1.200.000VNĐ</span>
-                    {isEnrolled ? (
+                    {isEnrolled && firstLesson ? (
                         <Button className={cx('button')} href={`${routes.study}/${slug}/${firstLesson.slug}`} blue>
                             Học ngay
                         </Button>
@@ -150,12 +150,8 @@ function CourseDetail() {
                     )}
                 </div>
             </div>
-            {isEnrolled ? (
-                <Button
-                    className={cx('button', 'mobile-button', { activeBtn })}
-                    href={`${routes.study}/${slug}/${firstLesson.slug}`}
-                    blue
-                >
+            {isEnrolled && firstLesson ? (
+                <Button className={cx('button', 'mobile-button', { activeBtn })} href={`${routes.study}/${slug}/${firstLesson.slug}`} blue>
                     Học ngay
                 </Button>
             ) : (
@@ -164,13 +160,7 @@ function CourseDetail() {
                 </Button>
             )}
             <ModalPopup isOpen={isOpen} closeModal={closeModal}>
-                {user ? (
-                    <Checkout course={course} setClose={setIsOpen} setIsEnrolled={setIsEnrolled} />
-                ) : isLoginOpen ? (
-                    <Login handleClickRegister={handleClickRegister} redirect={false} />
-                ) : (
-                    <Register handleClickLogin={handleClickLogin} redirect={false} />
-                )}
+                {user ? <Checkout course={course} setClose={setIsOpen} setIsEnrolled={setIsEnrolled} /> : isLoginOpen ? <Login handleClickRegister={handleClickRegister} redirect={false} /> : <Register handleClickLogin={handleClickLogin} redirect={false} />}
             </ModalPopup>
             <ScrollToTop />
         </MainLayout>
