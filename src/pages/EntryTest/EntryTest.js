@@ -12,6 +12,7 @@ import Register from '../../components/Register/Register'
 import { useBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import { getQuizzeByType } from '../../api/quizzeApi'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
@@ -21,10 +22,10 @@ function EntryTest() {
     const breadcrumbs = useBreadcrumbs()
 
     const [tests, setTests] = useState([])
-    const [selectedTest, setSelectedSet] = useState('')
+    const [selectedTest, setSelectedTest] = useState('')
     const [isOpen, setIsOpen] = useState(false)
     const [isLoginOpen, setIsLoginOpen] = useState(true)
-    const [isSelected, setIsSelected] = useState([])
+    const [isSelected, setIsSelected] = useState([false, false])
 
     const closeModal = () => {
         setIsOpen(false)
@@ -41,12 +42,17 @@ function EntryTest() {
 
     const handleClick = (slug, index) => {
         setIsSelected((prev) => prev.map((item, i) => (i === index ? !item : false)))
-        setSelectedSet(slug)
+        setSelectedTest((prev) => (slug === prev ? '' : slug))
     }
 
     const handleSubmit = () => {
         if (user) {
-            navigate(`${routes.quizze}/${selectedTest}`)
+            if (selectedTest) {
+                navigate(`${routes.quizze}/${selectedTest}`)
+                console.log('Navigating to test with slug:', selectedTest)
+            } else {
+                toast.error('Vui lòng chọn bài kiểm tra trước khi bắt đầu!')
+            }
         } else {
             setIsOpen(true)
         }
@@ -74,9 +80,13 @@ function EntryTest() {
                 <h2 className={cx('title')}>Entry test</h2>
                 <div className={cx('content')}>
                     {tests.map((test, index) => (
-                        <div key={test._id} className={cx('content-item', { selected: isSelected[index] })} onClick={() => handleClick(test.slug, index)}>
+                        <div
+                            key={test._id}
+                            className={cx('content-item', { selected: isSelected[index] })}
+                            onClick={() => handleClick(test.slug, index)}
+                        >
                             <h3 className={cx('content-title')}>{test.title}</h3>
-                            <p className={cx('content-description')}>Thời gian làm bài: {test.time}</p>
+                            <p className={cx('content-description')}>Thời gian làm bài: {test.time} phút</p>
                             <p className={cx('content-description')}>{test.description}</p>
                         </div>
                     ))}
@@ -86,7 +96,11 @@ function EntryTest() {
                 </div>
             </div>
             <ModalPopup isOpen={isOpen} closeModal={closeModal}>
-                {isLoginOpen ? <Login handleClickRegister={handleClickRegister} redirect={false} /> : <Register handleClickLogin={handleClickLogin} redirect={false} />}
+                {isLoginOpen ? (
+                    <Login handleClickRegister={handleClickRegister} redirect={false} />
+                ) : (
+                    <Register handleClickLogin={handleClickLogin} redirect={false} />
+                )}
             </ModalPopup>
         </MainLayout>
     )

@@ -94,7 +94,12 @@
 .navigation-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 80%;
+    background-color: #fff;
+    z-index: 1;
 
     button {
         padding: 10px 20px;
@@ -184,14 +189,17 @@
     }
 
     .column:nth-child(even) {
+        position: sticky;
+        top: 85px;
+        z-index: 9;
+        background-color: #fff;
         &::after {
             content: '';
             border-right: 1px solid #000;
-            display: block;
             width: 1px;
             height: 100%;
             position: absolute;
-            right: 20%;
+            left: -1px;
             top: 0;
         }
     }
