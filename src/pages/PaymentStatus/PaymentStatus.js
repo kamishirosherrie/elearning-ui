@@ -1,22 +1,23 @@
-import { useContext, useEffect, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './PaymentStatus.module.scss'
 import { getPaymentResult } from '../../api/paymentApi'
-import AuthContext from '../../context/AuthContext'
-import { routes } from '../../routes/route'
 import { addCourseEnrollment } from '../../api/courseApi'
-import MainLayout from '../../layouts/MainLayout/MainLayout'
+import AuthContext from '../../context/AuthContext'
+import { toast } from 'react-toastify'
 
 const cx = classNames.bind(styles)
 
-const PaymentStatus = () => {
-    const location = useLocation()
+const PaymentStatus = ({ courseId }) => {
     const { user } = useContext(AuthContext)
+    const location = useLocation()
+    const urlParams = new URLSearchParams(location.search).toString()
     const queryParams = useMemo(() => {
         const params = new URLSearchParams(location.search)
         return Object.fromEntries(params.entries())
     }, [location.search])
+    console.log(queryParams)
 
     const responseCode = queryParams['vnp_ResponseCode']
     const orderId = queryParams['vnp_TxnRef']
@@ -30,28 +31,17 @@ const PaymentStatus = () => {
     const isSuccess = responseCode === '00' && transactionStatus === '00'
 
     useEffect(() => {
-        const processePayment = async () => {
+        const fetchPaymentResult = async () => {
             try {
-                const response = await getPaymentResult(location.search)
-                console.log('Payment result:', response)
-
-                if (response.status === 200) {
-                    try {
-                        await addCourseEnrollment({
-                            courseId: response.courseId,
-                            userId: user._id,
-                        })
-                    } catch (error) {
-                        console.error('Error enrolling in course:', error)
-                    }
-                }
+                const result = await getPaymentResult(urlParams)
+                console.log('Payment result:', result)
             } catch (error) {
-                console.error('Error processing payment:', error)
+                console.error('Error fetching payment result:', error)
             }
         }
 
-        processePayment()
-    }, [location.search, user._id])
+        fetchPaymentResult()
+    }, [urlParams])
 
     return (
         <MainLayout>
