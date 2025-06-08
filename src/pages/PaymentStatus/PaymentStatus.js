@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './PaymentStatus.module.scss'
 import { getPaymentResult } from '../../api/paymentApi'
-import { addCourseEnrollment } from '../../api/courseApi'
 import AuthContext from '../../context/AuthContext'
-import { toast } from 'react-toastify'
+import { routes } from '../../routes/route'
+import MainLayout from '../../layouts/MainLayout/MainLayout'
 
 const cx = classNames.bind(styles)
 
-const PaymentStatus = ({ courseId }) => {
+const PaymentStatus = () => {
     const { user } = useContext(AuthContext)
     const location = useLocation()
     const urlParams = new URLSearchParams(location.search).toString()
