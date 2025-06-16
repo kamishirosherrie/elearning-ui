@@ -59,6 +59,7 @@ function BlogItem({ blog, isLiked, onEdit }) {
     return (
         <div className={cx('blog-item')}>
             <div className={cx('blog-content')}>
+                <div className={cx('author')}>{blog?.authorName}</div>
                 <h2>{blog?.title}</h2>
                 {!more && blog?.content.length > minLengthContent ? (
                     <div>
@@ -73,11 +74,20 @@ function BlogItem({ blog, isLiked, onEdit }) {
                 </span>
                 <div className={cx('blog-footer')}>
                     <span>{dayjs(blog?.createdAt).fromNow()}</span>
-                    <Button className={cx('like-btn', { liked: isLike })} onClick={handleLike} leftIcon={<Heart size={16} />}>
+                    <Button
+                        className={cx('like-btn', { liked: isLike })}
+                        onClick={handleLike}
+                        leftIcon={<Heart size={16} />}
+                    >
                         {typeof totalLike === 'number' ? totalLike : 0}
                     </Button>
                     {user && user._id === blog?.authorId && onEdit && (
-                        <Button className={cx('edit-btn')} type="button" onClick={() => onEdit(blog)} style={{ marginLeft: 8 }}>
+                        <Button
+                            className={cx('edit-btn')}
+                            type="button"
+                            onClick={() => onEdit(blog)}
+                            style={{ marginLeft: 8 }}
+                        >
                             Edit
                         </Button>
                     )}

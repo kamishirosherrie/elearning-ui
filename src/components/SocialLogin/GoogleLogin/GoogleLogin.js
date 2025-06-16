@@ -22,10 +22,11 @@ function GoogleLogin({ redirect = true }) {
             const response = await socialLogin({ email: userInfo.email, fullName: userInfo.name })
             login({ ...response.user })
             localStorage.setItem('accessToken', response.accessToken)
-            toast.success('Đăng nhập thành công')
+            toast.success(response.message || 'Đăng nhập thành công')
             if (redirect) navigate(routes.myAccount)
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Đăng nhập không thành công')
+            console.log('Login failed: ', error)
+            toast.error(error.response?.data?.message || 'Đăng nhập thất bại')
         } finally {
             setIsLoading(false)
         }

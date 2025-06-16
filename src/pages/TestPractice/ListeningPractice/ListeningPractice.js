@@ -75,7 +75,7 @@ function ListeningPractice() {
             try {
                 setIsLoading(true)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
-                const questions = await getQuestionByQuizzeSlug(quizzeSlug, currentPart)
+                const questions = await getQuestionByQuizzeSlug(quizzeSlug)
                 console.log('Quizze: ', quizze)
                 console.log('Questions: ', questions)
 
@@ -118,7 +118,7 @@ function ListeningPractice() {
                             {questions.map((question, index) => (
                                 <div key={index} className={cx('question-wrapper')}>
                                     <div className={cx('question')}>
-                                        <h3 className={cx('task-title')}>Part {question.part}</h3>
+                                        <h3 className={cx('task-title')}>Question {index + 1}</h3>
                                         <p className={cx('task-content')}>{question.question}</p>
                                         {question.context && (
                                             <img src={question.context} alt="" className={cx('image')} />
@@ -133,6 +133,7 @@ function ListeningPractice() {
                                                     value={answer.text}
                                                     checked={oneChoice[question._id] === answer.text}
                                                     onChange={(e) => handleChange(e, question._id)}
+                                                    index={indexAnswer}
                                                 />
                                             </div>
                                         ))}

@@ -141,6 +141,7 @@ function Quizze() {
                                         <div key={indexAnswer}>
                                             <OneChoice
                                                 id={answer._id}
+                                                index={indexAnswer}
                                                 name={question._id}
                                                 value={answer.text}
                                                 checked={oneChoice[question._id] === answer.text}

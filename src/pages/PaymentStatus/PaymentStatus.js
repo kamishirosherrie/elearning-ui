@@ -6,6 +6,7 @@ import { getPaymentResult } from '../../api/paymentApi'
 import AuthContext from '../../context/AuthContext'
 import { routes } from '../../routes/route'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
+import { addCourseEnrollment } from '../../api/courseApi'
 
 const cx = classNames.bind(styles)
 
@@ -28,12 +29,28 @@ const PaymentStatus = () => {
     const payDate = queryParams['vnp_PayDate']
     const transactionStatus = queryParams['vnp_TransactionStatus']
 
+    const formatPayDate = (payDateStr) => {
+        if (!payDateStr || payDateStr.length < 8) return ''
+        const year = payDateStr.substring(0, 4)
+        const month = payDateStr.substring(4, 6)
+        const day = payDateStr.substring(6, 8)
+        return `${day}/${month}/${year}`
+    }
+
     const isSuccess = responseCode === '00' && transactionStatus === '00'
 
     useEffect(() => {
         const fetchPaymentResult = async () => {
             try {
                 const result = await getPaymentResult(urlParams)
+                if (result) {
+                    try {
+                        const response = await addCourseEnrollment({ courseId: result.courseId, userId: user._id })
+                        console.log('Enrollment response:', response)
+                    } catch (error) {
+                        console.error('Error adding course enrollment:', error)
+                    }
+                }
                 console.log('Payment result:', result)
             } catch (error) {
                 console.error('Error fetching payment result:', error)
@@ -41,7 +58,7 @@ const PaymentStatus = () => {
         }
 
         fetchPaymentResult()
-    }, [urlParams])
+    }, [urlParams, user._id])
 
     return (
         <MainLayout>
@@ -52,12 +69,13 @@ const PaymentStatus = () => {
                         <p>Mã đơn hàng: {orderId}</p>
                         <p>Tổng tiền: {(amount / 100).toLocaleString()} VND</p>
                         <p>Tên khách hàng: {user?.fullName}</p>
-                        <p>Số điện thoại: {user?.phoneNumber}</p>
+                        {user?.email && <p>Email: {user.email}</p>}
+                        {user?.phoneNumber && <p>Số điện thoại: {user.phoneNumber}</p>}
                         <p>Ngân hàng: {bankCode}</p>
                         <p>
                             Phương thức thanh toán: Thanh toán online qua VNPAY (QR, Thẻ ATM nội địa hoặc Thẻ Quốc tế)
                         </p>
-                        <p>Ngày thanh toán: {payDate}</p>
+                        <p>Ngày thanh toán: {formatPayDate(payDate)}</p>
                         <p>Nội dung thanh toán: {decodeURIComponent(orderInfo)}</p>
                         <p>Mã giao dịch: {transactionNo}</p>
                         <p>Cảm ơn bạn đã thanh toán!</p>

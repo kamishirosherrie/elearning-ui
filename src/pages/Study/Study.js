@@ -143,14 +143,6 @@ function Study() {
                         <h3 className={cx('lesson-title')}>{lesson?.title}</h3>
                         <div dangerouslySetInnerHTML={{ __html: lesson?.content }}></div>
                     </div>
-                    <div className={cx('navigation-buttons')}>
-                        <button onClick={() => handleNavigation('previous')} disabled={!lessonName}>
-                            Previous Lesson
-                        </button>
-                        <button onClick={() => handleNavigation('next')} disabled={!lessonName}>
-                            Next Lesson
-                        </button>
-                    </div>
                 </div>
                 <div className={cx('column', { activeMobileMenu })}>
                     <h3 className={cx('title')}>
@@ -191,6 +183,14 @@ function Study() {
                 <div className={cx('menu-mobile')} onClick={hanleClickMenu}>
                     <h3 className={cx('mobile-title')}>Danh sách bài học</h3>
                 </div>
+            </div>
+            <div className={cx('navigation-buttons')}>
+                <button onClick={() => handleNavigation('previous')} disabled={!lessonName}>
+                    Bài trước
+                </button>
+                <button onClick={() => handleNavigation('next')} disabled={!lessonName}>
+                    Bài tiếp theo
+                </button>
             </div>
         </MainLayout>
     )

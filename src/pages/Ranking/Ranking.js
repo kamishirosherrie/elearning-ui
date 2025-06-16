@@ -105,23 +105,25 @@ function Ranking() {
                             ))}
                         </tbody>
                     </table>
-                    <div className={cx('user-info')}>
-                        {/* <img src={user?.avatar} alt="Avatar" className={cx('avatar')} /> */}
-                        <h2>{user?.fullName}</h2>
-                        <p>
-                            Hạng: <strong>{userRankInfo?.rankTitle || 'Chưa xếp hạng'}</strong>
-                        </p>
-                        <p>
-                            Tổng điểm: <strong>{userRankInfo?.totalScore || 0}</strong>
-                        </p>
-                        <p>
-                            Số bài đã làm: <strong>{userRankInfo?.quizzeCount || 0}</strong>
-                        </p>
-                        <p>
-                            Vị trí bảng xếp hạng:{' '}
-                            <strong>{userRankInfo.rankTitle ? userRankIndex + 1 : 'Unrank'}</strong>
-                        </p>
-                    </div>
+                    {user && (
+                        <div className={cx('user-info')}>
+                            {/* <img src={user?.avatar} alt="Avatar" className={cx('avatar')} /> */}
+                            <h2>{user?.fullName}</h2>
+                            <p>
+                                Hạng: <strong>{userRankInfo?.rankTitle || 'Chưa xếp hạng'}</strong>
+                            </p>
+                            <p>
+                                Tổng điểm: <strong>{userRankInfo?.totalScore || 0}</strong>
+                            </p>
+                            <p>
+                                Số bài đã làm: <strong>{userRankInfo?.quizzeCount || 0}</strong>
+                            </p>
+                            <p>
+                                Vị trí bảng xếp hạng:{' '}
+                                <strong>{userRankInfo.rankTitle ? userRankIndex + 1 : 'Unrank'}</strong>
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
             {showRankUp && (

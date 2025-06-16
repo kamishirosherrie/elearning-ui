@@ -2,7 +2,14 @@
 
 .wrapper {
     display: flex;
-    border-top: 1px solid #000;
+    &::after {
+        content: '';
+        border-bottom: 1px solid #000;
+        height: 0px;
+        width: 100%;
+        position: fixed;
+        z-index: 10;
+    }
 }
 
 .column:nth-child(odd) {
@@ -12,7 +19,6 @@
 .column:nth-child(even) {
     width: 20%;
     height: 100%;
-    padding-bottom: 150px;
 }
 
 .menu-mobile,
@@ -98,8 +104,10 @@
     bottom: 0;
     left: 0;
     width: 80%;
+    padding: 10px 20px;
     background-color: #fff;
-    z-index: 1;
+    z-index: 0;
+    box-shadow: -7px 8px 10px 4px #9d9d9d;
 
     button {
         padding: 10px 20px;
@@ -152,6 +160,10 @@
         }
     }
 
+    .navigation-buttons {
+        display: none;
+    }
+
     .title {
         display: flex;
         justify-content: space-between;
@@ -184,7 +196,7 @@
 }
 
 @media (min-width: ($breakpoint-sm + 1px)) {
-    .column:nth-child(odd) {
+    .lesson {
         padding: 20px 50px 0 100px;
     }
 

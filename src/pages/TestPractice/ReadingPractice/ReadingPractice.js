@@ -103,7 +103,12 @@ function ReadingPractice() {
     return (
         <StudyZone>
             <div className={cx('wrapper')}>
-                <QuizzeHeader title={quizze.title} description={quizze.description} time={quizze.time} handleSubmit={handleSubmit} />
+                <QuizzeHeader
+                    title={quizze.title}
+                    description={quizze.description}
+                    time={quizze.time}
+                    handleSubmit={handleSubmit}
+                />
                 <div className={cx('content-wrapper')}>
                     <div className={cx('header')}>Part {currentPart}</div>
                     <div className={cx('content')}>
@@ -123,7 +128,14 @@ function ReadingPractice() {
                                 <div className={cx('answer')}>
                                     {question.answer.map((answer, indexAnswer) => (
                                         <div key={indexAnswer}>
-                                            <OneChoice id={answer._id} name={question._id} value={answer.text} checked={oneChoice[question._id] === answer.text} onChange={(e) => handleChangeOneChoice(e, question._id)} />
+                                            <OneChoice
+                                                id={answer._id}
+                                                index={indexAnswer}
+                                                name={question._id}
+                                                value={answer.text}
+                                                checked={oneChoice[question._id] === answer.text}
+                                                onChange={(e) => handleChangeOneChoice(e, question._id)}
+                                            />
                                         </div>
                                     ))}
                                 </div>
@@ -133,7 +145,11 @@ function ReadingPractice() {
                     {listParts.length > 0 && (
                         <div className={cx('fixed-parts')}>
                             {listParts.map((part, idx) => (
-                                <button key={part} className={cx('part-btn', { active: part === currentPart })} onClick={() => setCurrentPart(part)}>
+                                <button
+                                    key={part}
+                                    className={cx('part-btn', { active: part === currentPart })}
+                                    onClick={() => setCurrentPart(part)}
+                                >
                                     Part {part}
                                 </button>
                             ))}

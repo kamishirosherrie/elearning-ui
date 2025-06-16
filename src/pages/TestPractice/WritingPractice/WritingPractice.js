@@ -74,7 +74,7 @@ function WritingPractice() {
             try {
                 setIsLoading(true)
                 const quizze = await getQuizzeBySlug(quizzeSlug)
-                const questions = await getQuestionByQuizzeSlug(quizzeSlug, 'Part 1')
+                const questions = await getQuestionByQuizzeSlug(quizzeSlug, 1)
                 console.log('Quizze: ', quizze)
                 console.log('Questions: ', questions.questions)
 
@@ -103,7 +103,8 @@ function WritingPractice() {
                     {questions.map((question, index) => (
                         <div key={index} className={cx('question-wrapper')}>
                             <div className={cx('question')}>
-                                <h3 className={cx('task-title')}>{question.part}</h3>
+                                <h3 className={cx('task-title')}>Question {index + 1}</h3>
+                                <p className={cx('task-introduction')}>{question.introduction}</p>
                                 <p className={cx('task-content')}>{question.question}</p>
                                 {question.context && <img src={question.context} alt="" className={cx('image')} />}
                             </div>
